@@ -1,0 +1,10 @@
+{
+  "env:development": {},
+  "env:test": {},
+  "env:production": {},
+  "os:blackberry": {},
+  "os:mobileweb": {},
+  "dependencies": {
+    "nl.fokkezb.drawer": "*"
+  }
+}

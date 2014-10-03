@@ -1,0 +1,12 @@
+"Label" :{
+	color: '#83837C',
+	touchEnabled: false
+},
+
+".f-s3.3" :{
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 18,
+		fontWeight: 'bold'
+	}
+}

@@ -1,0 +1,39 @@
+<Alloy>
+	<Window class="container">
+		
+		<View class="ver top0 left0 w-fill" height="85%">
+			
+			<View height="25%">
+				<ImageView id="menuHeaderIcon" class="w-fill h-fill" image="/images/menu_header.png"/>
+			</View>
+			
+			<View top="2%" height="7%">
+				<Label id="lbl_username" class="ts-brown left2 f-s5" text=""/>
+			</View>
+			
+			<View top="4%" height="4%">
+				<Label id="lbl_credit" class="ts-brown left2 f-s3" text="Your available credit is"/>
+			</View>
+			
+			<View class="hor" top="2%" height="12%">
+				<View width="40%">
+					<ImageView id="rupeeSymbol" class="right0"/>
+				</View>
+				<View width="60%">
+					<Label id="lbl_availableCredit" class="ts-brown text-center" text=""/>
+				</View>
+			</View>
+			<ImageView id="animateObject" height="0" width="0" top="0" image="/images/loader-1.png" ></ImageView>
+			<TableView id="menuTable" top="4%" class="w-fill " height="28%"  separatorColor="#F0C60A" onClick="onMenuTableClick"/>
+			<View top="1%" height="5%">
+				<Label id="leftMenuRefreshLabel" left="35%" height="40" width="200" onClick="refreshClick">Refresh</Label>
+		    </View>
+		</View>
+		
+			
+		<View class="hor left0 bottom0 w-fill" height="15%">
+			<ImageView id="menu_footer" class="w-fill h-fill" image="/images/footer.png"/> 
+		</View>
+		
+	</Window>
+</Alloy>

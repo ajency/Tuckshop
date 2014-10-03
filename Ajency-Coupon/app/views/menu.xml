@@ -1,0 +1,19 @@
+<Alloy>
+	
+	<Widget id="drawer" src="nl.fokkezb.drawer" class="exit">
+
+        <Window module="xp.ui" role="leftWindow">
+            <View id="drawerLeftView" class="w-fill h-fill"/>
+        </Window>
+        
+        <Window platform="ios" role="centerWindow">
+            <View id="drawerCenterView" class="w-fill h-fill"/>
+        </Window>
+        
+        <View platform="android" role="centerWindow">
+            <View id="drawerCenterView" class="w-fill h-fill"/>
+        </View>
+
+    </Widget>
+    
+</Alloy>

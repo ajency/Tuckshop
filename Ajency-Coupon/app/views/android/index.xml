@@ -1,0 +1,21 @@
+<Alloy>
+	<Window  class="container exit"  >
+		<View class="ver top0" height="80%">
+			<View class="ver w-fill h-size top1">
+				<ImageView class="ts-logo"/>
+					<TextField top="4%"  id="usernameTextfield" class="span13 text-center border-rounded f-s3.3 keyboard-email" 
+					hintText="Username"/>
+					<TextField top="2%" id="passwordTextfield" class="span13 text-center border-rounded f-s3.3 password keyboard-password" 
+					hintText="Password" maxLength="4"/>
+				    <ImageView id="animateObject" height="0" width="0" top="0" image="/images/loader-1.png" ></ImageView>
+				    <Label id="errorLabel" class="f-s3 bold" height="0" width="0" top="0" >Tap to Retry</Label>
+					<Button id="loginButton" class="span13 ts-brown ts-bg-yellow"  top="4%" onClick="loginClicked"/>
+					<Button id="registerButton" class="span14 ts-yellow top2 f-s3" onClick="openRegister"></Button>
+			</View>
+		</View>
+		
+		<View class="hor bottom0 w-fill" height="20%">
+			<ImageView image="/images/footer.png" class="w-fill h-fill"/> 
+		</View>
+	</Window>
+</Alloy>

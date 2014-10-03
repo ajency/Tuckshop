@@ -1,0 +1,1012 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html class="   ">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    
+    <title>mpociot/TiCustomTab · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub" />
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png" />
+    <meta property="fb:app_id" content="1401488693436528"/>
+
+      <meta content="@github" name="twitter:site" /><meta content="summary" name="twitter:card" /><meta content="mpociot/TiCustomTab" name="twitter:title" /><meta content="TiCustomTab - Create Tabs with custom selected / unselected images." name="twitter:description" /><meta content="https://avatars1.githubusercontent.com/u/804684?s=400" name="twitter:image:src" />
+<meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="https://avatars1.githubusercontent.com/u/804684?s=400" property="og:image" /><meta content="mpociot/TiCustomTab" property="og:title" /><meta content="https://github.com/mpociot/TiCustomTab" property="og:url" /><meta content="TiCustomTab - Create Tabs with custom selected / unselected images." property="og:description" />
+
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="conduit-xhr" href="https://ghconduit.com:25035">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="selected-link" value="repo_source" data-pjax-transient />
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="744A4EA5:4057:32C1CA:53C8BE37" name="octolytics-dimension-request_id" />
+    
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico" />
+
+
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="B/l0cGlldB/hsb/vBmnScBrQJYu2vpGIINAFAlLlAI3weuzK5o/9sneLfKduNWhBGVLkku56JqA/Imc9/IjtyA==" name="csrf-token" />
+
+    <link href="https://assets-cdn.github.com/assets/github-c534ad575b5bb8c3cc3dce9c571df7aa7400dbe9.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://assets-cdn.github.com/assets/github2-84a1b6179d461213455892ab983182bc2052a7b5.css" media="all" rel="stylesheet" type="text/css" />
+    
+
+
+    <meta http-equiv="x-pjax-version" content="dbaca81bc266230400ff71016f3fad18">
+
+      
+  <meta name="description" content="TiCustomTab - Create Tabs with custom selected / unselected images." />
+
+
+  <meta content="804684" name="octolytics-dimension-user_id" /><meta content="mpociot" name="octolytics-dimension-user_login" /><meta content="5484927" name="octolytics-dimension-repository_id" /><meta content="mpociot/TiCustomTab" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="5484927" name="octolytics-dimension-repository_network_root_id" /><meta content="mpociot/TiCustomTab" name="octolytics-dimension-repository_network_root_nwo" />
+
+  <link href="https://github.com/mpociot/TiCustomTab/commits/master.atom" rel="alternate" title="Recent Commits to TiCustomTab:master" type="application/atom+xml" />
+
+  </head>
+
+
+  <body class="logged_out  env-production  vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+      
+
+
+      
+      <div class="header header-logged-out">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions">
+        <a class="button primary" href="/join">Sign up</a>
+      <a class="button signin" href="/login?return_to=%2Fmpociot%2FTiCustomTab">Sign in</a>
+    </div>
+
+    <div class="command-bar js-command-bar  in-repository">
+
+      <ul class="top-nav">
+          <li class="explore"><a href="/explore">Explore</a></li>
+          <li class="features"><a href="/features">Features</a></li>
+          <li class="enterprise"><a href="https://enterprise.github.com/">Enterprise</a></li>
+          <li class="blog"><a href="/blog">Blog</a></li>
+      </ul>
+        <form accept-charset="UTF-8" action="/search" class="command-bar-form" id="top_search_form" method="get">
+
+<div class="commandbar">
+  <span class="message"></span>
+  <input type="text" data-hotkey="s, /" name="q" id="js-command-bar-field" placeholder="Search or type a command" tabindex="1" autocapitalize="off"
+    
+    
+    data-repo="mpociot/TiCustomTab"
+  >
+  <div class="display hidden"></div>
+</div>
+
+    <input type="hidden" name="nwo" value="mpociot/TiCustomTab" />
+
+    <div class="select-menu js-menu-container js-select-menu search-context-select-menu">
+      <span class="minibutton select-menu-button js-menu-target" role="button" aria-haspopup="true">
+        <span class="js-select-button">This repository</span>
+      </span>
+
+      <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+        <div class="select-menu-modal">
+
+          <div class="select-menu-item js-navigation-item js-this-repository-navigation-item selected">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" class="js-search-this-repository" name="search_target" value="repository" checked="checked" />
+            <div class="select-menu-item-text js-select-button-text">This repository</div>
+          </div> <!-- /.select-menu-item -->
+
+          <div class="select-menu-item js-navigation-item js-all-repositories-navigation-item">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" name="search_target" value="global" />
+            <div class="select-menu-item-text js-select-button-text">All repositories</div>
+          </div> <!-- /.select-menu-item -->
+
+        </div>
+      </div>
+    </div>
+
+  <span class="help tooltipped tooltipped-s" aria-label="Show command bar help">
+    <span class="octicon octicon-question"></span>
+  </span>
+
+
+  <input type="hidden" name="ref" value="cmdform">
+
+</form>
+    </div>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+        
+<ul class="pagehead-actions">
+
+
+  <li>
+      <a href="/login?return_to=%2Fmpociot%2FTiCustomTab"
+    class="minibutton with-count star-button tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <span class="octicon octicon-star"></span>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/mpociot/TiCustomTab/stargazers">
+      36
+    </a>
+
+  </li>
+
+    <li>
+      <a href="/login?return_to=%2Fmpociot%2FTiCustomTab"
+        class="minibutton with-count js-toggler-target fork-button tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+      <a href="/mpociot/TiCustomTab/network" class="social-count">
+        16
+      </a>
+    </li>
+</ul>
+
+        <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="repo-label"><span>public</span></span>
+          <span class="mega-octicon octicon-repo"></span>
+          <span class="author"><a href="/mpociot" class="url fn" itemprop="url" rel="author"><span itemprop="title">mpociot</span></a></span><!--
+       --><span class="path-divider">/</span><!--
+       --><strong><a href="/mpociot/TiCustomTab" class="js-current-repository js-repo-home-link">TiCustomTab</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </span>
+
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline js-new-discussion-timeline with-full-navigation ">
+        <div class="repository-sidebar clearfix">
+            
+
+<div class="sunken-menu vertical-right repo-nav js-repo-nav js-repository-container-pjax js-octicon-loaders">
+  <div class="sunken-menu-contents">
+    <ul class="sunken-menu-group">
+      <li class="tooltipped tooltipped-w" aria-label="Code">
+        <a href="/mpociot/TiCustomTab" aria-label="Code" class="selected js-selected-navigation-item sunken-menu-item" data-hotkey="g c" data-pjax="true" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /mpociot/TiCustomTab">
+          <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+        <li class="tooltipped tooltipped-w" aria-label="Issues">
+          <a href="/mpociot/TiCustomTab/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-hotkey="g i" data-selected-links="repo_issues /mpociot/TiCustomTab/issues">
+            <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+            <span class='counter'>3</span>
+            <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>        </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Pull Requests">
+        <a href="/mpociot/TiCustomTab/pulls" aria-label="Pull Requests" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-hotkey="g p" data-selected-links="repo_pulls /mpociot/TiCustomTab/pulls">
+            <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull Requests</span>
+            <span class='counter'>1</span>
+            <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+
+    </ul>
+    <div class="sunken-menu-separator"></div>
+    <ul class="sunken-menu-group">
+
+      <li class="tooltipped tooltipped-w" aria-label="Pulse">
+        <a href="/mpociot/TiCustomTab/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="pulse /mpociot/TiCustomTab/pulse">
+          <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Graphs">
+        <a href="/mpociot/TiCustomTab/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="repo_graphs repo_contributors /mpociot/TiCustomTab/graphs">
+          <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Network">
+        <a href="/mpociot/TiCustomTab/network" aria-label="Network" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-selected-links="repo_network /mpociot/TiCustomTab/network">
+          <span class="octicon octicon-repo-forked"></span> <span class="full-word">Network</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+    </ul>
+
+
+  </div>
+</div>
+
+              <div class="only-with-full-nav">
+                
+
+  
+
+<div class="clone-url open"
+  data-protocol-type="http"
+  data-url="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone">
+  <h3><strong>HTTPS</strong> clone URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field"
+           value="https://github.com/mpociot/TiCustomTab.git" readonly="readonly">
+    <span class="url-box-clippy">
+    <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-clipboard-text="https://github.com/mpociot/TiCustomTab.git" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+
+<div class="clone-url "
+  data-protocol-type="subversion"
+  data-url="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone">
+  <h3><strong>Subversion</strong> checkout URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field"
+           value="https://github.com/mpociot/TiCustomTab" readonly="readonly">
+    <span class="url-box-clippy">
+    <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-clipboard-text="https://github.com/mpociot/TiCustomTab" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+<p class="clone-options">You can clone with
+      <a href="#" class="js-clone-selector" data-protocol="http">HTTPS</a>
+      or <a href="#" class="js-clone-selector" data-protocol="subversion">Subversion</a>.
+  <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <span class="octicon octicon-question"></span>
+  </a>
+</p>
+
+
+
+                <a href="/mpociot/TiCustomTab/archive/master.zip"
+                   class="minibutton sidebar-button"
+                   aria-label="Download mpociot/TiCustomTab as a zip file"
+                   title="Download mpociot/TiCustomTab as a zip file"
+                   rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
+          
+
+<span id="js-show-full-navigation"></span>
+
+<div class="repository-meta js-details-container ">
+    <div class="repository-description js-details-show">
+      <p>Create Tabs with custom selected / unselected images.</p>
+    </div>
+
+
+
+</div>
+
+<div class="capped-box overall-summary ">
+
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax href="/mpociot/TiCustomTab/commits/master">
+            <span class="num">
+              <span class="octicon octicon-history"></span>
+              7
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax href="/mpociot/TiCustomTab/branches">
+          <span class="num">
+            <span class="octicon octicon-git-branch"></span>
+            1
+          </span>
+          branch
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax href="/mpociot/TiCustomTab/releases">
+          <span class="num">
+            <span class="octicon octicon-tag"></span>
+            0
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+        
+  <a href="/mpociot/TiCustomTab/graphs/contributors">
+    <span class="num">
+      <span class="octicon octicon-organization"></span>
+      2
+    </span>
+    contributors
+  </a>
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="/mpociot/TiCustomTab/search?l=objective-c">
+                <span class="color-block language-color" style="background-color:#438eff;"></span>
+                <span class="lang">Objective-C</span>
+                <span class="percent">48.9%</span>
+              </a>
+          </li>
+          <li>
+              <a href="/mpociot/TiCustomTab/search?l=python">
+                <span class="color-block language-color" style="background-color:#3581ba;"></span>
+                <span class="lang">Python</span>
+                <span class="percent">43.3%</span>
+              </a>
+          </li>
+          <li>
+              <a href="/mpociot/TiCustomTab/search?l=javascript">
+                <span class="color-block language-color" style="background-color:#f1e05a;"></span>
+                <span class="lang">JavaScript</span>
+                <span class="percent">7.8%</span>
+              </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="tooltipped tooltipped-s" aria-label="Show language statistics">
+    <a href="#"
+     class="repository-lang-stats-graph js-toggle-lang-stats"
+     style="background-color:#f1e05a">
+  <span class="language-color" style="width:48.9%; background-color:#438eff;" itemprop="keywords">Objective-C</span><span class="language-color" style="width:43.3%; background-color:#3581ba;" itemprop="keywords">Python</span><span class="language-color" style="width:7.8%; background-color:#f1e05a;" itemprop="keywords">JavaScript</span>
+    </a>
+  </div>
+
+
+
+<div class="file-navigation in-mid-page">
+  <a href="/mpociot/TiCustomTab/find/master"
+        class="js-show-file-finder minibutton empty-icon tooltipped tooltipped-s right"
+        data-pjax
+        data-hotkey="t"
+        aria-label="Quickly jump between files">
+    <span class="octicon octicon-list-unordered"></span>
+  </a>
+    <a href="/mpociot/TiCustomTab/compare" aria-label="Compare, review, create a pull request" class="minibutton compact primary tooltipped tooltipped-s" aria-label="Compare &amp; review" data-pjax>
+      <span class="octicon octicon-git-compare"></span>
+    </a>
+
+  
+
+<div class="select-menu js-menu-container js-select-menu" >
+  <span class="minibutton select-menu-button js-menu-target css-truncate" data-hotkey="w"
+    data-master-branch="master"
+    data-ref="master"
+    title="master"
+    role="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <span class="octicon octicon-git-branch"></span>
+    <i>branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </span>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <span class="select-menu-title">Switch branches/tags</span>
+        <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+      </div> <!-- /.select-menu-header -->
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" class="js-select-menu-tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" class="js-select-menu-tab">Tags</a>
+            </li>
+          </ul>
+        </div><!-- /.select-menu-tabs -->
+      </div><!-- /.select-menu-filters -->
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item selected">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/mpociot/TiCustomTab/tree/master"
+                 data-name="master"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="master">master</a>
+            </div> <!-- /.select-menu-item -->
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div> <!-- /.select-menu-list -->
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div> <!-- /.select-menu-list -->
+
+    </div> <!-- /.select-menu-modal -->
+  </div> <!-- /.select-menu-modal-holder -->
+</div> <!-- /.select-menu -->
+
+
+
+  <div class="breadcrumb"><span class='repo-root js-repo-root'><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/mpociot/TiCustomTab" data-branch="master" data-direction="back" data-pjax="true" itemscope="url"><span itemprop="title">TiCustomTab</span></a></span></span><span class="separator"> / </span><form action="/login?return_to=%2Fmpociot%2FTiCustomTab" aria-label="Sign in to make or propose changes" class="js-new-blob-form tooltipped tooltipped-e new-file-link" method="post"><span aria-label="Sign in to make or propose changes" class="js-new-blob-submit octicon octicon-plus" data-test-id="create-new-git-file" role="button"></span></form></div>
+</div>
+
+
+
+
+  
+  <div class="commit commit-tease js-details-container" >
+    <p class="commit-title ">
+        <a href="/mpociot/TiCustomTab/commit/be2d88e8579b3c846a5d6f0ec3143c21f9db10a4" class="message" data-pjax="true" title="Merge pull request #4 from bitdeli-chef/master
+
+Add a Bitdeli Badge to README">Merge pull request</a> <a href="https://github.com/mpociot/TiCustomTab/pull/4" class="issue-link" title="Add a Bitdeli Badge to README">#4</a> <a href="/mpociot/TiCustomTab/commit/be2d88e8579b3c846a5d6f0ec3143c21f9db10a4" class="message" data-pjax="true" title="Merge pull request #4 from bitdeli-chef/master
+
+Add a Bitdeli Badge to README">from bitdeli-chef/master</a>
+        <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+    </p>
+      <div class="commit-desc"><pre>Add a Bitdeli Badge to README</pre></div>
+    <div class="commit-meta">
+      <button aria-label="Copy SHA" class="js-zeroclipboard zeroclipboard-link" data-clipboard-text="be2d88e8579b3c846a5d6f0ec3143c21f9db10a4" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+      <a href="/mpociot/TiCustomTab/commit/be2d88e8579b3c846a5d6f0ec3143c21f9db10a4" class="sha-block" data-pjax>latest commit <span class="sha">be2d88e857</span></a>
+
+      <div class="authorship">
+        <img alt="Marcel Pociot" class="gravatar js-avatar" data-user="804684" height="20" src="https://avatars2.githubusercontent.com/u/804684?s=140" width="20" />
+        <span class="author-name"><a href="/mpociot" rel="author">mpociot</a></span>
+        authored <time class="updated" datetime="2014-01-30T14:03:45-08:00" is="relative-time">January 30, 2014</time>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="file-wrap">
+    <table class="files" data-pjax>
+
+      
+<tbody class=""
+  data-url="/mpociot/TiCustomTab/file-list/master"
+  data-deferred-content-error="Failed to load latest commit information.">
+
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/Classes" class="js-directory-link" id="e9878b4854d29907146149f695cb1cfb-6e24e672599cefbf8c634342c6437296f61ce115" title="Classes">Classes</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/66148c0848ba4b974260bbc8b062018bb175c0d2" class="message" data-pjax="true" title="Fixes issue #1">Fixes issue</a> <a href="https://github.com/mpociot/TiCustomTab/issues/1" class="issue-link" title="Customise the text of the tab item">#1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2013-01-26T18:02:18Z" is="time-ago">January 26, 2013</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/assets" class="js-directory-link" id="32bb636196f91ed59d7a49190e26b42c-c19ff078d26767b66cebcf52e1d58295d53bb725" title="assets">assets</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/dist" class="js-directory-link" id="2a6d07eef8b10b84129b42424ed99327-56627aa2cba1690e344427a1e4707df67911c7b1" title="dist">dist</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/cfe03229d862b1e232dbbd97b7a779d3e4403dae" class="message" data-pjax="true" title="Precompile module added">Precompile module added</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2013-01-26T18:02:57Z" is="time-ago">January 26, 2013</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/documentation" class="js-directory-link" id="55876228853abf632dec9346a4f372ec-1a961488bc973904477cdcff4d3256a07849ae68" title="documentation">documentation</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/example" class="js-directory-link" id="1a79a4d60de6718e8e5b326e338ae533-5260b6c7e80423676224d59a43cf1c43c35b9df0" title="example">example</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/66148c0848ba4b974260bbc8b062018bb175c0d2" class="message" data-pjax="true" title="Fixes issue #1">Fixes issue</a> <a href="https://github.com/mpociot/TiCustomTab/issues/1" class="issue-link" title="Customise the text of the tab item">#1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2013-01-26T18:02:18Z" is="time-ago">January 26, 2013</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/hooks" class="js-directory-link" id="4e819c837d54a6ed09abc77a8560a66f-a1099bb25f69db61eb1e4e78c7b7c88e0c7ed496" title="hooks">hooks</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/platform" class="js-directory-link" id="34a6e5d64ade17ef4e51612c50dd72f5-72b5cd1ac034efd4216fac3f09259ef967186de1" title="platform">platform</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/tree/master/ticustomtab.xcodeproj" class="js-directory-link" id="1ff382231626223d9fddcf0fd39aa326-7305cc460e92854ba4b30068860697f203feb772" title="ticustomtab.xcodeproj">ticustomtab.xcodeproj</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/.gitignore" class="js-directory-link" id="a084b794bc0759e7a6b77810e01874f2-5fb3f203f5d4c2da05698f777527f45e29dc1f78" title=".gitignore">.gitignore</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/668b3e8d0276f5c697e47bf6519cf778d01adf32" class="message" data-pjax="true" title="Added precompiled zip">Added precompiled zip</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2013-01-15T19:33:00Z" is="time-ago">January 15, 2013</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/CHANGELOG.txt" class="js-directory-link" id="a0493e27f48b50e18312b9f4508fc29d-de1e09178053d84e9d5c5c94c83783c621437499" title="CHANGELOG.txt">CHANGELOG.txt</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/DeMarcelpociotTicustomtab_Prefix.pch" class="js-directory-link" id="cb59b2fec95ad08cf18f16c749d3819c-8bec24fa205708b0d21172aa0623493973867b14" title="DeMarcelpociotTicustomtab_Prefix.pch">DeMarcelpociotTicustomtab_Prefix.pch</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/LICENSE" class="js-directory-link" id="9879d6db96fd29134fc802214163b95a-6ae867d4c6f688772644252fdb8e472ebe45139f" title="LICENSE">LICENSE</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/LICENSE.txt" class="js-directory-link" id="61e0bdf7e1b43c5c93d9488b22e04170-4124b1d3278667e6471ace552d4f14f84c14095e" title="LICENSE.txt">LICENSE.txt</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/README.md" class="js-directory-link" id="04c6e90faac2675aa89e2176d2eec7d8-d4af0ff295c500dc3d5291cbe89a456eb4ad36dc" title="README.md">README.md</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/f768935451e92ed25b6e9791fb7aa08c1c53e634" class="message" data-pjax="true" title="Add a Bitdeli badge to README">Add a Bitdeli badge to README</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-01-30T18:27:28Z" is="time-ago">January 30, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/build.py" class="js-directory-link" id="2955d5257f635de1df53f55a171ca5c7-f5682b9001b6afda51a9a4fd64cb0b6305374b63" title="build.py">build.py</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/manifest" class="js-directory-link" id="7f5cb74af5d7f4b82200738fdbdc5a45-8f92dc723c7415c95e112f54446b071a8dd9fc5e" title="manifest">manifest</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/module.xcconfig" class="js-directory-link" id="632504b74d9e288d1b9e12a70d5a7898-80ca88498fc0fc091d1df7847b461132b8481a1c" title="module.xcconfig">module.xcconfig</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/timodule.xml" class="js-directory-link" id="88edd2e0ddcbd7e7fc982944628f333d-6affb2faec1e7de6cafc36c3fe0e60e6693fb6cc" title="timodule.xml">timodule.xml</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/mpociot/TiCustomTab/blob/master/titanium.xcconfig" class="js-directory-link" id="7161e9ac1088f409d5a99ea175f11852-28288f842224118b33fcb380d38c8c759854d86f" title="titanium.xcconfig">titanium.xcconfig</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/mpociot/TiCustomTab/commit/7c9e682c72e84e62dd8846b8d4ec2a535bfbae2f" class="message" data-pjax="true" title="first commit">first commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2012-08-20T18:22:50Z" is="time-ago">August 20, 2012</time></span>
+      </td>
+    </tr>
+</tbody>
+
+    </table>
+  </div>
+
+
+  <div id="readme" class="clearfix announce instapaper_body md">
+    <span class="name">
+      <span class="octicon octicon-book"></span>
+      README.md
+    </span>
+
+    <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="user-content-ticustomtab" class="anchor" href="#ticustomtab" aria-hidden="true"><span class="octicon octicon-link"></span></a>TiCustomTab</h1>
+
+<p>This module gives the ability to define some custom Tab / TabGroup settings on iOS.</p>
+
+<h1>
+<a name="user-content-features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h1>
+
+<ul class="task-list">
+<li>Custom selected / unselected images for TiTabs</li>
+<li>Custom tint color for TiTabGroup</li>
+<li>Custom TiTabGroup background image</li>
+</ul><h1>
+<a name="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p><strong>Custom text color, shadow color, and font</strong></p>
+
+<pre><code>var ticustomtab = require('de.marcelpociot.ticustomtab');
+
+ticustomtab.customText({
+    textColor:      '#ff9900',
+    shadowColor:    'red', 
+    font:           {
+        fontSize:   20,
+        fontFamily: 'Palatino', 
+        fontWeight: 'bold'
+    }
+});
+</code></pre>
+
+<p><strong>Custom background image</strong></p>
+
+<pre><code>var tabGroup = Titanium.UI.createTabGroup({
+    customBackgroundImage: 'tabbar.png'
+});
+</code></pre>
+
+<p><strong>Custom tint color</strong></p>
+
+<pre><code>var tabGroup = Titanium.UI.createTabGroup({
+    tintColor: 'red'
+});
+</code></pre>
+
+<p><strong>Custom selected/unselected images:</strong></p>
+
+<pre><code>var tab = Titanium.UI.createTab({  
+    title:'Tab 1',
+    window:win1,
+    images: {
+        selected: 'selected.png',
+        unselected: 'unselected.png'
+   }
+});
+</code></pre>
+
+<p><strong>OR</strong></p>
+
+<pre><code>var tab = Titanium.UI.createTab();
+tab.setImages({
+    selected: 'selected.png',
+    unselected: 'unselected.png'
+});
+</code></pre>
+
+<h1>
+<a name="user-content-about-the-author" class="anchor" href="#about-the-author" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABOUT THE AUTHOR</h1>
+
+<p>I'm a web enthusiast located in germany.</p>
+
+<p>Follow me on twitter: @marcelpociot</p>
+
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://camo.githubusercontent.com/439a2c38d20a79d549f44e63866a9a2695fd4f7d/68747470733a2f2f64327765637a68766c38323376302e636c6f756466726f6e742e6e65742f6d706f63696f742f7469637573746f6d7461622f7472656e642e706e67" alt="Bitdeli Badge" data-canonical-src="https://d2weczhvl823v0.cloudfront.net/mpociot/ticustomtab/trend.png" style="max-width:100%;"></a></p></article>
+  </div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer">
+    <ul class="site-footer-links right">
+      <li><a href="https://status.github.com/">Status</a></li>
+      <li><a href="http://developer.github.com">API</a></li>
+      <li><a href="http://training.github.com">Training</a></li>
+      <li><a href="http://shop.github.com">Shop</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+
+    </ul>
+
+    <a href="/" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+    </a>
+
+    <ul class="site-footer-links">
+      <li>&copy; 2014 <span title="0.03470s from github-fe136-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="/site/terms">Terms</a></li>
+        <li><a href="/site/privacy">Privacy</a></li>
+        <li><a href="/security">Security</a></li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div><!-- /.site-footer -->
+</div><!-- /.container -->
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-fullscreen-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder="" data-suggester="fullscreen_suggester"></textarea>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w"
+      aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-df9e4beac80276ed3dfa56be0d97b536d0f5ee12.js" type="text/javascript"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-22af5724b6a68093dc4ea24d753f84320ccb5dd5.js" type="text/javascript"></script>
+      
+      
+        <script async src="https://www.google-analytics.com/analytics.js"></script>
+  </body>
+</html>
+

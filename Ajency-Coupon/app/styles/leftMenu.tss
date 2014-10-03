@@ -1,0 +1,19 @@
+".container" :{
+	backgroundColor: '#FFFFFF'
+},
+
+"#rupeeSymbol" :{
+	top: '37.5%',
+	bottom: '37.5%',
+	height: '25%',
+	width: '15%',
+	image: '/images/indian_rupee.png'
+},
+
+"#lbl_availableCredit" :{
+	left: '1%',
+	font : { 
+		fontFamily: "OpenSans-Bold",
+		fontSize: 35
+	}
+}

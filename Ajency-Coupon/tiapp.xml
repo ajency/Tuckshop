@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-development" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
+    <property name="acs-oauth-key-development" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
+    <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
+   <!-- <property name="acs-oauth-secret-production" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
+    <property name="acs-oauth-key-production" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
+    <property name="acs-api-key-production" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property> -->
+    <property name="acs-oauth-secret-production" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
+    <property name="acs-oauth-key-production" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
+    <property name="acs-api-key-production" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
+    <id>com.ajency.in.tuckshop</id>
+    <name>Boutique(Alloy)</name>
+    <version>1.0</version>
+    <publisher>Ajency.in</publisher>
+    <url>http://ajency.in</url>
+    <description>not specified</description>
+    <copyright>2014 by Ajency.in</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>true</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>4e7e0023-7da3-471c-ae50-6befe141f7ba</guid>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <ios>
+        <plist>
+            <dict>
+                <key>UIBackgroundModes</key>
+                <array>
+                    <string>remote-notification</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                    <string>UIInterfaceOrientationLandscapeLeft</string>
+                    <string>UIInterfaceOrientationLandscapeRight</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleDefault</string>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest android:versionCode="1.0" android:versionName="1.0"
+            package="com.ajency.in.tuckshop" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
+            <application android:debuggable="false"
+                android:icon="@drawable/appicon"
+                android:label="TuckShop"
+                android:name="BoutiqueAlloyApplication" android:theme="@style/Theme.NoActionBar">
+                <activity
+                    android:configChanges="keyboardHidden|orientation|screenSize"
+                    android:label="TuckShop"
+                    android:name=".BoutiqueAlloyActivity" android:screenOrientation="portrait">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN"/>
+                        <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+                </activity>
+                <activity
+                    android:configChanges="keyboardHidden|orientation|screenSize"
+                    android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="portrait"/>
+                <activity
+                    android:configChanges="keyboardHidden|orientation|screenSize"
+                    android:name="org.appcelerator.titanium.TiTranslucentActivity"
+                    android:screenOrientation="portrait" android:theme="@style/Theme.NoActionBar"/>
+                <activity android:configChanges="screenSize"
+                    android:name="ti.modules.titanium.ui.android.TiPreferencesActivity" android:screenOrientation="portrait"/>
+                <service android:exported="false"
+                    android:name="org.appcelerator.titanium.analytics.TiAnalyticsService" android:screenOrientation="portrait"/>
+            </application>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+        </manifest>
+    </android>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs">ti.cloud</module>
+        <module platform="android" version="3.2.1">ti.cloudpush</module>
+        <module platform="iphone">dk.napp.drawer</module>
+        <module platform="android">dk.napp.drawer</module>
+    </modules>
+    <deployment-targets>
+        <target device="android">true</target>
+        <target device="blackberry">false</target>
+        <target device="ipad">true</target>
+        <target device="iphone">true</target>
+        <target device="mobileweb">true</target>
+        <target device="tizen">false</target>
+    </deployment-targets>
+    <sdk-version>3.3.0.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+</ti:app>

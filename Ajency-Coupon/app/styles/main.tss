@@ -1,0 +1,24 @@
+".container" :{
+	backgroundColor: "#000000"
+},
+
+"#headerView" :{
+	backgroundColor: '#F5CE1E' 
+},
+
+"#headerMenu" :{
+	image: '/images/menu.png',
+	width: '8%',
+	height: '60%'
+},
+
+"#headerLogo" :{
+	image: '/images/header_logo.png',
+	width: '50%',
+	height: '60%'
+},
+
+"#midContainer" :{
+	backgroundColor: '#FFFFFF'
+}
+

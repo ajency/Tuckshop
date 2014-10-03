@@ -1,0 +1,6 @@
+<Alloy>
+	<ScrollView id="categoryView" class="ver" scrollingEnabled="false">
+		<ImageView id="animateObject" height="0" width="0" top="0" ></ImageView>
+		<Label id="homeErrorLabel" class="f-s3 bold" height="0" width="0" top="0">Tap to Retry</Label>
+	</ScrollView>
+</Alloy>

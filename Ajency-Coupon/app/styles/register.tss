@@ -1,0 +1,30 @@
+".container" :{
+	backgroundImage:'/background.jpg'
+},
+
+"Label" :{
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 22,
+		fontWeight : 'bold'
+	}
+},
+
+"TextField" :{
+	backgroundColor : '#FFF',
+	color : '#222',
+    borderWidth : 1,
+    borderColor: '#F0C60A',
+	height: "11%"
+},
+
+"#signUpButton" :{
+	title: "Sign up",
+	height: "11%",
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 20,
+		fontWeight : 'bold'
+	},
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+}

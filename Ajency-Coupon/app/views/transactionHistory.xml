@@ -1,0 +1,31 @@
+<Alloy>
+	<View >
+		<View id="mainView" class="ver w-fill h-fill"> 
+			<Label id="errorLabel" height="0" width="0" top="0">Tap to Retry</Label>
+			 <!-- <ScrollView id="transactionScroll" class="ver w-fill h-fill">
+				
+			</ScrollView>  -->
+		</View> 
+		
+		<View id="stickyFooter" class="hor bottom0 w-fill ts-bg-brown" height="50"opacity="0.9" 
+			onClick="onTabSelected"> 
+			
+			<View id="tab_week" class="h-fill" width="30%" left="4%">
+				<Label id="lbl_week" text="Week" class="f-s3.3"/>
+			</View>
+			
+			<View left="0" height="60%" top="20%" bottom="20%" width="0.3%" class="ts-bg-yellow" />
+			
+			<View id="tab_month" class="h-fill" width="30%" left="0">
+				<Label id="lbl_month" text="Month" class="f-s3.3"/>
+			</View>
+			
+			<View left="0" height="60%" top="20%" bottom="20%" width="0.3%" class="ts-bg-yellow" />
+			
+			<View id="tab_all" class="h-fill" width="30%" left="0" right="4%">
+				<Label id="lbl_all" text="All" class="f-s3.3"/>
+			</View>
+			
+		</View>
+	</View>
+</Alloy>

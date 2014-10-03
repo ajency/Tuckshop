@@ -1,0 +1,26 @@
+"Window" :{
+	backgroundColor:"#FFFFFF",
+	navBarHidden : true
+},
+
+"#drawer" :{
+	navBarHidden : true,
+	fading: 0.2,
+    parallaxAmount: 0.2,
+    leftDrawerWidth: "280dp",
+    orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+},
+
+"#drawer[platform=android]" :{
+	shadowWidth:"7dp",
+	openDrawerGestureMode: "OPEN_MODE_MARGIN",
+    closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
+    animationMode: "ANIMATION_ZOOM"
+},
+
+"#drawer[platform=ios]" :{
+	shadowWidth:"2dp",
+	openDrawerGestureMode: "OPEN_MODE_ALL",
+    closeDrawerGestureMode: "CLOSE_MODE_ALL",
+    animationMode: "ANIMATION_NONE"
+}

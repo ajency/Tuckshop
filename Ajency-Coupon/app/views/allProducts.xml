@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="ver">
+	 <TableView id="productsTable" class="w-fill h-fill" separatorColor="#F0C60A" />
+	 <ImageView id="animateObject" height="0" width="0" top="0" ></ImageView>
+	</View> 
+</Alloy>

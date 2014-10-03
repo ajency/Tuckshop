@@ -1,0 +1,16 @@
+<Alloy>
+	<Window class="container">
+		<View class="ver">
+			
+			<View id="headerView" class="top0 w-fill" height="9%">
+				<ImageView id="headerMenu" class="top4 bottom4 left1"/>
+				<ImageView id="headerLogo" class="top4 bottom4"/>
+			</View>
+			
+			<View id="staticView" class="top0 w-fill ts-bg-yellow" height="25%"/>
+			
+			<View id="midContainer" class="ver top0 w-fill h-fill"></View>
+			
+		</View>
+	</Window>
+</Alloy>

@@ -1,0 +1,9 @@
+"ScrollView" : {
+	top: '0%',
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	showHorizontalScrollIndicator : false,
+	showVerticalScrollIndicator : true,
+	scrollType : "vertical",
+	contentHeight: 'auto'
+}
