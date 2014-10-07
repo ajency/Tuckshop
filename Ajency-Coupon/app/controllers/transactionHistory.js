@@ -7,7 +7,11 @@ var separator = productNameLabel = dateLabel = priceLabel = null;
 
 var outerErrorView = innerErrorView= null;
 var errorViewLabel ,errorViewImageView ;
-var loaderTableAnimate;
+var loaderErrorAnimate;
+
+var outerAnimateView = innerAnimateView= null;
+var animateImageView ;
+var loaderSuccessAnimate;
 
 var connectionErrorViewPresent = false;
 var connectionErrorAlreadyShown=0;
@@ -116,12 +120,23 @@ function loadingLocalAnimation() {
 		loaderIndex = 1;
 }
 
-function loadingTableAnimation() {
+function loadingErrorAnimation() {
+	console.log('In Error Animate loader');
 	if(errorViewImageView!=null)
 	errorViewImageView.image = "/images/loader-" + loaderIndex + ".png";
   
   	loaderIndex++;
   
+  	if(loaderIndex===5)loaderIndex=1;
+}
+
+function loadingSuccessAnimation() {
+	console.log('In Success Animate loader');
+	if(animateImageView!=null)
+	animateImageView.image = "/images/loader-" + loaderIndex + ".png";
+  
+  	loaderIndex++;
+  	
   	if(loaderIndex===5)loaderIndex=1;
 }
 
@@ -192,7 +207,8 @@ var showAnimateConnectionView = function  () {
 			});
 			
 			innerErrorView.add(errorViewImageView);
-			loaderTableAnimate = setInterval(loadingTableAnimation,200);
+			loaderErrorAnimate = setInterval(loadingErrorAnimation,200);
+			showAnimateView();
    			fetchDeltaTransaction(currentTab);			 
 		}	
 	});
@@ -215,8 +231,67 @@ var showAnimateConnectionView = function  () {
 
 
 var hideAnimateConnectionView = function (){
-	if(outerErrorView!=null)
-    $.mainView.remove(outerErrorView);	
+	if(outerErrorView!=null){
+		clearInterval(loaderErrorAnimate);
+		$.mainView.remove(outerErrorView);	
+	}
+    
+};
+
+var showAnimateView = function  () {
+	 
+	 outerAnimateView = Ti.UI.createView({
+	 		layout : 'vertical',
+			width : Ti.UI.FILL,
+			height : 70,
+			backgroundColor : 'transparent'
+		});
+
+	innerAnimateView = Ti.UI.createView({
+			layout : 'horizontal',
+			width : Ti.UI.FILL,
+			height : 69.2
+		});
+		
+    
+    separator = Ti.UI.createView({
+			width : Ti.UI.FILL,
+			height : 0.8,
+			backgroundColor : '#F0C60A'
+	});
+	
+	animateImageView= Ti.UI.createImageView({
+				left :'45%',
+         		top : '15',
+				height :40,
+				width : 48
+			});
+	innerAnimateView.add(animateImageView);
+	loaderSuccessAnimate = setInterval(loadingSuccessAnimation,200);
+						  
+    outerAnimateView.add(innerAnimateView);
+	outerAnimateView.add(separator);
+	
+	var interval;
+	if(OS_IOS)
+		interval=1000;
+	else
+		interval=500;
+		
+	 setTimeout(function(){
+	 	$.mainView.add(outerAnimateView); 
+	 },interval);
+	    
+	
+};
+
+
+var hideAnimateView = function (){
+	if(outerAnimateView!=null){
+		clearInterval(loaderSuccessAnimate);
+		$.mainView.remove(outerAnimateView);
+	}
+    	
 };
 	
 var displayTransactionHistory = function(data) {
@@ -230,19 +305,25 @@ var displayTransactionHistory = function(data) {
 		if(connectionErrorViewPresent){  //Connection view needs to be set 
 		
 			if(connectionErrorAlreadyShown !=0){  //set it since it is present the first time
+				console.log('connection view not present');
 				showAnimateConnectionView();
 				
 			}
 			else
 			connectionErrorAlreadyShown = 1;
+	
 		}
 		
 		else{ //Connection error view not present
 			   
 			//Do not show the loader the first time since it is shown in fetch delta
 			if(loaderAlreadyShown!=0){
+				console.log('Loader not present');
+				/*
 				showImageView();
     	   		loaderAnimate = setInterval(loadingLocalAnimation,200);
+    	   		*/
+    	   		showAnimateView();
 			 }
 			 else
 		 	 loaderAlreadyShown=1;
@@ -379,6 +460,8 @@ var displayTransactionHistory = function(data) {
 	else
 	interval=500;
 	
+	
+	
 	setTimeout(function() {
 		   
 		    if(localAnimateObject!=null){
@@ -388,12 +471,24 @@ var displayTransactionHistory = function(data) {
 				$.mainView.remove(localAnimateObject);
 		    }
 		
+		  
+		
+		/*
 	    if (! connectionErrorViewPresent) 
         clearInterval(loaderAnimate);
+        */
        
+       $.mainView.add(transactionScroll);
        setTimeout(function(){
-       	$.mainView.add(transactionScroll);
+       		
+       	
        },100);
+       
+       	setTimeout(function(){
+       		if(loaderAlreadyShown!=0)
+		    hideAnimateView();
+       	
+      	 },1000);
        
 	 },interval);	
 	 
@@ -525,10 +620,12 @@ $.lbl_week.setColor('#F0C60A');
 //fetch delta of transactions
 var fetchDeltaTransaction = function(currentTab) {
 	
-	
+	    /*
 		showImageView();
 		// start the setInverval -- adjust the time to make a smooth animation
    		 loaderAnimate = setInterval(loadingLocalAnimation,200);
+		*/
+		
 		
 	Cloud.Objects.query({
 		classname : 'testItems',
@@ -562,19 +659,25 @@ var fetchDeltaTransaction = function(currentTab) {
                 Ti.App.Properties.removeProperty('allTransactionResponse');
                 
                 localStorage.setAllTransactions(finalArray);
-				
+				//week is loaded first
+		    	sortTransactions(currentTab);
 				
 			}
+			hideAnimateView();
+			/*
 			hideImageView();
     		clearInterval(loaderAnimate);
+    		*/
 			getSum(localStorage.getAllTransactions());	
-			//week is loaded first
-		    sortTransactions(currentTab);
+			
 			connectionErrorViewPresent = false;
 		
 		} else {
+			hideAnimateView();
+			/*
 			hideImageView();
     		clearInterval(loaderAnimate);
+    		*/
     		showAnimateConnectionView();
     		
     		connectionErrorViewPresent = true;
@@ -600,10 +703,17 @@ function getSum(data){
 
 if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE){
 	showAnimateConnectionView();
+	loaderAlreadyShown=1;     //loader not displayed if connection view removed
 	connectionErrorViewPresent = true;
 	sortTransactions('tab_week');
 } 
 
 
-else
-fetchDeltaTransaction(currentTab);
+else{
+	showAnimateView();
+	sortTransactions('tab_week');
+	fetchDeltaTransaction(currentTab);
+
+}
+	
+

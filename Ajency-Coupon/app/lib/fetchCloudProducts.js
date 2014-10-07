@@ -106,7 +106,7 @@ var transactionsOnProductIds = function(controllername) {
 		
 	}, function(e) {
         console.log('the count');
-        console.log(e.testItems.length);
+     //   console.log(e.testItems.length);
 		if (e.success) {
 			
 		    
@@ -124,7 +124,7 @@ var transactionsOnProductIds = function(controllername) {
 				Ti.App.fireEvent('errorOnFetch',{name:'transactionsOnProductIds'});	
 						
 			}else if (controllername === 'alloy') {
-				alert('Failed to fetch new Products! Please Click Refresh'+e);			
+				alert('Failed to fetch new Products! Please Click Refresh');			
 			}
 			
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));

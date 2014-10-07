@@ -131,16 +131,21 @@ function onMenuTableClick(e){
 
 Ti.App.addEventListener('errorOnFetch', function(data) {
 	hideImageView();
+    if(loaderAnimate!=null)
 	clearInterval(loaderAnimate);
 	$.menuTable.visible=true;
+	$.leftMenuRefreshLabel.visible=true;
 	$.leftMenuRefreshLabel.text="Error. Try Again";
 	type=data.name;
 });
 
 Ti.App.addEventListener('successOnFetch', function(data) {
+	console.log('Success on fetch');
 	hideImageView();
+	if(loaderAnimate!=null)
 	clearInterval(loaderAnimate);
 	$.menuTable.visible=true;
+	$.leftMenuRefreshLabel.visible=true;
 	$.leftMenuRefreshLabel.text="Refresh";
 	
 });
@@ -153,6 +158,7 @@ function refreshClick(){
 		// start the setInverval -- adjust the time to make a smooth animation
     	loaderAnimate = setInterval(loadingAnimation,200);
     	$.menuTable.visible=false;
+    	$.leftMenuRefreshLabel.visible=false;
     	
     	if(type==='fetchCloudProducts') //fails on fetch products
     		fetchProductsJs.fetchCloudProducts('leftMenu');
@@ -171,7 +177,8 @@ function userLogout(){
 		// start the setInverval -- adjust the time to make a smooth animation
     	loaderAnimate = setInterval(loadingAnimation,200);
     	$.menuTable.visible=false;
-    
+        $.leftMenuRefreshLabel.visible=false;
+        
 		Cloud.Users.logout(function (e) {
     		if (e.success) {
     	
@@ -185,6 +192,8 @@ function userLogout(){
    		 	   hideImageView();
 			   clearInterval(loaderAnimate);
 			   $.menuTable.visible=true;
+			   $.leftMenuRefreshLabel.visible=true;
+			   
 			   alert('Could not connect to server. Try again ');
        		// alert('Error:\n' +((e.error && e.message) || JSON.stringify(e)));
    		 }
