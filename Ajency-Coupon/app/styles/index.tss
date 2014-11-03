@@ -1,9 +1,31 @@
-"ScrollView" : {
-	top: '0%',
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	showHorizontalScrollIndicator : false,
-	showVerticalScrollIndicator : true,
-	scrollType : "vertical",
-	contentHeight: 'auto'
+".container" :{
+	backgroundImage:'/background.jpg'
+},
+
+"TextField" :{
+	backgroundColor : '#FFF',
+	color : '#222',
+    borderWidth : 1,
+    borderColor: '#F0C60A',
+	height: "11%",
+	borderStyle : Ti.UI.INPUT_BORDERSTYLE_BEZEL
+},
+
+"#loginButton" :{
+	title: "Login",
+	height: "11%",
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 20,
+		fontWeight : 'bold'
+	},
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+},
+
+"#registerButton" :{
+	backgroundColor : '#585858',
+	title: "New to Tuckshop? Sign up.",
+	height: "11%",
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 }
+
