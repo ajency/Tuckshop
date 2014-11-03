@@ -14,21 +14,7 @@
     <version>1.0</version>
     <publisher>Ajency.in</publisher>
     <url>http://www.ajency.in</url>
-    <description>
- For us at Ajency.in. By us at Ajency.in.
-This app allows us to browse and buy an item from the Tuckshop, our inhouse eatery, stocked with drinks and snacks of any and every variety. Buying is simply a one-click process. The app keeps a record of all transactions, shows available credit and auto-credits the account at the beginning of each month.
-
-Features:
-1. Clutter breaking text and illustrations based catalog UI. No use of images. 
-2. One click purchase
-3. User wallet with credit and debit transactions. 
-4. Offline credit and transaction history
-5. Push notifications
-6. Network usage only to purchase products. Products and categories stored in app and synced with push notifications. 
-
-We are a Goa (India) based Digital studio working in a flat world. 
-We work on UI/UX, web applications,mobile applications, web design and digital communication. We do it in plain speak and with humility. On our website you will not find tall claims or meaningless corporate speak. Do look at our recent work and read some of our thoughts on the blog. If you like what you see send us a line on email or Facebook/Twitter. It will make our day!
-</description>
+    <description>undefined</description>
     <copyright>2014 by Ajency.in</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -39,16 +25,15 @@ We work on UI/UX, web applications,mobile applications, web design and digital c
     <ios>
         <plist>
             <dict>
-            	<key>CFBundleURLTypes</key>
-        		<array>
-            
-                <key>CFBundleURLName</key>
-                <string>com.ajency.tuckshopapp</string>
-                <key>CFBundleURLSchemes</key>
+                <key>CFBundleURLTypes</key>
                 <array>
+                    <key>CFBundleURLName</key>
                     <string>com.ajency.tuckshopapp</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>com.ajency.tuckshopapp</string>
+                    </array>
                 </array>
-        		</array>
                 <key>UIBackgroundModes</key>
                 <array>
                     <string>remote-notification</string>

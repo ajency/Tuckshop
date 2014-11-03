@@ -1,501 +1,305 @@
-var __ = require('platformSupport');
+var alloy = require('alloy');
 var myAnimation = require('animation');
+var __ = require("platformSupport");
+var args = arguments[0] || {};
 
-var moment = require('alloy/moment');
-var day;
-//for image loader
-var loaderAnimate;
-var instanceOfListener;
-var instanceOfFireListener;
-var type;
-
-if (OS_IOS) {
-	Titanium.UI.iPhone.setAppBadge(null);
-}
 
 //for local storage
 var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
-var fetchProductsJs = require('/fetchCloudProducts');
 
+pushNotificationReceived = false;
 // set the length of the images you have in your sequence
-var loaderArrayLength=4;
- 
-// initialize the index to 1
-var loaderIndex=1;
+var loaderArrayLength = 4;
 
- 
+// initialize the index to 1
+var loaderIndex = 1;
+
 // this function will be called by the setInterval
-function loadingAnimation(){
-  // set the image property of the imageview by constructing the path with the loaderIndex variable
-  $.animateObject.image = "/images/loaderlogin-" + loaderIndex + ".png";
-  //increment the index so that next time it loads the next image in the sequence
-  loaderIndex++;
-  // if you have reached the end of the sequence, reset it to 1
-  if(loaderIndex===5)loaderIndex=1;
+function loadingAnimation() {
+	// set the image property of the imageview by constructing the path with the loaderIndex variable
+	$.animateObject.image = "/images/loaderlogin-" + loaderIndex + ".png";
+	//increment the index so that next time it loads the next image in the sequence
+	loaderIndex++;
+	// if you have reached the end of the sequence, reset it to 1
+	if (loaderIndex === 5)
+		loaderIndex = 1;
 }
 
 /*
  * Show and hide imageview
  */
 
-var showImageView = function(){
-	
-	$.animateObject.height=96;
-	$.animateObject.width=96;
-	
+var showImageView = function() {
+	$.animateObject.height = 96;
+	$.animateObject.width = 96;
+    $.animateObject.top= '45%';
 };
 
-var hideImageView= function (argument) {
-	
-    $.animateObject.height=0;
-	$.animateObject.width=0;
-};
+var hideImageView = function(argument) {
 
-
-/*
- * Show and hide View components
- */
-
-var showComponents = function  (argument) {
-   
-    $.passwordTextfield.visible = true;
-	$.usernameTextfield.visible = true;
-	$.loginButton.visible = true;
-	$.registerButton.visible = true;
-};
-
-var hideComponents = function  () {
-  
-    $.passwordTextfield.visible = false;
-	$.usernameTextfield.visible = false;
-	$.loginButton.visible = false;
-	$.registerButton.visible = false;
+	$.animateObject.height = 0;
+	$.animateObject.width = 0;
+	$.animateObject.top= 0;
 };
 
 var showConnectionErrorView = function () {
-    $.errorLabel.height="15%";
-    $.errorLabel.width="30%";
+    $.homeErrorLabel.height="12%";
+    $.homeErrorLabel.width="30%";
+    $.homeErrorLabel.top= "45%";
+    
 };
 
-$.errorLabel.addEventListener('click',function(e){
-	if (networkCheck.getNetworkStatus()==0) 
+$.homeErrorLabel.addEventListener('click',function(e){
+    	if (networkCheck.getNetworkStatus()==0) 
 			alert('No Internet Connection');
+		else
+   			fetchAllTransactions();	
+    	
+});
+
+var hideConnectionErrorView= function  () {
+    $.homeErrorLabel.height=0;
+    $.homeErrorLabel.width=0;
+    $.homeErrorLabel.top=0;
+};
+
+var isOdd = function(no){
+	
+	if(no % 2)
+		return true;
+	else
+		return false;
+};
+
+
+var createRow = function(){
+	
+	var view = Ti.UI.createView({
+		width: Ti.UI.FILL,
+		height: '25%',
+		top: '3.5%'
+	});
+	
+	return(view);
+};
+
+
+var getGrid = function(position, data){
+	
+	//position - 0 = 'left'
+	//position - 1 = 'right'
+	
+	var view = Ti.UI.createView({
+		touchEnabled: true,
+		layout: 'vertical',
+		width: '50%',
+		height: '100%',
+		id: data.categoryId
+	});
+	
+	if(position===0) view.setLeft(0);
+	
+	else view.setRight(0);
+	
+	var image = Ti.UI.createImageView({
+		touchEnabled: false,
+		height: '60%',
+		width: '30%',
+		align: 'center',
+		image: data.imagePath
+	});
+	
+	var label = Ti.UI.createLabel({
+		touchEnabled: false,
+		height: '40%',
+		width: '100%',
+		textAlign: 'center',
+		color: '#000000',
+		font : {
+			fontFamily: "OpenSans-Regular",
+			fontSize: 20
+		},
+		text: data.categoryName
+	});
+	
+	view.add(image);
+	view.add(label);
+	
+	view.addEventListener('click', function(e){
+				 
+		 var evtData = {id: e.source.id};
+		 alloy.Globals.navigatedView = evtData.id;
+		 Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+		 evtData = null;
+	});
+	
+	return(view);
+};
+
+
+var verticalSeparator = function(){
+	
+	var view = Ti.UI.createView({
+		layout: 'vertical',
+		backgroundColor: '#F0C60A',
+		height: '100%',
+		width: '0.3%',
+		align: 'center'
+	});
+	
+	return(view);
+};
+
+
+var horizontalSeparator = function(){
+	
+	var view = Ti.UI.createView({
+		backgroundColor: '#F0C60A',
+		height: '0.3%', 
+		width: '85%',
+		top: '5%'
+	});
+	
+	return(view);
+};
+
+
+var bottomView = function(){
+	
+	var view = Ti.UI.createView({
+		height: '5%', 
+		width: '100%',
+		top: '0%'
+	});
+	
+	return(view);
+};
+
+
+
+//Initialize the categories UI according to the JSON
+var initCategories = function(feeds){
+	
+	var outerRow, leftGrid, rightGrid = null; 
+	
+	for(var i=0; len=feeds.length, i<len; i++){
+		
+		var grid = i+1;
+		
+		if(isOdd(grid)){
+			//When grid is odd
+			outerRow = createRow();
+			
+			if(grid===1){
+				leftGrid = getGrid(0, feeds[i]);
+				outerRow.add(leftGrid);
+				
+				if(len===1)
+					$.categoryView.add(outerRow);
+					
+			}
+			else{
+				$.categoryView.add(horizontalSeparator());
+				
+				leftGrid = getGrid(0, feeds[i]);
+				outerRow.add(leftGrid);
+				
+				if(grid===len)
+					$.categoryView.add(outerRow);
+					
+			}
+		}
 		
 		else{
+			//When grid is even
+			outerRow.add(verticalSeparator());
 			
-			if(type==='autoLogin')
-    			autoLogin();
-    		else{
-    			showImageView();
-   				// start the setInverval -- adjust the time to make a smooth animation
-    			loaderAnimate = setInterval(loadingAnimation,200);
-    		    hideConnectionErrorView(); 
-    		    
-    				if(type==='updateCreditDate')
-    				updateCreditDate();
-    				
-    				else if(type==='updateCreditAmount')
-    				updateCreditAmount();
-    		
-    		        else if(type==='deviceTokenError'){
-    		        	// Initialize the module
-						CloudPush.retrieveDeviceToken({
-							success : deviceTokenSuccess,
-							error : deviceTokenError
-						});
-    		        }
-    				
-    				
-    				else if(type==='subscribeToChannel')
-    				subscribeToChannel();
-    				
-    				else if(type==='fetchCloudProducts'){
-						
-						fetchProductsJs.fetchCloudProducts('menu');
-    				}
-    				
-    				else if(type==='transactionsOnProductIds'){
-						
-						fetchProductsJs.transactionsOnProductIds('menu');
-    				}
-    				
-    				else if(type==='pushRegisterError'){
-						
-					 	if (OS_IOS) {
-					 			Ti.Network.registerForPushNotifications({
-								// Specifies which notifications to receive
-								types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_ALERT, Ti.Network.NOTIFICATION_TYPE_SOUND],
-								success : deviceTokenSuccess,
-								error : deviceTokenError,
-								callback : receivePush
-							});
-					 	}
-					 
-					 	else{
-					 		   
-								CloudPush.retrieveDeviceToken({
-									success : deviceTokenSuccess,
-									error : deviceTokenError
-								});
-					 	}
-    				}
-    				
-    		}	
-    	
-    	
-		}
-	
-});
-var hideConnectionErrorView = function  () {
-    $.errorLabel.height=0;
-    $.errorLabel.width=0;
-};
-
-
-Ti.App.addEventListener('errorIndex', function(data) {
-	console.log('Error event fired');
-	hideImageView();
-	clearInterval(loaderAnimate);
-	type=data.name;
-	showConnectionErrorView();
-	
-	
-});
-
-//Open Register View
-function openRegister(e) {
-
-	var register = Alloy.createController("register").getView();
-	if (OS_IOS)
-	   $.win1.openWindow(register);
-	 else
-	   register.open();  
-	   
-}
-
-/*
- *Textfield to retrieve the last value
- */
-if ( localStorage.getUserName()) {
-	$.usernameTextfield.value = localStorage.getUserName();
-};
-
-/*
- * Login button clicked
- */
-function loginClicked(e) {
-	//	var main = Alloy.createController('menu').getView().open();
-	var enteredEmailValue;
-	
-	//check if fields are empty
-	if ($.usernameTextfield.value.trim() != '' && $.passwordTextfield.value.trim() != '') {
-		
-		 enteredEmailValue=$.usernameTextfield.value.split('@');
-         
-		//check for valid email
-		if (!checkemail($.usernameTextfield.value)) {
-			alert("Please enter a valid email");
-		} else {
-			//check if email is ajency mail
-			if (enteredEmailValue[1] === 'ajency.in') {
-				//check for network
-				if (networkCheck.getNetworkStatus()==0) {
-					alert('No Internet Connection');
-
-				} else {
-					
-				   $.usernameTextfield.blur();
-				   $.passwordTextfield.blur();
-				   showImageView();
-				   // start the setInverval -- adjust the time to make a smooth animation
-                    loaderAnimate = setInterval(loadingAnimation,200);
-                  
-				    hideComponents();
-				   
-       				$.loginButton.enabled = false;
-					Cloud.Users.login({
-						login : $.usernameTextfield.value,
-						password : $.passwordTextfield.value
-					}, function(e) {
-						
-						if (e.success) {
-							var user = e.users[0];
-							//	subscribeToChannel();
-							
-                            localStorage.saveUserId(user);
-                            localStorage.saveUserName($.usernameTextfield.value);
-                            localStorage.saveDisplayName(enteredEmailValue[0]);
-                            localStorage.saveSessionId(e.meta.session_id);
-							localStorage.saveCreditedDate(user.custom_fields.credited_date_at);
-                            
-							Ti.API.info('test credited date:::\n' + user.custom_fields.credited_date_at);
-							day = moment(user.custom_fields.credited_date_at);
-							
-							//get the last credited date
-							updateCreditDate();
-                            /*
-							//if application is deleted from device load the products
-							if (! localStorage.getAllProducts()) {
-								
-								//Subscribe to channel for push notifications
-								subscribeToChannel();
-								var fetchProductsJs = require('/fetchCloudProducts');
-								//	fetchProductsJs.fetchCloudProducts('main');
-								fetchProductsJs.fetchCloudProducts('menu');
-
-							} else {
-								//	var main = Alloy.createController('main', {}).getView().open();
-								var main = Alloy.createController('menu', {}).getView().open();
-								hideImageView();
-								clearInterval(loaderAnimate);
-							}
-                            */
-						} else {
-							hideImageView();
-							showComponents();
-							clearInterval(loaderAnimate);
-							
-							if(e.code==401){
-								alert('Invalid username and password');
-							}else{
-								alert('Could not connect to server. Try again ');
-							}
-							
-							$.loginButton.enabled = true;
-						}
-					});
-				}
-			} else {
-                alert('Enter Ajency mail id');
-                $.loginButton.enabled = true;
-			}
-
-		}
-
-	} else {
-		alert("Username/Password are required");
-		$.loginButton.enabled = true;
-	}
-
-}
-
-/*
- * Auto Login function
- */
-
-var autoLogin = function  () {
-
-  if (localStorage.getSessionId() != null){
-  		showImageView();
-   		// start the setInverval -- adjust the time to make a smooth animation
-    	loaderAnimate = setInterval(loadingAnimation,200);
-		
-		hideComponents();
-		hideConnectionErrorView();
-    
-    
-        Cloud.sessionId = localStorage.getSessionId();
-        Cloud.Users.showMe(function (e) {
-                if (e.success) {
-                	var user = e.users[0];
-                    hideImageView();
-					clearInterval(loaderAnimate);
-					day = moment(user.custom_fields.credited_date_at);
-					updateCreditDate();
-                }else{
-                	hideImageView();
-					clearInterval(loaderAnimate);
-					alert('Could not connect to server.');
-					showComponents();
-					/*
-					if(e.code==400){
-					  alert('Failed to find current User');
-					  showComponents();
-					}else{
-						type='autoLogin';
-                		showConnectionErrorView();
-					}
-				    */
-                }
-                
-         });
- 	}	      
-};
-
-/*
- * Update the new credit date
- * after a month is over
- */
-var updateCreditDate = function() {
-
-	//	createdDateValue=new Date(day.add('months',1));
-	//	Ti.API.info('Date:::\n' + new Date(day.add('months',1)));
-	createdDateValue = day.add('months', 1);
-
-	Ti.API.info('Created Date:::\n' + moment(createdDateValue).format());
-
-	Ti.API.info('Minutes remaining:::\n' + moment().diff(createdDateValue, 'minutes'));
-
-	if (moment().diff(createdDateValue, 'minutes') > 0) {
-		Cloud.Users.update({
-			custom_fields : {
-				credited_date_at : moment(createdDateValue).format()
-			}
-		}, function(e) {
-			if (e.success) {
-				var user = e.users[0];
-				updateCreditAmount();
-			//	alert('Success:\n' + 'id: ' + user.id + '\n' + 'credited date: ' + user.credited_date_at);
-
-			} else {
-				hideImageView();
-				clearInterval(loaderAnimate);
-				type='updateCreditDate';
-                showConnectionErrorView();
-                console.log('UPDATE CREDIT DATE');
-			//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
-			}
-
-		});
-	}
-	else{
-		//if application is deleted from device load the products
-		if (! localStorage.getAllProducts() && !pushNotificationReceived) {
-			subscribeToChannel();
-
-		} else {
-			var main = Alloy.createController('menu', {}).getView().open();
-			hideImageView();
-			clearInterval(loaderAnimate);
+			rightGrid = getGrid(1, feeds[i]);
+			outerRow.add(rightGrid);
+			
+			$.categoryView.add(outerRow);
+			
+			outerRow = null;
 		}
 		
+		leftGrid = rightGrid = null;
 	}
-
+	
+	$.categoryView.add(bottomView());
 };
 
-/*
- * make entry of credited amount in transaction
- */
-var updateCreditAmount = function() {
 
-    
-	Cloud.Objects.create({
+//fetch all the transactions
+var fetchAllTransactions = function(e) {
+	
+   var loaderAnimate;
+	showImageView();
+	// start the setInverval -- adjust the time to make a smooth animation
+	loaderAnimate = setInterval(loadingAnimation, 250);
+	hideConnectionErrorView();
+	
+	Cloud.Objects.query({
 		classname : 'testItems',
-		fields : {
-			productName : 'Credit',
-			productPrice : +500,
-			productId : 1010,
+		limit : 1000,
+
+		where : {
 			userId : localStorage.getUserId()
 		}
 	}, function(e) {
-		if (e.success) {
-			console.log('Amount credited in index');
-			var testItem = e.testItems[0];
-			//if application is deleted from device load the products
-			if (! localStorage.getAllProducts()) {
-				
-				subscribeToChannel();
-				
 
-			} else {
-				var main = Alloy.createController('menu', {}).getView().open();
-				hideImageView();
-				clearInterval(loaderAnimate);
+		if (e.success) {
+			
+            hideImageView();
+			clearInterval(loaderAnimate);
+			for (var i = 0, len = e.testItems.length; i < len; i++) {
+				if (i == 0) {
+					 localStorage.saveLatestTransaction(e.testItems[i].created_at);
+				}
 			}
 			
+            localStorage.setAllTransactions(e.testItems);
+		//	Ti.App.Properties.setList('allTransactionResponse', e.testItems);
+			getSum(localStorage.getAllTransactions());
+			
+            initCategories(feedsForCategories);
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);
-			type='updateCreditAmount';
-            showConnectionErrorView();
-            console.log('UPDATE CREDIT AMOUNT');
+			showConnectionErrorView();
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 		}
 	});
 };
 
-/*
- * Subscribe the device to a channel for
- * push notification
- */
-function subscribeToChannel() {
+//Get the data with json format, this will include categoriesJson
+Ti.include("/data/categoriesData.js");
+
+var categoriesJson = categoriesJsonTuckShop;
+
+var feedsForCategories = eval('(' + categoriesJson + ')');
+
+function getSum(data){
 	
+	var sum = 0;
 	
-	// Subscribes the device to the 'news_alerts' channel
-	// Specify the push type as either 'android' for Android or 'ios' for iOS
-	Cloud.PushNotifications.subscribeToken({
-		device_token : deviceToken,
-		channel : 'test',
-		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
-	}, function(e) {
-		if (e.success) {
-			fetchProductsJs.fetchCloudProducts('menu');
-		} else {
-			hideImageView();
-			clearInterval(loaderAnimate);
-			type='subscribeToChannel';
-            showConnectionErrorView();
-            console.log('SUBSCRIBE CHANNEL');
-		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
-		}
+	_.each(data, function(item){
+		
+		sum += item.productPrice;
 	});
-}
-
-/*
- * validation for email address
- */
-
-function checkemail(emailAddress) {
-	var str = emailAddress;
-	var filter = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	
-	if (filter.test(str)) {
-		testresults = true;
-	} else {
-		testresults = false;
-	}
-	return (testresults);
-};
-
-/*
-if (localStorage.getSessionId() != null){
-	
-	if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) 
-		alert('No Internet Connection');
-	else{
-		autoLogin();
-	}
-	
-} 
-*/  
-autoLogin();
-
-Ti.App.addEventListener('pushNotificationRegisterError',function(e){
-	
-	type='pushRegisterError';
-	showConnectionErrorView();
-     hideComponents();
-    
-});
-
-function deviceTokenSuccess(e) {
-	deviceToken = e.deviceToken;
-	hideImageView();
-	clearInterval(loaderAnimate);
-	showComponents();
-	localStorage.saveDeviceToken(e.deviceToken);
-}
-
-function deviceTokenError(e) {
-	alert('Failed to register for push notifications! ');
-	Ti.App.fireEvent('pushNotificationRegisterError');
+	Ti.App.fireEvent('Calculate',{value:sum});
 	
 }
 
-if (OS_IOS)
-$.win1.open();
 
-else 
-$.index.open();
+// Ti.App.fireEvent('Display',{displayValue:localStorage.getDisplayName()});
 
+// if (!localStorage.getAllTransactions())
+	// fetchAllTransactions();
+// 
+// else{
+// //	getSum(localStorage.getAllTransactions());
+	// initCategories(feedsForCategories);
+// }
+ initCategories(feedsForCategories);
