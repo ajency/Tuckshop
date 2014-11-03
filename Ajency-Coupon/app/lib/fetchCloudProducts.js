@@ -89,7 +89,8 @@ var fetchCloudProducts = function(controllername) {
 //filter transactions based on product ids
 var transactionsOnProductIds = function(controllername) {
 	
-    if(localStorage.getAllProducts().length>0){
+	allProductIdsArray = [];
+    if(localStorage.getAllProducts()){
     	
     	  for (var i=0;len=localStorage.getAllProducts().length, i < len; i++) {
 		
@@ -121,6 +122,7 @@ var transactionsOnProductIds = function(controllername) {
 				Ti.App.fireEvent('errorOnRegister',{name:'transactionsOnProductIds'});			
 			
 			}else if (controllername === 'leftMenu') {
+				console.log('In left menu');
 				Ti.App.fireEvent('errorOnFetch',{name:'transactionsOnProductIds'});	
 						
 			}else if (controllername === 'alloy') {

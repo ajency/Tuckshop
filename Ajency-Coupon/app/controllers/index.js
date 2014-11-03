@@ -306,7 +306,9 @@ var autoLogin = function  () {
                 }else{
                 	hideImageView();
 					clearInterval(loaderAnimate);
-					
+					alert('Could not connect to server.');
+					showComponents();
+					/*
 					if(e.code==400){
 					  alert('Failed to find current User');
 					  showComponents();
@@ -314,7 +316,7 @@ var autoLogin = function  () {
 						type='autoLogin';
                 		showConnectionErrorView();
 					}
-				
+				    */
                 }
                 
          });
