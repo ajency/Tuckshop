@@ -3,7 +3,9 @@ var myAnimation = require('animation');
 var __ = require("platformSupport");
 var args = arguments[0] || {};
 
-
+var type;
+var loaderAnimate;
+ 
 //for local storage
 var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
@@ -53,8 +55,17 @@ var showConnectionErrorView = function () {
 $.homeErrorLabel.addEventListener('click',function(e){
     	if (networkCheck.getNetworkStatus()==0) 
 			alert('No Internet Connection');
-		else
-   			fetchAllTransactions();	
+		else{
+			// fetchAllTransactions();	
+			showImageView();
+			loaderAnimate = setInterval(loadingAnimation, 250);
+			if(type ==='fetchCloudProducts') //fails on fetch products
+    			fetchProductsJs.fetchCloudProducts('home');
+    	
+    		else if(type ==='transactionsOnProductIds')
+				fetchProductsJs.transactionsOnProductIds('home');
+		}
+   			
     	
 });
 
@@ -295,11 +306,49 @@ function getSum(data){
 
 Ti.App.fireEvent('Display',{displayValue:localStorage.getDisplayName()});
 
-if (!localStorage.getAllTransactions())
-	fetchAllTransactions();
+Ti.App.addEventListener('errorOnHome', function(data) {
+	hideImageView();
+	showConnectionErrorView();
+	type = data.name;
+});
 
-else{
-	getSum(localStorage.getAllTransactions());
-	initCategories(feedsForCategories);
+Ti.App.addEventListener('successOnHome', function(data) {
+	 hideImageView();
+	 initCategories(feedsForCategories);
+});
+
+var db = Ti.Database.install('/usersDB.sqlite', 'usersDB');
+var db = Ti.Database.open('usersDB');
+
+var noOfUsers = db.execute('SELECT COUNT(user_id) FROM users');
+
+if(noOfUsers == 0 ||1){
+	fetchproducts();
 }
+else
+	fetchproducts();
+function fetchProducts(){
+	if (! localStorage.getAllProducts()){
+  
+		showImageView();
+		loaderAnimate = setInterval(loadingAnimation, 250);
+		// hideConnectionErrorView();
+		
+   		var fetchProductsJs = require('/fetchCloudProducts');
+   		fetchProductsJs.fetchCloudProducts('home');
+   
+	}
+	else
+	initCategories(feedsForCategories);
+	
+}
+
+
+// if (!localStorage.getAllTransactions())
+	// fetchAllTransactions();
+// 
+// else{
+	// getSum(localStorage.getAllTransactions());
+	// initCategories(feedsForCategories);
+// }
  

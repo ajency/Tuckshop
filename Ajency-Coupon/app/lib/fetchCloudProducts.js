@@ -75,6 +75,8 @@ var fetchCloudProducts = function(controllername) {
 			
 			}else if (controllername === 'leftMenu') {
 				Ti.App.fireEvent('errorOnFetch',{name:'fetchCloudProducts'});			
+			}else if (controllername === 'home') {
+				Ti.App.fireEvent('errorOnHome',{name:'fetchCloudProducts'});				
 			}else if (controllername === 'alloy') {
 				alert('Failed to fetch new Products! Please Click Refresh');			
 			}
@@ -124,6 +126,9 @@ var transactionsOnProductIds = function(controllername) {
 			}else if (controllername === 'leftMenu') {
 				console.log('In left menu');
 				Ti.App.fireEvent('errorOnFetch',{name:'transactionsOnProductIds'});	
+						
+			}else if (controllername === 'home') {
+				Ti.App.fireEvent('errorOnHome',{name:'transactionsOnProductIds'});	
 						
 			}else if (controllername === 'alloy') {
 				alert('Failed to fetch new Products! Please Click Refresh');			
@@ -195,6 +200,8 @@ var navigateControllers= function(controllername){
 				index.open();			
 			}else if (controllername === 'leftMenu') {
 				Ti.App.fireEvent('successOnFetch');			
+			}else if (controllername === 'home') {
+				Ti.App.fireEvent('successOnHome');			
 			}
 };
 

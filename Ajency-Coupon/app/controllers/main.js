@@ -155,4 +155,3 @@ Ti.App.addEventListener("app:addViewToMidContainer", function(e) {
 //Default view
 init('Home');
 
-

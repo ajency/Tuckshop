@@ -1,5 +1,5 @@
 <Alloy>
-	<Window class="container">
+	<Window id="startWindow" class="container">
 		<View class="ver">
 			
 			<View id="headerView" class="top0 w-fill" height="9%">

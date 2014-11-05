@@ -144,9 +144,6 @@ var populateProducts = function(jsonData) {
 	 
 };
 
-if (! localStorage.getAllProducts())
-    console.log('No products');
-else
 populateProducts(allProducts);
 
 if (OS_IOS)
