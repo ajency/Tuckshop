@@ -10,6 +10,7 @@ var loaderAnimate;
 var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
 
+
 pushNotificationReceived = false;
 // set the length of the images you have in your sequence
 var loaderArrayLength = 4;
@@ -317,38 +318,50 @@ Ti.App.addEventListener('successOnHome', function(data) {
 	 initCategories(feedsForCategories);
 });
 
-var db = Ti.Database.install('/usersDB.sqlite', 'usersDB');
-var db = Ti.Database.open('usersDB');
 
-var noOfUsers = db.execute('SELECT COUNT(user_id) FROM users');
+if (!localStorage.getAllTransactions())
+	fetchAllTransactions();
 
-if(noOfUsers == 0 ||1){
-	fetchproducts();
-}
-else
-	fetchproducts();
-function fetchProducts(){
-	if (! localStorage.getAllProducts()){
-  
-		showImageView();
-		loaderAnimate = setInterval(loadingAnimation, 250);
-		// hideConnectionErrorView();
-		
-   		var fetchProductsJs = require('/fetchCloudProducts');
-   		fetchProductsJs.fetchCloudProducts('home');
-   
-	}
-	else
+else{
+	getSum(localStorage.getAllTransactions());
 	initCategories(feedsForCategories);
-	
 }
 
-
-// if (!localStorage.getAllTransactions())
-	// fetchAllTransactions();
-// 
-// else{
-	// getSum(localStorage.getAllTransactions());
-	// initCategories(feedsForCategories);
-// }
- 
+if (localStorage.getLastLoggedInUserId() != null){
+  		console.log('User status');
+  		console.log(dbOperations.getLoginStatus(db,localStorage.getLastLoggedInUserId()));
+  		var loginStatus = dbOperations.getLoginStatus(db,localStorage.getLastLoggedInUserId());
+  		
+  		if(loginStatus){   //user online
+  			
+  		}
+  		else{
+  			
+  			
+  		}
+        // Cloud.sessionId = localStorage.getSessionId();
+        // Cloud.Users.showMe(function (e) {
+                // if (e.success) {
+                	// var user = e.users[0];
+                    // hideImageView();
+					// clearInterval(loaderAnimate);
+					// day = moment(user.custom_fields.credited_date_at);
+					// updateCreditDate();
+                // }else{
+                	// hideImageView();
+					// clearInterval(loaderAnimate);
+					// alert('Could not connect to server.');
+					// showComponents();
+					// /*
+					// if(e.code==400){
+					  // alert('Failed to find current User');
+					  // showComponents();
+					// }else{
+						// type='autoLogin';
+                		// showConnectionErrorView();
+					// }
+				    // */
+                // }
+//                 
+         // });
+}	 

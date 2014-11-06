@@ -1,26 +1,31 @@
-"Window" :{
-	backgroundColor:"#FFFFFF",
-	navBarHidden : true
+".container" :{
+	backgroundImage:'/background.jpg'
 },
 
-"#drawer" :{
-	navBarHidden : true,
-	fading: 0.2,
-    parallaxAmount: 0.2,
-    leftDrawerWidth: "280dp",
-    orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+"TextField" :{
+	backgroundColor : '#FFF',
+	color : '#222',
+    borderWidth : 1,
+    borderColor: '#F0C60A',
+	height: "11%",
+	borderStyle : Ti.UI.INPUT_BORDERSTYLE_BEZEL
 },
 
-"#drawer[platform=android]" :{
-	shadowWidth:"7dp",
-	openDrawerGestureMode: "OPEN_MODE_MARGIN",
-    closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
-    animationMode: "ANIMATION_ZOOM"
+"#loginButton" :{
+	title: "Login",
+	height: "11%",
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 20,
+		fontWeight : 'bold'
+	},
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 },
 
-"#drawer[platform=ios]" :{
-	shadowWidth:"2dp",
-	openDrawerGestureMode: "OPEN_MODE_ALL",
-    closeDrawerGestureMode: "CLOSE_MODE_ALL",
-    animationMode: "ANIMATION_NONE"
+"#registerButton" :{
+	backgroundColor : '#585858',
+	title: "New to Tuckshop? Sign up.",
+	height: "11%",
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 }
+

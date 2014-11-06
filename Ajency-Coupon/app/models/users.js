@@ -1,10 +1,14 @@
 exports.definition = {
 	config: {
-
+		columns: {
+		    "user_id": "int",
+		    "user_name": "varchar",
+		    "login_status": "boolean"
+		},
 		adapter: {
 			type: "sql",
-			db_file:"/usersDB.sqlite",
-			collection_name: "users"
+			collection_name: "users",
+			"idAttribute": "user_id"
 		}
 	},
 	extendModel: function(Model) {
@@ -17,6 +21,7 @@ exports.definition = {
 	extendCollection: function(Collection) {
 		_.extend(Collection.prototype, {
 			// extended functions and properties go here
+			
 		});
 
 		return Collection;

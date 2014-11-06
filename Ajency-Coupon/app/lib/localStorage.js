@@ -87,6 +87,14 @@ var getIfNotCredited = function(){
 	return Ti.App.Properties.getString('alreadyCredited');
 };
 
+var saveLastLoggedInUserId = function(data){
+	Ti.App.Properties.setString('lastLoggedInUserId',data.id);
+};
+
+var getLastLoggedInUserId = function(){
+	return Ti.App.Properties.getString('lastLoggedInUserId');
+};
+
 exports.setAllTransactions=setAllTransactions;
 exports.getAllTransactions=getAllTransactions;
 
@@ -120,3 +128,6 @@ exports.getIfAlreadyRegistered=getIfAlreadyRegistered;
 
 exports.setIfNotCredited=setIfNotCredited;
 exports.getIfNotCredited=getIfNotCredited;
+
+exports.saveLastLoggedInUserId=saveLastLoggedInUserId;
+exports.getLastLoggedInUserId=getLastLoggedInUserId;
