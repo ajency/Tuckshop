@@ -270,10 +270,14 @@ var fetchAllTransactions = function(e) {
 				}
 			}
 			
-            localStorage.setAllTransactions(e.testItems);
-		//	Ti.App.Properties.setList('allTransactionResponse', e.testItems);
-			getSum(localStorage.getAllTransactions());
+            // localStorage.setAllTransactions(e.testItems);
+			// getSum(localStorage.getAllTransactions());
 			
+			dbOperations.saveTransactionRows(e.testItems);
+			getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
+			
+			var totalTxn = dbOperations.getTxnCount();
+			Ti.API.info('Row count for transactions: '+totalTxn);
             initCategories(feedsForCategories);
 		} else {
 			hideImageView();
@@ -294,7 +298,8 @@ var feedsForCategories = eval('(' + categoriesJson + ')');
 function getSum(data){
 	
 	var sum = 0;
-	
+	console.log('The Sum');
+	console.log(data);
 	_.each(data, function(item){
 		
 		sum += item.productPrice;
@@ -307,61 +312,14 @@ function getSum(data){
 
 Ti.App.fireEvent('Display',{displayValue:localStorage.getDisplayName()});
 
-Ti.App.addEventListener('errorOnHome', function(data) {
-	hideImageView();
-	showConnectionErrorView();
-	type = data.name;
-});
+console.log('whether transactions present');
+console.log(dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()));
 
-Ti.App.addEventListener('successOnHome', function(data) {
-	 hideImageView();
-	 initCategories(feedsForCategories);
-});
-
-
-if (!localStorage.getAllTransactions())
+if (!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()))
 	fetchAllTransactions();
 
 else{
-	getSum(localStorage.getAllTransactions());
+	getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
 	initCategories(feedsForCategories);
 }
 
-if (localStorage.getLastLoggedInUserId() != null){
-  		console.log('User status');
-  		console.log(dbOperations.getLoginStatus(db,localStorage.getLastLoggedInUserId()));
-  		var loginStatus = dbOperations.getLoginStatus(db,localStorage.getLastLoggedInUserId());
-  		
-  		if(loginStatus){   //user online
-  			
-  		}
-  		else{
-  			
-  			
-  		}
-        // Cloud.sessionId = localStorage.getSessionId();
-        // Cloud.Users.showMe(function (e) {
-                // if (e.success) {
-                	// var user = e.users[0];
-                    // hideImageView();
-					// clearInterval(loaderAnimate);
-					// day = moment(user.custom_fields.credited_date_at);
-					// updateCreditDate();
-                // }else{
-                	// hideImageView();
-					// clearInterval(loaderAnimate);
-					// alert('Could not connect to server.');
-					// showComponents();
-					// /*
-					// if(e.code==400){
-					  // alert('Failed to find current User');
-					  // showComponents();
-					// }else{
-						// type='autoLogin';
-                		// showConnectionErrorView();
-					// }
-				    // */
-                // }
-//                 
-         // });
-}	 

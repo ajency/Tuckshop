@@ -41,36 +41,48 @@ var hideImageView= function (argument) {
 	$.animateObject.width=0;
 };
 
-var labelText = ['Home', 'Transaction History', 'Logout'];
+function populateLeftMenu(){
+	data = [];
+	var labelText= null;
 
-for(var i=0; len = _.size(labelText), i<len; i++){
+	var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
 	
-	row = Ti.UI.createTableViewRow({
-		id: labelText[i],
-		height: 40,
-		focusable: true,
-		backgroundSelectedColor: 'transparent'
-	});
+	if(loginStatus=== 'true')   //user online
+	 	labelText = ['Home', 'Transaction History', 'Logout'];
+	else
+		labelText = ['Home', 'Transaction History'];
+		
+	for(var i=0; len = _.size(labelText), i<len; i++){
 	
-	label = Ti.UI.createLabel({
-		touchEnabled: false,
-		left: '10%',
-	    text: labelText[i],
-	    textAlign: 'left',
-	    color: '#3B0B0B',
-	    font:{
+		row = Ti.UI.createTableViewRow({
+			id: labelText[i],
+			height: 40,
+			focusable: true,
+			backgroundSelectedColor: 'transparent'
+		});
+	
+		label = Ti.UI.createLabel({
+			touchEnabled: false,
+			left: '10%',
+	    	text: labelText[i],
+	    	textAlign: 'left',
+	    	color: '#3B0B0B',
+	    	font:{
 	    	fontFamily: "OpenSans-Regular",
 	    	fontSize: 15
-	    }
-	});
+	   	 }
+		});
 	    
-	row.add(label);
-	data.push(row);
-	
-	row = label = null;
+		row.add(label);
+		data.push(row);
+		
+		row = label = null;
+	}
+
+	$.menuTable.data = data;
 }
 
-$.menuTable.data = data;
+populateLeftMenu();
 
 if (OS_IOS)
 $.menuTable.setSeparatorInsets({
@@ -185,9 +197,16 @@ function userLogout(){
     		hideImageView();
 			clearInterval(loaderAnimate);
 			Ti.App.Properties.removeProperty('sessionID');
-			Ti.App.Properties.removeProperty('allTransactionResponse');
-		
-        	var index = Alloy.createController('index').getView().open();
+			Ti.App.fireEvent('menu:toggleLeftMenu');
+			$.menuTable.visible=true;
+			$.leftMenuRefreshLabel.visible=true;
+			
+			dbOperations.updateSessionId(localStorage.getLastLoggedInUserId());
+			dbOperations.offlineLoginStatus(localStorage.getLastLoggedInUserId());
+			
+			alloy.Globals.autoLogin = false;
+			populateLeftMenu();
+			
    		 } else {
    		 	   hideImageView();
 			   clearInterval(loaderAnimate);

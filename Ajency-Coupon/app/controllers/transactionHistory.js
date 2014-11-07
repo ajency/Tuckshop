@@ -515,12 +515,13 @@ function clearSelectedTabs() {
 //Sort transactions based on week, month
 var sortTransactions = function(period) {
     
-    if( ! localStorage.getAllTransactions())
+    if(!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()))
     alert('No records to fetch');
     
     else{
     	
-    allItems = localStorage.getAllTransactions();
+  //  allItems = localStorage.getAllTransactions();
+    allItems = dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId());
     
     if(transactionScroll != null ){
     	$.mainView.remove(transactionScroll);

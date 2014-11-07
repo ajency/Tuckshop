@@ -109,5 +109,6 @@ function receivePush(e) {
 //Navigation track (Default - Home)
 Alloy.Globals.navigatedView = 'Home';
 var dbOperations=require('/dbOperations');
-db = dbOperations.createDB();
-var autoLogin = null;                   
+dbOperations.createDB();
+
+Alloy.Globals.autoLogin=false;                   

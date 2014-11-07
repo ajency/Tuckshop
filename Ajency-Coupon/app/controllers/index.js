@@ -1,3 +1,4 @@
+var alloy = require('alloy');
 var __ = require('platformSupport');
 var myAnimation = require('animation');
 
@@ -18,8 +19,6 @@ var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
 var fetchProductsJs = require('/fetchCloudProducts');
 
-
-dbOperations.createTable(db);
 
 // var db = Ti.Database.install('DB1', 'tuckshop');
 
@@ -228,9 +227,14 @@ function loginClicked(e) {
 							var user = e.users[0];
 							//	subscribeToChannel();
 							
-							autoLogin = true;
+							alloy.Globals.autoLogin = true;
 							
-							dbOperations.insertRow(db,user.id,$.usernameTextfield.value,true);
+							if(dbOperations.checkIfRowExists(user.id))
+							  	dbOperations.onlineLoginStatus(user.id);
+							
+							else
+								dbOperations.insertRow(user.id,$.usernameTextfield.value,true,e.meta.session_id);
+							
 							// db.execute('INSERT INTO users (user_id, user_name, login_status) VALUES (?, ?, ?)', user, $.usernameTextfield.value, true);
 							
                             localStorage.saveUserId(user);
@@ -469,24 +473,14 @@ function checkemail(emailAddress) {
 	return (testresults);
 };
 
-/*
-if (localStorage.getSessionId() != null){
-	
-	if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) 
-		alert('No Internet Connection');
-	else{
-		autoLogin();
-	}
-	
-} 
-*/  
+
 //autoLogin();
 
-var result = dbOperations.ifTableExists(db);
+var result = dbOperations.ifTableExists();
 var rows;
 if(result.isValidRow()) {
-    rows = dbOperations.getCount(db);
-    var totalUsers = rows.fieldByName('totalUsers');
+   
+    var totalUsers = dbOperations.getCount();
 	Ti.API.info('Row count: '+totalUsers);
 	switch(totalUsers){
 	
@@ -500,6 +494,11 @@ if(result.isValidRow()) {
 	case 1:
 			var main = Alloy.createController('menu', {}).getView().open();
 			break;		
+			
+	default :
+					var multiView = Alloy.createController('multiUser', {}).getView().open();
+					break;
+	 		
 	}
  }
 

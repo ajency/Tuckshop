@@ -1,3 +1,4 @@
+var alloy = require('alloy');
 var args = arguments[0] || {};
 //{"categoryId":"111"}
 
@@ -247,6 +248,59 @@ var makeTransactionEntry = function(productid,eSwipe) {
 	});
 };
 
+var checkIfLoggedIn = function  (productid,eSwipe) {
+
+  if (dbOperations.getSessionId(localStorage.getLastLoggedInUserId()) != null){
+  		$.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
+  		
+        Cloud.sessionId = localStorage.getSessionId();
+        Cloud.Users.showMe(function (e) {
+        	
+                if (e.success) {
+                	makeTransactionEntry(productid,eSwipe);
+                }else{
+                	var toast = Ti.UI.createNotification({
+    					message:"Auto Login failed. Please Login again",
+    					duration: Ti.UI.NOTIFICATION_DURATION_LONG
+					});
+					toast.show();
+                	var main = Alloy.createController('index', {}).getView().open();
+					
+                }
+                
+         });
+   }
+   else
+ 		var main = Alloy.createController('index', {}).getView().open();	      
+};
+
+function buyActionPerformed(productid,eSwipe){
+	
+	var totalUsers = dbOperations.getCount();
+	Ti.API.info('Row count: '+totalUsers);
+	switch(totalUsers){
+	
+	case 1:
+			var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
+			
+			if(loginStatus === 'true') {   //user is online
+				
+				if(!alloy.Globals.autoLogin ){   // app is closed
+					checkIfLoggedIn(productid,eSwipe);
+				}
+				else{
+					 makeTransactionEntry(productid,eSwipe);
+				 	$.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
+				}
+			}
+			else
+				var main = Alloy.createController('index', {}).getView().open();
+				
+			break;
+					
+	}
+	
+};
 /*
 var buyProduct = function(productid,eSwipe){
 	
@@ -538,9 +592,10 @@ function getSwipeRow(eSwipe) {
 		//check for network when buying an item
 		if (networkCheck.getNetworkStatus()==0)  alert('No Internet Connection');
 		else {
+			buyActionPerformed(eSwipe.rowData.id,eSwipe);
+			
 		// buyProduct(eSwipe.rowData.id,eSwipe);
-		 makeTransactionEntry(eSwipe.rowData.id,eSwipe);
-		 $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
+		
 		}
 	});
 
