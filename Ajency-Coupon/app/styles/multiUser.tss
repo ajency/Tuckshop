@@ -1,3 +1,11 @@
 ".container" :{
 	backgroundImage:'/background.jpg'
 },
+
+"Label" :{
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 22,
+		fontWeight : 'bold'
+	}
+}

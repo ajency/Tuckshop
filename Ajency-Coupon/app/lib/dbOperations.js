@@ -11,7 +11,7 @@ var createDB = function(){
  	
 };
 
-var getDB = function(){
+var getDB = function() {
 	
 	var db = Ti.Database.open('TuckshopDatabase');
 	return db;
@@ -84,6 +84,34 @@ var getSessionId = function  (id) {
 var updateSessionId = function (id){
 	var db = getDB();
 	db.execute('UPDATE users SET session_id=? WHERE user_id=?','',id);
+	db.close();	
+};
+
+var getUsersInfo = function(){
+ 	
+ 	var data = [];
+ 	
+ 	var db = getDB();
+ 	var rows = db.execute('SELECT * FROM users');
+ 	
+  	while (rows.isValidRow()){
+	
+		  data.push({
+		  		id: rows.fieldByName('user_id'),
+		  		username: rows.fieldByName('user_name')
+		  });
+	
+	  rows.next();
+	}
+	rows.close();
+	db.close();
+	
+	return  data;
+};
+
+var deleteUser = function (userid){
+	var db = getDB();
+	db.execute('DELETE FROM users WHERE user_id=?',userid);
 	db.close();	
 };
 
@@ -169,6 +197,9 @@ exports.offlineLoginStatus = offlineLoginStatus;
 
 exports.getSessionId = getSessionId;
 exports.updateSessionId = updateSessionId;
+
+exports.getUsersInfo = getUsersInfo;
+exports.deleteUser = deleteUser;
 
 //transaction related
 

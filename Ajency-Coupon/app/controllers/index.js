@@ -1,3 +1,5 @@
+var args = arguments[0] || {};
+
 var alloy = require('alloy');
 var __ = require('platformSupport');
 var myAnimation = require('animation');
@@ -181,7 +183,10 @@ function openRegister(e) {
 /*
  *Textfield to retrieve the last value
  */
-if ( localStorage.getUserName()) {
+if(args != null){
+	$.usernameTextfield.value = args.title;
+}
+else if( localStorage.getUserName()) {
 	$.usernameTextfield.value = localStorage.getUserName();
 };
 

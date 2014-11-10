@@ -78,11 +78,12 @@ var populateProducts = function(jsonData) {
 	var row = view = imageView = productNameLabel = priceLabel = null;
    
 	for (var i = 0; len = _.size(jsonData), i < len; i++) {
+		
 		row = Ti.UI.createTableViewRow({
 			id: jsonData[i].productId,
 			height : 70,
 			backgroundSelectedColor : 'transparent',
-		    backgroundColor : 'transparent'
+		    backgroundColor : 'white'
 		});
 
 		productNameLabel = Ti.UI.createLabel({
@@ -287,6 +288,9 @@ function buyActionPerformed(productid,eSwipe){
 			else
 				var main = Alloy.createController('index', {}).getView().open();
 				
+			break;
+	default :
+			var multiView = Alloy.createController('multiUser', {}).getView().open();
 			break;
 					
 	}

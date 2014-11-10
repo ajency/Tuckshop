@@ -1,5 +1,17 @@
 <Alloy>
 	<Window class="container">
-		<Label>MULTI USER</Label>
+		<View class="ver top0" height="80%">
+			<View class="ver w-fill h-size top1">
+				<ImageView class="ts-logo"/>
+				
+				<Label text="Choose an account" class="w-fill ts-brown text-center" top="5.5%"/>
+				<TableView class="span14" id="usersTable"></TableView>	
+				
+			</View>
+		</View>
+		
+		<View class="hor bottom0 w-fill" height="20%">
+			<ImageView image="/images/footer.png" class="w-fill h-fill"/> 
+		</View>
 	</Window>
 </Alloy>
