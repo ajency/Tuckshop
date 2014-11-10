@@ -633,7 +633,7 @@ var fetchDeltaTransaction = function(currentTab) {
 		limit : 1000,
 
 		where : { "$and": [ {userId : localStorage.getUserId()},
-		{ created_at : {"$gt" : localStorage.getLatestTransaction() } }
+		{ created_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
 		
 		]}
 		
@@ -646,20 +646,8 @@ var fetchDeltaTransaction = function(currentTab) {
     		
            //If new items are fetched
 			if (e.testItems.length > 0) {
-				
-				//update the latest transaction date
-				for (var i = 0, len = e.testItems.length; i < len; i++) {
-				if (i == 0) {
-					localStorage.saveLatestTransaction(e.testItems[i].created_at);
-				  }
-			    }
-				deltaArray = localStorage.getAllTransactions();
 			
-			    var finalArray = e.testItems.concat(deltaArray);
-				
-                Ti.App.Properties.removeProperty('allTransactionResponse');
-                
-                localStorage.setAllTransactions(finalArray);
+                dbOperations.saveTransactionRows(e.testItems);
 				//week is loaded first
 		    	sortTransactions(currentTab);
 				
@@ -669,7 +657,7 @@ var fetchDeltaTransaction = function(currentTab) {
 			hideImageView();
     		clearInterval(loaderAnimate);
     		*/
-			getSum(localStorage.getAllTransactions());	
+			getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
 			
 			connectionErrorViewPresent = false;
 		
@@ -695,7 +683,7 @@ function getSum(data){
 	
 	_.each(data, function(item){
 		
-		sum += item.productPrice;
+		sum += parseInt(item.productPrice) ;
 	});
 	
 	Ti.App.fireEvent('Calculate',{value:sum});

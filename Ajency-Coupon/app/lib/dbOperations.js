@@ -101,6 +101,7 @@ var getTxnCount = function (){
 
 var saveTransactionRows = function  (data) {
    var db = getDB();
+   data.reverse();
    for (var i = 0, len = data.length; i < len; i++) {
    	
 	db.execute('INSERT INTO transactions (user_id, created_at, productName, productPrice, productId, quantity ) VALUES (?, ?, ?, ?, ?, ?)'
@@ -142,8 +143,18 @@ var getAllTransactionRows = function (userid) {
 	rows.close();
 	db.close();
 	
-	return data;
+	return data.reverse();
   
+};
+
+var getLatestTransactionDate = function (userid){
+	
+	var db = getDB();
+	var row = db.execute('SELECT * FROM transactions WHERE user_id =? ORDER BY created_at DESC LIMIT 1',userid);
+	db.close();
+	console.log('latest txn date');
+	console.log(row.fieldByName('created_at'));
+	return row.fieldByName('created_at');
 };
 
 exports.createDB = createDB;
@@ -165,3 +176,4 @@ exports.getTxnCount = getTxnCount;
 exports.saveTransactionRows = saveTransactionRows;
 exports.checkTransactionsPresentForUser = checkTransactionsPresentForUser;
 exports.getAllTransactionRows = getAllTransactionRows;
+exports.getLatestTransactionDate = getLatestTransactionDate;

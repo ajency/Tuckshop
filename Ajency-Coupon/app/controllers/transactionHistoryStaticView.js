@@ -26,7 +26,7 @@ function getSum(data){
 	
 	_.each(data, function(item){
 		
-		sum += item.productPrice;
+		sum += parseInt(item.productPrice) ;
 	});
 	
 	return sum;

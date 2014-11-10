@@ -494,8 +494,8 @@ if(result.isValidRow()) {
 	case 1:
 			var main = Alloy.createController('menu', {}).getView().open();
 			break;		
-			
-	default :
+	
+	default:		
 					var multiView = Alloy.createController('multiUser', {}).getView().open();
 					break;
 	 		

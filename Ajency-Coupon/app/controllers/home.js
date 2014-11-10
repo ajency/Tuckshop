@@ -264,20 +264,10 @@ var fetchAllTransactions = function(e) {
 			
             hideImageView();
 			clearInterval(loaderAnimate);
-			for (var i = 0, len = e.testItems.length; i < len; i++) {
-				if (i == 0) {
-					 localStorage.saveLatestTransaction(e.testItems[i].created_at);
-				}
-			}
-			
-            // localStorage.setAllTransactions(e.testItems);
-			// getSum(localStorage.getAllTransactions());
 			
 			dbOperations.saveTransactionRows(e.testItems);
 			getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
-			
-			var totalTxn = dbOperations.getTxnCount();
-			Ti.API.info('Row count for transactions: '+totalTxn);
+		
             initCategories(feedsForCategories);
 		} else {
 			hideImageView();
@@ -298,11 +288,10 @@ var feedsForCategories = eval('(' + categoriesJson + ')');
 function getSum(data){
 	
 	var sum = 0;
-	console.log('The Sum');
-	console.log(data);
+	
 	_.each(data, function(item){
 		
-		sum += item.productPrice;
+		sum += parseInt(item.productPrice) ;
 	});
 	
 	Ti.App.fireEvent('Calculate',{value:sum});
@@ -311,9 +300,6 @@ function getSum(data){
 
 
 Ti.App.fireEvent('Display',{displayValue:localStorage.getDisplayName()});
-
-console.log('whether transactions present');
-console.log(dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()));
 
 if (!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()))
 	fetchAllTransactions();
