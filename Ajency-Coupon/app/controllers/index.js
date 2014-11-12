@@ -12,6 +12,7 @@ var instanceOfListener;
 var instanceOfFireListener;
 var type;
 
+var backHandled = false;
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
 }
@@ -185,6 +186,7 @@ function openRegister(e) {
  */
 if(args != null){
 	$.usernameTextfield.value = args.title;
+	backHandled = true;
 }
 else if( localStorage.getUserName()) {
 	$.usernameTextfield.value = localStorage.getUserName();
@@ -240,14 +242,13 @@ function loginClicked(e) {
 							else
 								dbOperations.insertRow(user.id,$.usernameTextfield.value,true,e.meta.session_id);
 							
-							// db.execute('INSERT INTO users (user_id, user_name, login_status) VALUES (?, ?, ?)', user, $.usernameTextfield.value, true);
 							
                             localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);
                             localStorage.saveDisplayName(enteredEmailValue[0]);
                             localStorage.saveSessionId(e.meta.session_id);
 							localStorage.saveCreditedDate(user.custom_fields.credited_date_at);
-                            localStorage.saveLastLoggedInUserId(user);
+                            localStorage.saveLastLoggedInUserId(user.id);
                             
 							Ti.API.info('test credited date:::\n' + user.custom_fields.credited_date_at);
 							day = moment(user.custom_fields.credited_date_at);
@@ -497,11 +498,16 @@ if(result.isValidRow()) {
 				$.index.open();
 			break;
 	case 1:
+			
 			var main = Alloy.createController('menu', {}).getView().open();
 			break;		
 	
 	default:		
-					var multiView = Alloy.createController('multiUser', {}).getView().open();
+					if (OS_IOS)
+						$.win1.open();
+
+					else 
+						$.index.open();
 					break;
 	 		
 	}
@@ -531,5 +537,14 @@ function deviceTokenError(e) {
 	
 }
 
-
+//Back button navigation for android
+if(!OS_IOS){
+   	$.index.addEventListener('android:back', function(e){
+   		if(backHandled){
+   			backHandled = false;
+   			var multiView = Alloy.createController('multiUser', {}).getView().open();
+   		}
+   		
+   	});
+}
 

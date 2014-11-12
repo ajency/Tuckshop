@@ -270,9 +270,7 @@ function buyActionPerformed(productid,eSwipe){
 	
 	var totalUsers = dbOperations.getCount();
 	Ti.API.info('Row count: '+totalUsers);
-	switch(totalUsers){
 	
-	case 1:
 			var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
 			
 			if(loginStatus === 'true') {   //user is online
@@ -285,17 +283,18 @@ function buyActionPerformed(productid,eSwipe){
 				 	$.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 				}
 			}
-			else
-				var main = Alloy.createController('index', {}).getView().open();
+			else{
+			    if(totalUsers ===1)	
+			      var main = Alloy.createController('index', {}).getView().open();
+			      
+			    else if(totalUsers>1)
+			      var multiView = Alloy.createController('multiUser', {}).getView().open();
+			     
+			}
 				
-			break;
-	default :
-			var multiView = Alloy.createController('multiUser', {}).getView().open();
-			break;
-					
-	}
 	
 };
+
 /*
 var buyProduct = function(productid,eSwipe){
 	

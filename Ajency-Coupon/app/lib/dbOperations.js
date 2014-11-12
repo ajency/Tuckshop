@@ -115,6 +115,12 @@ var deleteUser = function (userid){
 	db.close();	
 };
 
+var logoutUsers = function(){
+	var db = getDB();
+	db.execute('UPDATE users SET login_status=?',false);
+	db.close();
+};
+
 
 //Transaction related
 
@@ -201,6 +207,7 @@ exports.updateSessionId = updateSessionId;
 exports.getUsersInfo = getUsersInfo;
 exports.deleteUser = deleteUser;
 
+exports.logoutUsers = logoutUsers;
 //transaction related
 
 exports.getTxnCount = getTxnCount;

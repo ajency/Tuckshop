@@ -87,8 +87,8 @@ var getIfNotCredited = function(){
 	return Ti.App.Properties.getString('alreadyCredited');
 };
 
-var saveLastLoggedInUserId = function(data){
-	Ti.App.Properties.setString('lastLoggedInUserId',data.id);
+var saveLastLoggedInUserId = function(id){
+	Ti.App.Properties.setString('lastLoggedInUserId',id);
 };
 
 var getLastLoggedInUserId = function(){

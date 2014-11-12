@@ -4,9 +4,11 @@
 			<View class="ver w-fill h-size top1">
 				<ImageView class="ts-logo"/>
 				
-				<Label text="Choose an account" class="w-fill ts-brown text-center" top="5.5%"/>
-				<TableView class="span14" id="usersTable"></TableView>	
-				
+				<Label text="Choose an account" class="w-fill ts-brown text-center" top="3.5%"/>
+				 <View height="49.5%" top="2%">
+				   <TableView class="span13" id="usersTable" height="Ti.UI.FILL" width="Ti.UI.FILL" ></TableView>	
+				 </View>
+				<Button id="newAccountButton" class="span14 ts-yellow f-s3" bottom="0"  onClick="newAccountClicked"></Button>
 			</View>
 		</View>
 		

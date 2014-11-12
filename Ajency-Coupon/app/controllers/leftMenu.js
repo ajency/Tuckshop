@@ -181,6 +181,7 @@ function refreshClick(){
 };
 
 function userLogout(){
+	
 	if (networkCheck.getNetworkStatus()==0) 
 		alert('No Internet Connection');
 	else{
@@ -197,7 +198,7 @@ function userLogout(){
     		hideImageView();
 			clearInterval(loaderAnimate);
 			Ti.App.Properties.removeProperty('sessionID');
-			Ti.App.fireEvent('menu:toggleLeftMenu');
+			
 			$.menuTable.visible=true;
 			$.leftMenuRefreshLabel.visible=true;
 			
@@ -205,7 +206,15 @@ function userLogout(){
 			dbOperations.offlineLoginStatus(localStorage.getLastLoggedInUserId());
 			
 			alloy.Globals.autoLogin = false;
-			populateLeftMenu();
+			
+			var totalUsers = dbOperations.getCount();
+			
+			if(totalUsers>1)
+				var multiView = Alloy.createController('multiUser', {}).getView().open();
+			else{
+				Ti.App.fireEvent('menu:toggleLeftMenu');
+				populateLeftMenu();
+			}
 			
    		 } else {
    		 	   hideImageView();

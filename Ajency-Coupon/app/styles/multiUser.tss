@@ -8,4 +8,15 @@
 		fontSize: 22,
 		fontWeight : 'bold'
 	}
-}
+},
+
+"#newAccountButton" :{
+	title: "Add new account",
+	height: "11%",
+	font : {
+		fontFamily: "OpenSans-Regular",
+		fontSize: 20,
+		fontWeight : 'bold'
+	},
+	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+},

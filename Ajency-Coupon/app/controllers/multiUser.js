@@ -1,23 +1,43 @@
 var args = arguments[0] || {};
 
-var  row = leftView = rightView = deleteUserView = nameLabel = null;
+//for local storage
+var localStorage=require('/localStorage');
+
+var  row = outerView = leftView = rightView = deleteUserView = expandImageView = nameLabel = null;
 var tableData = empty = [];
+
+//logout users
+dbOperations.logoutUsers();
 
 var userData = dbOperations.getUsersInfo();
 
+function newAccountClicked (e) {
+     var main = Alloy.createController('index', {}).getView().open();
+};
+
 function refreshTableData() {
-    	$.usersTable.data = empty;
-    	userData = [];
-    	tableData = [];
+	    
+    	userData = tableData = [];
+    	$.usersTable.data = [];
 		userData = dbOperations.getUsersInfo();
-		console.log('user data');
-		console.log(userData);
-	    populateUserList(userData);
+		
+		if(userData.length === 0)   // If all users are deleted from users list
+			var main = Alloy.createController('index', {}).getView().open();
+			
+		else{
+			if (userData.length ===1)  //if last logged in user is deleted, update the last logged in user id
+				localStorage.saveLastLoggedInUserId(userData[0].id);
+			   
+			   
+			 populateUserList(userData);   
+		}	
+	      
 }
 
 var populateUserList = function(data) {
 	
-	for (var i=0; i < data.length; i++) {
+	
+	for (var i=0; i < _.size(data); i++) {
 	  
 	  row = Ti.UI.createTableViewRow({
 			id: data[i].id,
@@ -29,66 +49,98 @@ var populateUserList = function(data) {
 	  outerView = Ti.UI.createView({
 			layout : 'horizontal',
 			left : 0,
-			top : 0.4,
-			bottom : 0.4,
+			top : 0.8,
+			bottom : 0.8,
 			width : Ti.UI.FILL,
-			backgroundColor : '#3B0B0B'
+			backgroundColor : '#3B0B0B',
+			opacity:0.8,
 	  });
 	  
 	  leftView = Ti.UI.createView({
-	  		id : data[i].id,
-			layout : 'horizontal',
-			left : 0,
-			height : Ti.UI.SIZE,
-			width : 25
+			layout : 'vertical',
+			top : '20%',
+			left: '2%',
+			height : '60%',
+			width : '10%'
 	  });
 	 
 	  deleteUserView = Ti.UI.createImageView({
-			image : '/images/icon_tick.png',
-			width : 20,
-			height : 20,
-			top : 15,
-			bottom : 15,
-			left : 2
+			image : '/images/delete_user.png',
+			width : Ti.UI.FILL,
+			height : Ti.UI.FILL,
+			id: i
 		});
 	
-	  rightView = Ti.UI.createView({
+	  outerRightView = Ti.UI.createView({
 	  	
 	  	    id : i,
 			layout : 'horizontal',
 			height : Ti.UI.FILL,
-			width : Ti.UI.FILL
+			width : '88%'
+	  });
+	  
+	  centerView = Ti.UI.createView({
+	  	
+	  	    id : i,
+			layout : 'vertical',
+			height : Ti.UI.FILL,
+			width : '90%'
 	  });
 	 
-	 enteredEmailValue = data[i].username.split('@');
 	 		
 	 nameLabel = Ti.UI.createLabel({
 			touchEnabled : false,
-			top : '10%',
+			top : '20%',
 			left : 20,
-			text : enteredEmailValue[0] ,
+			text : data[i].username ,
 			color : '#F0C60A',
 			font : {
 				fontFamily : "OpenSans-Regular",
 				fontSize : 20
 			}
 		});
-		
+	
+	 rightView = Ti.UI.createView({
+	  	
+			layout : 'vertical',
+			top : '20%',
+			height : '60%',
+			width : '10%'
+	  });
+	  
+	expandImageView = Ti.UI.createImageView({
+			image : '/images/expand-arrow.png',
+			left : '2%',
+			width : Ti.UI.FILL,
+			height : Ti.UI.FILL,
+			id: i,
+			right : '0%',
+	 });
+			
 		leftView.add(deleteUserView);
 		
-		leftView.addEventListener('click', function(e) {
-		
-			e.cancelBubble = true;
-			dbOperations.deleteUser(e.source.id);
+		deleteUserView.addEventListener('click', function(e) {
 			
-			refreshTableData();
+			e.cancelBubble = true;
+			
+			dbOperations.deleteUser(userData[e.source.id].id);
+			
+			setTimeout(function(){
+				
+				refreshTableData();
+			},1000);
+			
 	    
 		});
 		
-		rightView.add(nameLabel);
+		centerView.add(nameLabel);
+		rightView.add(expandImageView);
 		
-		rightView.addEventListener('click', function(e) {
+		outerRightView.add(centerView);
+		outerRightView.add(rightView);
 		
+		outerRightView.addEventListener('click', function(e) {
+			
 			e.cancelBubble = true;
 			var arg = {
         		title: userData[e.source.id].username
@@ -99,13 +151,13 @@ var populateUserList = function(data) {
 		});
 	
 		outerView.add(leftView);
-		outerView.add(rightView);
+		outerView.add(outerRightView);
 		
 		row.add(outerView);
 		
 		tableData.push(row);
 		
-		row = leftView = deleteUserView = rightView = nameLabel = null;
+		row = outerView = leftView = deleteUserView = expandImageView = rightView = nameLabel = null;
  
 	 };
 	 $.usersTable.data = tableData;
@@ -117,4 +169,3 @@ var populateUserList = function(data) {
 
 
 populateUserList(userData);
-
