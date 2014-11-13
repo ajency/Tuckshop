@@ -3,7 +3,7 @@ var localStorage=require('/localStorage');
 var createDB = function(){
  	var db = Ti.Database.open('TuckshopDatabase');
  	
- 	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER)');
+ 	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER, last_credit_date TEXT)');
  	
 	db.execute('CREATE TABLE IF NOT EXISTS transactions (user_id INTEGER, created_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
 	
@@ -29,10 +29,10 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 		return false;
 };
 
-var insertRow = function (user,username,status,sessionid){
+var insertRow = function (user, username, status, sessionid, date){
 	
 	var db = getDB();
-	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id) VALUES (?, ?, ?,?)', user, username, status, sessionid);
+	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date) VALUES (?, ?, ?, ?, ?)', user, username, status, sessionid, date);
 	db.close();
 };
 
@@ -121,6 +121,19 @@ var logoutUsers = function(){
 	db.close();
 };
 
+var updateCreditDate = function (userid, date) {
+  	var db = getDB();
+	db.execute('UPDATE users SET last_credit_date=? WHERE user_id=?', date, userid);
+	db.close();
+};
+
+var getLastCreditDate = function(userid){
+	
+	var db = getDB();
+  	var row = db.execute("SELECT last_credit_date FROM users WHERE user_id=?", userid);
+  	db.close();
+  	return row.fieldByName('last_credit_date');
+};
 
 //Transaction related
 
@@ -208,6 +221,10 @@ exports.getUsersInfo = getUsersInfo;
 exports.deleteUser = deleteUser;
 
 exports.logoutUsers = logoutUsers;
+
+exports.updateCreditDate = updateCreditDate;
+exports.getLastCreditDate = getLastCreditDate;
+
 //transaction related
 
 exports.getTxnCount = getTxnCount;

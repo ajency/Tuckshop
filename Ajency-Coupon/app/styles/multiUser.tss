@@ -11,12 +11,8 @@
 },
 
 "#newAccountButton" :{
+	backgroundColor : '#585858',
 	title: "Add new account",
 	height: "11%",
-	font : {
-		fontFamily: "OpenSans-Regular",
-		fontSize: 20,
-		fontWeight : 'bold'
-	},
 	style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 },

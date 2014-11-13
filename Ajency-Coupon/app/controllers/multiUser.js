@@ -12,7 +12,10 @@ dbOperations.logoutUsers();
 var userData = dbOperations.getUsersInfo();
 
 function newAccountClicked (e) {
-     var main = Alloy.createController('index', {}).getView().open();
+	 var arg = {
+        		title: ''
+    		};
+     var main = Alloy.createController('index', arg).getView().open();
 };
 
 function refreshTableData() {

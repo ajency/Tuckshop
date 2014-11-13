@@ -12,7 +12,6 @@ var instanceOfListener;
 var instanceOfFireListener;
 var type;
 
-var backHandled = false;
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
 }
@@ -184,9 +183,8 @@ function openRegister(e) {
 /*
  *Textfield to retrieve the last value
  */
-if(args != null){
+if(Object.keys(args).length != 0){
 	$.usernameTextfield.value = args.title;
-	backHandled = true;
 }
 else if( localStorage.getUserName()) {
 	$.usernameTextfield.value = localStorage.getUserName();
@@ -240,7 +238,7 @@ function loginClicked(e) {
 							  	dbOperations.onlineLoginStatus(user.id);
 							
 							else
-								dbOperations.insertRow(user.id,$.usernameTextfield.value,true,e.meta.session_id);
+								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at);
 							
 							
                             localStorage.saveUserId(user);
@@ -366,7 +364,9 @@ var updateCreditDate = function() {
 		}, function(e) {
 			if (e.success) {
 				var user = e.users[0];
+				dbOperations.updateCreditDate(user.id, user.credited_date_at);
 				updateCreditAmount();
+				
 			//	alert('Success:\n' + 'id: ' + user.id + '\n' + 'credited date: ' + user.credited_date_at);
 
 			} else {
@@ -386,7 +386,12 @@ var updateCreditDate = function() {
 			subscribeToChannel();
 
 		} else {
-			var main = Alloy.createController('menu', {}).getView().open();
+			var main = Alloy.createController('menu', {}).getView();
+			if(!main){
+				console.log('Menu already open');
+				main.open();
+			}
+			   
 			hideImageView();
 			clearInterval(loaderAnimate);
 		}
@@ -503,11 +508,7 @@ if(result.isValidRow()) {
 			break;		
 	
 	default:		
-					if (OS_IOS)
-						$.win1.open();
-
-					else 
-						$.index.open();
+				var multiView = Alloy.createController('multiUser', {}).getView().open();
 					break;
 	 		
 	}
@@ -540,10 +541,18 @@ function deviceTokenError(e) {
 //Back button navigation for android
 if(!OS_IOS){
    	$.index.addEventListener('android:back', function(e){
-   		if(backHandled){
-   			backHandled = false;
-   			var multiView = Alloy.createController('multiUser', {}).getView().open();
-   		}
+   		
+   		if(Object.keys(args).length != 0){  // when index.js navigated from multi user screen
+   			
+			var totalUsers = dbOperations.getCount();
+   			
+   			if(totalUsers === 1)
+   			   $.index.close(); 
+   			else if(totalUsers>1)
+   			   var multiView = Alloy.createController('multiUser', {}).getView().open();
+		}
+		else
+		   $.index.close(); 
    		
    	});
 }

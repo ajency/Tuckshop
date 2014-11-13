@@ -8,8 +8,7 @@ var tableData = empty = tempTableData = [];
 var filteredProductArray =[];
 var allProductIdsArray =[];
 
-//for delta transaction
-var deltaArray = [];
+var day;
 
 var loaderTableAnimate;
 var loaderAnimate;
@@ -182,8 +181,7 @@ var fetchDeltaTransaction = function(eSwipe) {
 				
 				dbOperations.saveTransactionRows(e.testItems);
 			}
-			console.log('no of records');
-			console.log(e.testItems.length); 
+			
 			
 			clearInterval(loaderTableAnimate);
 			$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
@@ -240,6 +238,62 @@ var makeTransactionEntry = function(productid,eSwipe) {
 	});
 };
 
+/*
+ * Update the new credit date
+ * after a month is over
+ */
+var updateCreditDate = function(productid,eSwipe) {
+
+	createdDateValue = day.add('months', 1);
+
+	if (moment().diff(createdDateValue, 'minutes') > 0) {
+		Cloud.Users.update({
+			custom_fields : {
+				credited_date_at : moment(createdDateValue).format()
+			}
+		}, function(e) {
+			if (e.success) {
+				var user = e.users[0];
+				dbOperations.updateCreditDate(user.id, user.credited_date_at);
+				updateCreditAmount(productid,eSwipe);
+
+			} else {
+				$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'updateCreditDate'));
+			}
+
+		});
+	}
+	else{
+		makeTransactionEntry(productid,eSwipe);
+	}
+
+};
+
+/*
+ * make entry of credited amount in transaction
+ */
+var updateCreditAmount = function(productid,eSwipe) {
+
+    
+	Cloud.Objects.create({
+		classname : 'testItems',
+		fields : {
+			productName : 'Credit',
+			productPrice : +500,
+			productId : 1010,
+			userId : localStorage.getUserId()
+		}
+	}, function(e) {
+		if (e.success) {
+			
+			makeTransactionEntry(productid,eSwipe);
+			
+		} else {
+			$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'updateCreditAmount'));
+		}
+	});
+};
+
 var checkIfLoggedIn = function  (productid,eSwipe) {
 
   if (dbOperations.getSessionId(localStorage.getLastLoggedInUserId()) != null){
@@ -249,7 +303,11 @@ var checkIfLoggedIn = function  (productid,eSwipe) {
         Cloud.Users.showMe(function (e) {
         	
                 if (e.success) {
-                	makeTransactionEntry(productid,eSwipe);
+                	var user = e.users[0];
+                    
+					day = moment(user.custom_fields.credited_date_at);
+					updateCreditDate(productid,eSwipe);
+                	
                 }else{
                 	var toast = Ti.UI.createNotification({
     					message:"Auto Login failed. Please Login again",
@@ -279,7 +337,10 @@ function buyActionPerformed(productid,eSwipe){
 					checkIfLoggedIn(productid,eSwipe);
 				}
 				else{
-					 makeTransactionEntry(productid,eSwipe);
+					day = moment(dbOperations.getLastCreditDate(localStorage.getLastLoggedInUserId()));
+					
+					updateCreditDate(productid,eSwipe);
+					
 				 	$.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 				}
 			}
@@ -295,36 +356,6 @@ function buyActionPerformed(productid,eSwipe){
 	
 };
 
-/*
-var buyProduct = function(productid,eSwipe){
-	
-	var selectedProduct = _.filter(allProducts, function(product) {
-	
-		return product.productId === productid;
-	});
-	
-	
-	Cloud.Objects.update({
-		classname : 'things',
-		id : selectedProduct[0].productId,
-		fields : {
-			available : selectedProduct[0].available - 1
-		}
-	}, function(e) {
-		if (e.success) {
-			var thing = e.things[0];
-
-			// make an entry to the transaction table for the item bought
-			makeTransactionEntry(selectedProduct,eSwipe);
-
-		} else {
-			$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe));
-			alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
-		}
-	});
-	
-};
-*/
 
 function getErrorRow(eSwipe,type){
 	
@@ -366,11 +397,16 @@ function getErrorRow(eSwipe,type){
 			alert('No Internet Connection');
 		else{
 		//	buyProduct(eSwipe.rowData.id,eSwipe);
-		    if(type==='fetchDelta')
-		    fetchDeltaTransaction(eSwipe);
-		    else
-		    makeTransactionEntry(eSwipe.rowData.id,eSwipe);
-		    
+		
+		    if(type === 'fetchDelta')
+		    	fetchDeltaTransaction(eSwipe);
+		    else if(type === 'makeEntry')
+		    	makeTransactionEntry(eSwipe.rowData.id,eSwipe);
+		    else if(type === 'updateCreditDate')
+		    	updateCreditDate(eSwipe.rowData.id,eSwipe);
+		    else if(type === 'updateCreditAmount')
+		    	updateCreditAmount(eSwipe.rowData.id,eSwipe);
+		    	
 		    $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 		}	
 		
