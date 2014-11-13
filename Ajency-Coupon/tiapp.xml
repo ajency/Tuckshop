@@ -61,6 +61,9 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
+    	<services>
+    		<service url="logoutService.js" type="interval"/>    
+  		</services> 
         <manifest android:versionCode="1.0" android:versionName="1.0"
             package="com.ajency.in.tuckshop" xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
@@ -86,8 +89,7 @@
                     android:screenOrientation="portrait" android:theme="@style/Theme.NoActionBar"/>
                 <activity android:configChanges="screenSize"
                     android:name="ti.modules.titanium.ui.android.TiPreferencesActivity" android:screenOrientation="portrait"/>
-                <service android:exported="false"
-                    android:name="org.appcelerator.titanium.analytics.TiAnalyticsService" android:screenOrientation="portrait"/>
+                   
             </application>
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>

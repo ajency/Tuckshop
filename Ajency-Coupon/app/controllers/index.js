@@ -12,6 +12,18 @@ var instanceOfListener;
 var instanceOfFireListener;
 var type;
 
+//logout user after 5 minutes for multi users (SERVICE)
+var service ;
+if (!OS_IOS) {
+	var SECONDS = 100;
+	
+	var intent = Titanium.Android.createServiceIntent({
+	    url : 'logoutService.js'
+	});
+	intent.putExtra('interval', SECONDS * 10000);
+	
+	 service = Titanium.Android.createService(intent);
+} 
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
 }
@@ -240,7 +252,9 @@ function loginClicked(e) {
 							else
 								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at);
 							
-							
+							if(!OS_IOS && dbOperations.getCount()>1)  // start service for multi user
+    						 service.start();
+    						 
                             localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);
                             localStorage.saveDisplayName(enteredEmailValue[0]);
@@ -509,7 +523,7 @@ if(result.isValidRow()) {
 	
 	default:		
 				var multiView = Alloy.createController('multiUser', {}).getView().open();
-					break;
+				break;
 	 		
 	}
  }
