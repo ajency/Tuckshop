@@ -9,8 +9,8 @@
     <property name="acs-oauth-secret-production" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
     <property name="acs-oauth-key-production" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
     <property name="acs-api-key-production" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
-    <id>com.ajency.in.tuckshop</id>
-    <name>Boutique(Alloy)</name>
+    <id>com.ajency.tuckshopapp</id>
+    <name>TuckShop</name>
     <version>1.0</version>
     <publisher>Ajency.in</publisher>
     <url>http://www.ajency.in</url>
@@ -61,9 +61,9 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-    	<services>
-    		<service url="logoutService.js" type="interval"/>    
-  		</services> 
+        <services>
+            <service type="interval" url="logoutService.js"/>
+        </services>
         <manifest android:versionCode="1.0" android:versionName="1.0"
             package="com.ajency.in.tuckshop" xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
@@ -89,7 +89,6 @@
                     android:screenOrientation="portrait" android:theme="@style/Theme.NoActionBar"/>
                 <activity android:configChanges="screenSize"
                     android:name="ti.modules.titanium.ui.android.TiPreferencesActivity" android:screenOrientation="portrait"/>
-                   
             </application>
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -111,6 +110,7 @@
         <module platform="android" version="3.2.1">ti.cloudpush</module>
         <module platform="iphone">dk.napp.drawer</module>
         <module platform="android">dk.napp.drawer</module>
+        <module platform="iphone">com.appcelerator.urlSession</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

@@ -14,6 +14,9 @@ var type;
 
 //logout user after 5 minutes for multi users (SERVICE)
 var service ;
+
+var urlSession;
+var session;
 if (!OS_IOS) {
 	var SECONDS = 100;
 	
@@ -24,6 +27,11 @@ if (!OS_IOS) {
 	
 	 service = Titanium.Android.createService(intent);
 } 
+else{
+	// Require in the urlSession module
+	urlSession = require("com.appcelerator.urlSession");
+	
+}
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
 }
@@ -253,7 +261,17 @@ function loginClicked(e) {
 								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at);
 							
 							if(!OS_IOS && dbOperations.getCount()>1)  // start service for multi user
-    						 service.start();
+    						   service.start();
+    						 
+    						else if(OS_IOS && dbOperations.getCount()>1) {
+    							
+    							// Create a session configuration
+   							    // The string parameter is an arbitrary string used to identify the session in events
+    							var sessionConfig = urlSession.createURLSessionBackgroundConfiguration("com.appcelerator.test");
+   								 // Create a session
+    							session = urlSession.createURLSession(sessionConfig);
+    							
+    						}
     						 
                             localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);
@@ -570,4 +588,12 @@ if(!OS_IOS){
    		
    	});
 }
+
+// Monitor this event to receive updates on the progress of the download
+
+if (OS_IOS)
+Ti.App.iOS.addEventListener("backgroundtransfer", function(e) {
+   console.log('In ios background');
+   alert('In ios background');
+});
 

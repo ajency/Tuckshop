@@ -46,11 +46,21 @@ function populateLeftMenu(){
 	var labelText= null;
 
 	var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
+	console.log('login status');
+	console.log(loginStatus);
 	
-	if(loginStatus=== 'true')   //user online
-	 	labelText = ['Home', 'Transaction History', 'Logout'];
-	else
-		labelText = ['Home', 'Transaction History'];
+	if (OS_IOS){
+		if(loginStatus)   //user online
+	 		labelText = ['Home', 'Transaction History', 'Logout'];
+		else
+			labelText = ['Home', 'Transaction History'];
+	}
+	else{
+		if(loginStatus=== 'true')   //user online
+	 		labelText = ['Home', 'Transaction History', 'Logout'];
+		else
+			labelText = ['Home', 'Transaction History'];
+	}
 		
 	for(var i=0; len = _.size(labelText), i<len; i++){
 	

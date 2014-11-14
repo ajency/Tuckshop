@@ -2,7 +2,6 @@ var localStorage=require('/localStorage');
 
 var createDB = function(){
  	var db = Ti.Database.open('TuckshopDatabase');
- 	
  	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER, last_credit_date TEXT)');
  	
 	db.execute('CREATE TABLE IF NOT EXISTS transactions (user_id INTEGER, created_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
@@ -22,8 +21,11 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
     
     var db = getDB();
 	var row = db.execute('SELECT * FROM users WHERE user_id = ?',id);
+	var record = row;
+	
+	row.close();
 	db.close();
-	if(row.isValidRow())
+	if(record.isValidRow())
 		return true;
 	else
 		return false;
@@ -41,6 +43,8 @@ var getCount = function (){
 	var db = getDB();
 	var row = db.execute('SELECT COUNT(*) AS totalUsers FROM users');
 	var count = row.fieldByName('totalUsers');
+	
+	row.close();
 	db.close();
 	return count;
 };
@@ -57,8 +61,11 @@ var getLoginStatus = function  (id) {
 	
 	var db = getDB();
   	var row = db.execute("SELECT login_status FROM users WHERE user_id=?", [id]);
+  	var returnStatus = row.fieldByName('login_status');
+  	
+  	row.close();
   	db.close();
-  	return row.fieldByName('login_status');
+  	return returnStatus;
 };
 
 var onlineLoginStatus = function (id){
@@ -77,8 +84,11 @@ var getSessionId = function  (id) {
 	
 	var db = getDB();
   	var row = db.execute("SELECT session_id FROM users WHERE user_id=?", [id]);
+  	var returnId = row.fieldByName('session_id');
+  	
+  	row.close();
   	db.close();
-  	return row.fieldByName('session_id');
+  	return returnId;
 };
 
 var updateSessionId = function (id){
@@ -131,8 +141,11 @@ var getLastCreditDate = function(userid){
 	
 	var db = getDB();
   	var row = db.execute("SELECT last_credit_date FROM users WHERE user_id=?", userid);
+  	var returnDate = row.fieldByName('last_credit_date');
+  	
+  	row.close();
   	db.close();
-  	return row.fieldByName('last_credit_date');
+  	return returnDate;
 };
 
 //Transaction related
@@ -142,6 +155,8 @@ var getTxnCount = function (){
 	var db = getDB();
 	var row = db.execute('SELECT COUNT(*) AS totalUsers FROM transactions');
 	var count = row.fieldByName('totalUsers');
+	
+	row.close();
 	db.close();
 	return count;
 };
@@ -162,8 +177,11 @@ var checkTransactionsPresentForUser =  function (id) {  //check if users transac
     
     var db = getDB();
 	var row = db.execute('SELECT * FROM transactions WHERE user_id = ?',id);
+	var record = row;
+	
+	row.close();
 	db.close();
-	if(row.isValidRow())
+	if(record.isValidRow())
 		return true;
 	else
 		return false;
@@ -198,10 +216,12 @@ var getLatestTransactionDate = function (userid){
 	
 	var db = getDB();
 	var row = db.execute('SELECT * FROM transactions WHERE user_id =? ORDER BY created_at DESC LIMIT 1',userid);
+	var returnDate = row.fieldByName('created_at');
+	
+	row.close();
 	db.close();
-	console.log('latest txn date');
-	console.log(row.fieldByName('created_at'));
-	return row.fieldByName('created_at');
+	
+	return returnDate;
 };
 
 exports.createDB = createDB;
