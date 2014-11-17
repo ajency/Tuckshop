@@ -111,4 +111,30 @@ Alloy.Globals.navigatedView = 'Home';
 var dbOperations=require('/dbOperations');
 dbOperations.createDB();
 
-Alloy.Globals.autoLogin=false;                   
+Alloy.Globals.autoLogin=false;          
+
+Alloy.Globals.logoutInterval;
+         
+Alloy.Globals.forceLogout = function (){
+	
+       Alloy.Globals.logoutInterval = setTimeout(function(){
+       	
+			Cloud.Users.logout(function (e) {
+	 		
+    			if (e.success) {
+    				
+    					dbOperations.updateSessionId(localStorage.getLastLoggedInUserId());
+						dbOperations.offlineLoginStatus(localStorage.getLastLoggedInUserId());
+			
+						Alloy.Globals.autoLogin = false;
+						var multiView = Alloy.createController('multiUser', {}).getView().open();
+			
+			
+   		 	  		} else {  //if autologout fails
+   		 	   			var main = Alloy.createController('index', {}).getView().open();
+   		 			}
+ 			});
+ 			
+		},50000);
+};
+

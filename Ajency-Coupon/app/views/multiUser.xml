@@ -1,12 +1,12 @@
 <Alloy>
-	<Window class="container">
+	<Window id="multiWindow"class="container">
 		<View class="ver top0" height="80%">
 			<View class="ver w-fill h-size top1">
 				<ImageView class="ts-logo"/>
 				
 				<Label text="Choose an account" class="w-fill ts-brown text-center" top="3.5%"/>
 				 <View height="45.5%" top="2%">
-				   <TableView class="span13" id="usersTable" height="Ti.UI.FILL" width="Ti.UI.FILL" ></TableView>	
+				   <TableView class="span13" id="usersTable" height="Ti.UI.SIZE" width="Ti.UI.FILL" top="0%" separatorStyle="none" backgroundColor="transparent" ></TableView>	
 				 </View>
 				<Button id="newAccountButton" class="span14 ts-yellow f-s3" bottom="0"  onClick="newAccountClicked"></Button>
 			</View>

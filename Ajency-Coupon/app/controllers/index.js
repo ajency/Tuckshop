@@ -27,11 +27,7 @@ if (!OS_IOS) {
 	
 	 service = Titanium.Android.createService(intent);
 } 
-else{
-	// Require in the urlSession module
-	urlSession = require("com.appcelerator.urlSession");
-	
-}
+
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
 }
@@ -104,27 +100,40 @@ var showConnectionErrorView = function () {
     $.errorLabel.width="30%";
 };
 
+if (localStorage.getErrorAtIndex()) {
+	alert('LOCAL STORAGE');
+	
+	if (OS_IOS)
+		$.win1.open();
+	else 
+		$.index.open();
+		
+	 hideComponents();
+    showConnectionErrorView();
+    console.log('LOCAL STORAGE');
+}
+else
+   doNavigation();
+
 $.errorLabel.addEventListener('click',function(e){
 	if (networkCheck.getNetworkStatus()==0) 
 			alert('No Internet Connection');
 		
 		else{
+			 
 			
-			if(type==='autoLogin')
-    			autoLogin();
-    		else{
     			showImageView();
    				// start the setInverval -- adjust the time to make a smooth animation
     			loaderAnimate = setInterval(loadingAnimation,200);
     		    hideConnectionErrorView(); 
     		    
-    				if(type==='updateCreditDate')
+    				if(localStorage.getErrorAtIndex() === 'updateCreditDate')
     				updateCreditDate();
     				
-    				else if(type==='updateCreditAmount')
+    				else if(localStorage.getErrorAtIndex() === 'updateCreditAmount')
     				updateCreditAmount();
     		
-    		        else if(type==='deviceTokenError'){
+    		        else if(localStorage.getErrorAtIndex() === 'deviceTokenError'){
     		        	// Initialize the module
 						CloudPush.retrieveDeviceToken({
 							success : deviceTokenSuccess,
@@ -133,20 +142,20 @@ $.errorLabel.addEventListener('click',function(e){
     		        }
     				
     				
-    				else if(type==='subscribeToChannel')
+    				else if(localStorage.getErrorAtIndex() === 'subscribeToChannel')
     				subscribeToChannel();
     				
-    				else if(type==='fetchCloudProducts'){
-						
+    				else if(localStorage.getErrorAtIndex() === 'fetchCloudProducts'){
+						alert('In fetch products');
 						fetchProductsJs.fetchCloudProducts('menu');
     				}
     				
-    				else if(type==='transactionsOnProductIds'){
-						
+    				else if(localStorage.getErrorAtIndex() === 'transactionsOnProductIds'){
+						alert('In transaction ids');
 						fetchProductsJs.transactionsOnProductIds('menu');
     				}
     				
-    				else if(type==='pushRegisterError'){
+    				else if(localStorage.getErrorAtIndex() === 'pushRegisterError'){
 						
 					 	if (OS_IOS) {
 					 			Ti.Network.registerForPushNotifications({
@@ -166,9 +175,8 @@ $.errorLabel.addEventListener('click',function(e){
 								});
 					 	}
     				}
-    				
-    		}	
-    	
+
+    			Ti.App.Properties.removeProperty('errorAtIndex');
     	
 		}
 	
@@ -183,7 +191,8 @@ Ti.App.addEventListener('errorIndex', function(data) {
 	console.log('Error event fired');
 	hideImageView();
 	clearInterval(loaderAnimate);
-	type=data.name;
+	localStorage.saveErrorAtIndex(data.name);
+	// type=data.name;
 	showConnectionErrorView();
 	
 	
@@ -260,18 +269,8 @@ function loginClicked(e) {
 							else
 								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at);
 							
-							if(!OS_IOS && dbOperations.getCount()>1)  // start service for multi user
-    						   service.start();
-    						 
-    						else if(OS_IOS && dbOperations.getCount()>1) {
-    							
-    							// Create a session configuration
-   							    // The string parameter is an arbitrary string used to identify the session in events
-    							var sessionConfig = urlSession.createURLSessionBackgroundConfiguration("com.appcelerator.test");
-   								 // Create a session
-    							session = urlSession.createURLSession(sessionConfig);
-    							
-    						}
+							if(dbOperations.getCount()>1)
+								alloy.Globals.forceLogout();
     						 
                             localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);
@@ -404,7 +403,8 @@ var updateCreditDate = function() {
 			} else {
 				hideImageView();
 				clearInterval(loaderAnimate);
-				type='updateCreditDate';
+				localStorage.saveErrorAtIndex('updateCreditDate');
+				// type='updateCreditDate';
                 showConnectionErrorView();
                 console.log('UPDATE CREDIT DATE');
 			//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -418,12 +418,7 @@ var updateCreditDate = function() {
 			subscribeToChannel();
 
 		} else {
-			var main = Alloy.createController('menu', {}).getView();
-			if(!main){
-				console.log('Menu already open');
-				main.open();
-			}
-			   
+			var main = Alloy.createController('menu', {}).getView().open();
 			hideImageView();
 			clearInterval(loaderAnimate);
 		}
@@ -454,7 +449,6 @@ var updateCreditAmount = function() {
 			if (! localStorage.getAllProducts()) {
 				
 				subscribeToChannel();
-				
 
 			} else {
 				var main = Alloy.createController('menu', {}).getView().open();
@@ -465,7 +459,8 @@ var updateCreditAmount = function() {
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);
-			type='updateCreditAmount';
+			localStorage.saveErrorAtIndex('updateCreditAmount');
+			// type='updateCreditAmount';
             showConnectionErrorView();
             console.log('UPDATE CREDIT AMOUNT');
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -492,7 +487,8 @@ function subscribeToChannel() {
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);
-			type='subscribeToChannel';
+			localStorage.saveErrorAtIndex('subscribeToChannel');
+			// type='subscribeToChannel';
             showConnectionErrorView();
             console.log('SUBSCRIBE CHANNEL');
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -518,39 +514,43 @@ function checkemail(emailAddress) {
 
 
 //autoLogin();
-
-var result = dbOperations.ifTableExists();
-var rows;
-if(result.isValidRow()) {
+function doNavigation(){
+	
+	var result = dbOperations.ifTableExists();
+	var rows;
+	if(result.isValidRow()) {
    
-    var totalUsers = dbOperations.getCount();
-	Ti.API.info('Row count: '+totalUsers);
-	switch(totalUsers){
+    	var totalUsers = dbOperations.getCount();
+		Ti.API.info('Row count: '+totalUsers);
+		switch(totalUsers){
 	
-	case 0: 
-			if (OS_IOS)
-				$.win1.open();
+			case 0: 
+					if (OS_IOS)
+						$.win1.open();
 
-			else 
-				$.index.open();
-			break;
-	case 1:
+					else 
+						$.index.open();
+				break;
+			case 1:
 			
-			var main = Alloy.createController('menu', {}).getView().open();
-			break;		
+					var main = Alloy.createController('menu', {}).getView().open();
+				break;		
 	
-	default:		
-				var multiView = Alloy.createController('multiUser', {}).getView().open();
+			default:		
+					var multiView = Alloy.createController('multiUser', {}).getView().open();
 				break;
 	 		
-	}
- }
+		}
+ 	}
+ 	
+};
+
 
 
 // console.log(db.execute('SELECT COUNT(user_id) FROM users'));
 Ti.App.addEventListener('pushNotificationRegisterError',function(e){
-	
-	type='pushRegisterError';
+	localStorage.saveErrorAtIndex('pushRegisterError');
+	// type='pushRegisterError';
 	showConnectionErrorView();
      hideComponents();
     
@@ -589,11 +589,4 @@ if(!OS_IOS){
    	});
 }
 
-// Monitor this event to receive updates on the progress of the download
-
-if (OS_IOS)
-Ti.App.iOS.addEventListener("backgroundtransfer", function(e) {
-   console.log('In ios background');
-   alert('In ios background');
-});
 

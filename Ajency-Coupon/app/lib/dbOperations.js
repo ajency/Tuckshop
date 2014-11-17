@@ -23,12 +23,18 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 	var row = db.execute('SELECT * FROM users WHERE user_id = ?',id);
 	var record = row;
 	
-	row.close();
-	db.close();
-	if(record.isValidRow())
+	
+	if(record.isValidRow()){
+		row.close();
+		db.close();
 		return true;
-	else
+	}
+	else{
+		row.close();
+		db.close();
 		return false;
+	}
+		
 };
 
 var insertRow = function (user, username, status, sessionid, date){
@@ -177,14 +183,18 @@ var checkTransactionsPresentForUser =  function (id) {  //check if users transac
     
     var db = getDB();
 	var row = db.execute('SELECT * FROM transactions WHERE user_id = ?',id);
-	var record = row;
 	
-	row.close();
-	db.close();
-	if(record.isValidRow())
+	if(row.isValidRow()){
+		row.close();
+		db.close();
 		return true;
-	else
+	}	
+	else{
+		row.close();
+		db.close();
 		return false;
+	}
+		
 };
 
 var getAllTransactionRows = function (userid) {

@@ -219,8 +219,11 @@ function userLogout(){
 			
 			var totalUsers = dbOperations.getCount();
 			
-			if(totalUsers>1)
+			if(totalUsers>1){
+				clearTimeout(alloy.Globals.logoutInterval);
 				var multiView = Alloy.createController('multiUser', {}).getView().open();
+			}
+				
 			else{
 				Ti.App.fireEvent('menu:toggleLeftMenu');
 				populateLeftMenu();

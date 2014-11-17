@@ -28,10 +28,13 @@ function refreshTableData() {
 			var main = Alloy.createController('index', {}).getView().open();
 			
 		else{
-			if (userData.length ===1)  //if last logged in user is deleted, update the last logged in user id
+			if (userData.length ===1){  //if last logged in user is deleted, update the last logged in user id and the display name
+				enteredEmailValue=userData[0].username.split('@');
+				
 				localStorage.saveLastLoggedInUserId(userData[0].id);
-			   
-			   
+				localStorage.saveDisplayName(enteredEmailValue[0]);
+			}  
+				
 			 populateUserList(userData);   
 		}	
 	      
@@ -172,3 +175,13 @@ var populateUserList = function(data) {
 
 
 populateUserList(userData);
+
+//Back button navigation for android
+if(!OS_IOS){
+   	$.multiWindow.addEventListener('android:back', function(e){
+   		
+   		var activity = Titanium.Android.currentActivity;
+		activity.finish();
+   		
+   	});
+}
