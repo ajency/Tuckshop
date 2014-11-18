@@ -9,8 +9,8 @@
     <property name="acs-oauth-secret-production" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
     <property name="acs-oauth-key-production" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
     <property name="acs-api-key-production" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
-    <id>com.ajency.in.tuckshop</id>
-    <name>Boutique(Alloy)</name>
+    <id>com.ajency.tuckshopapp</id>
+    <name>TuckShop</name>
     <version>1.0</version>
     <publisher>Ajency.in</publisher>
     <url>http://www.ajency.in</url>

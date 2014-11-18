@@ -10,7 +10,6 @@ var day;
 var loaderAnimate;
 var instanceOfListener;
 var instanceOfFireListener;
-var type;
 
 //logout user after 5 minutes for multi users (SERVICE)
 var service ;
@@ -100,17 +99,15 @@ var showConnectionErrorView = function () {
     $.errorLabel.width="30%";
 };
 
-if (localStorage.getErrorAtIndex()) {
-	alert('LOCAL STORAGE');
+if (localStorage.getErrorAtIndex()) {   // if error is present do not allow the user to navigate
 	
 	if (OS_IOS)
 		$.win1.open();
 	else 
 		$.index.open();
 		
-	 hideComponents();
+	hideComponents();
     showConnectionErrorView();
-    console.log('LOCAL STORAGE');
 }
 else
    doNavigation();
@@ -146,12 +143,10 @@ $.errorLabel.addEventListener('click',function(e){
     				subscribeToChannel();
     				
     				else if(localStorage.getErrorAtIndex() === 'fetchCloudProducts'){
-						alert('In fetch products');
 						fetchProductsJs.fetchCloudProducts('menu');
     				}
     				
     				else if(localStorage.getErrorAtIndex() === 'transactionsOnProductIds'){
-						alert('In transaction ids');
 						fetchProductsJs.transactionsOnProductIds('menu');
     				}
     				
@@ -192,7 +187,6 @@ Ti.App.addEventListener('errorIndex', function(data) {
 	hideImageView();
 	clearInterval(loaderAnimate);
 	localStorage.saveErrorAtIndex(data.name);
-	// type=data.name;
 	showConnectionErrorView();
 	
 	
@@ -414,10 +408,11 @@ var updateCreditDate = function() {
 	}
 	else{
 		//if application is deleted from device load the products
-		if (! localStorage.getAllProducts() && !pushNotificationReceived) {
+		if (! localStorage.getAllProducts() && !alloy.Globals.pushNotificationReceived) {
 			subscribeToChannel();
 
 		} else {
+			Ti.App.fireEvent('destroy:menu:instance');
 			var main = Alloy.createController('menu', {}).getView().open();
 			hideImageView();
 			clearInterval(loaderAnimate);
@@ -460,7 +455,6 @@ var updateCreditAmount = function() {
 			hideImageView();
 			clearInterval(loaderAnimate);
 			localStorage.saveErrorAtIndex('updateCreditAmount');
-			// type='updateCreditAmount';
             showConnectionErrorView();
             console.log('UPDATE CREDIT AMOUNT');
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -488,7 +482,6 @@ function subscribeToChannel() {
 			hideImageView();
 			clearInterval(loaderAnimate);
 			localStorage.saveErrorAtIndex('subscribeToChannel');
-			// type='subscribeToChannel';
             showConnectionErrorView();
             console.log('SUBSCRIBE CHANNEL');
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -549,8 +542,8 @@ function doNavigation(){
 
 // console.log(db.execute('SELECT COUNT(user_id) FROM users'));
 Ti.App.addEventListener('pushNotificationRegisterError',function(e){
+	
 	localStorage.saveErrorAtIndex('pushRegisterError');
-	// type='pushRegisterError';
 	showConnectionErrorView();
      hideComponents();
     
@@ -587,6 +580,13 @@ if(!OS_IOS){
 		   $.index.close(); 
    		
    	});
+   	
+
+	$.index.addEventListener("close", function(){
+    	$.destroy();
+	});
+   	
+   	
 }
 
 

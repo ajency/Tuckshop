@@ -2,7 +2,7 @@
 var alloy = require('alloy');
 console.log('menu called');
 
-	
+
 var mainView = Alloy.createController('main').getView();
 $.drawerCenterView.add(mainView);
 
@@ -66,4 +66,12 @@ if(!OS_IOS){
 		  }
 	});
 }
+
+function destroyMenu (){
+	$.destroy();
+	// remove all event listeners on the controller
+  	$.off();
+};
+
+Ti.App.addEventListener('destroy:menu:instance', destroyMenu);
 

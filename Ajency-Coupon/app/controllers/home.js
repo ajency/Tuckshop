@@ -11,7 +11,6 @@ var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
 
 
-pushNotificationReceived = false;
 // set the length of the images you have in your sequence
 var loaderArrayLength = 4;
 

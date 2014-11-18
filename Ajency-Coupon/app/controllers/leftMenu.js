@@ -1,6 +1,6 @@
 var alloy = require('alloy');
 
-var data = [];
+var tableData = [];
 var row = label = null;
 
 var fetchProductsJs = require('/fetchCloudProducts');
@@ -42,28 +42,26 @@ var hideImageView= function (argument) {
 };
 
 function populateLeftMenu(){
-	data = [];
+	tableData = [];
 	var labelText= null;
 
 	var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
-	console.log('login status');
-	console.log(loginStatus);
 	
-	if (OS_IOS){
-		if(loginStatus)   //user online
-	 		labelText = ['Home', 'Transaction History', 'Logout'];
+	if(!OS_IOS){
+		if(loginStatus=== 'true')
+		   loginStatus = 1;
 		else
-			labelText = ['Home', 'Transaction History'];
+		   loginStatus = 0;   
 	}
-	else{
-		if(loginStatus=== 'true')   //user online
-	 		labelText = ['Home', 'Transaction History', 'Logout'];
-		else
-			labelText = ['Home', 'Transaction History'];
-	}
+	
+	if(loginStatus)   //user online
+	 	labelText = ['Home', 'Transaction History', 'Logout'];
+	else
+		labelText = ['Home', 'Transaction History'];
+			
 		
 	for(var i=0; len = _.size(labelText), i<len; i++){
-	
+		
 		row = Ti.UI.createTableViewRow({
 			id: labelText[i],
 			height: 40,
@@ -84,12 +82,12 @@ function populateLeftMenu(){
 		});
 	    
 		row.add(label);
-		data.push(row);
+		tableData.push(row);
 		
 		row = label = null;
 	}
-
-	$.menuTable.data = data;
+	
+	$.menuTable.data = tableData;
 }
 
 populateLeftMenu();
@@ -100,15 +98,15 @@ $.menuTable.setSeparatorInsets({
 });
 
 //Default highlighted view [home controller]
-data[0].setBackgroundColor('#F0C60A');
+tableData[0].setBackgroundColor('#F0C60A');
 
 
 function clearMenuSelection(rowId){
 	
-	for(i=0; len=_.size(data), i<len; i++){
+	for(i=0; len=_.size(tableData), i<len; i++){
 		
-		if(data[i].id != rowId)
-			data[i].setBackgroundColor('transparent');
+		if(tableData[i].id != rowId)
+			tableData[i].setBackgroundColor('transparent');
 	}
 }
 
@@ -219,8 +217,11 @@ function userLogout(){
 			
 			var totalUsers = dbOperations.getCount();
 			
-			if(totalUsers>1){
+			if(totalUsers>1){    //clear timeout in case the user has logged out
+				
+				if(alloy.Globals.logoutInterval != null)
 				clearTimeout(alloy.Globals.logoutInterval);
+				
 				var multiView = Alloy.createController('multiUser', {}).getView().open();
 			}
 				
@@ -252,3 +253,4 @@ Ti.App.addEventListener('Display',function(data){
 	
 	$.lbl_username.text='Hello'+' '+ data.displayValue;
 });
+

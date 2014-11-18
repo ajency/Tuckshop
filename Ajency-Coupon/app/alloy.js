@@ -13,12 +13,8 @@ var Cloud = require('ti.cloud');
 Cloud.debug = true;
 // optional; if you add this line, set it to false for production
 
-var juicesProductArray = [];
-var biscuitsProductArray = [];
-var rollsProductArray = [];
+
 var allProductsArray = [];
-var Settings;
-var newFile;
 var localPath;
 var createdDateValue;
 
@@ -26,7 +22,7 @@ var createdDateValue;
 var localStorage=require('/localStorage');
 
 var deviceToken = null;
-var pushNotificationReceived = false; //handle push notifications on auto login
+Alloy.Globals.pushNotificationReceived = false; //handle push notifications on auto login
 
 if (OS_IOS) {
 	console.log('In iphone');
@@ -57,7 +53,7 @@ if (OS_IOS) {
 	// Process incoming push notifications (android)
 	
 	CloudPush.addEventListener('callback', function(evt) {
-		pushNotificationReceived = true;       //set push notification to true since we received one
+		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
 		var fetchProductsJs = require('/fetchCloudProducts');
 		fetchProductsJs.fetchCloudProducts('alloy');
 	//	alert("Notification received: " + evt.payload);

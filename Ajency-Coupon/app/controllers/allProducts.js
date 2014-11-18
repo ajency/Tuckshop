@@ -331,7 +331,14 @@ function buyActionPerformed(productid,eSwipe){
 	
 			var loginStatus = dbOperations.getLoginStatus(localStorage.getLastLoggedInUserId());
 			
-			if(loginStatus === 'true') {   //user is online
+			if(!OS_IOS){
+				if(loginStatus=== 'true')
+		   			loginStatus = 1;
+				else
+		   			loginStatus = 0;   
+			}
+			
+			if(loginStatus) {   //user is online
 				
 				if(!alloy.Globals.autoLogin ){   // app is closed
 					checkIfLoggedIn(productid,eSwipe);
