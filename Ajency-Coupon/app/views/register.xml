@@ -1,5 +1,5 @@
 <Alloy>
-	 <Window  class="container" >
+	 <Window id="registerWindow" class="container" >
 		<View class="ver top0" height="80%">
 			<View class="ver w-fill h-size top1">
 				<ImageView class="ts-logo"/>

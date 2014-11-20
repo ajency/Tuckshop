@@ -184,4 +184,12 @@ if(!OS_IOS){
 		activity.finish();
    		
    	});
+   
+	
+	$.multiWindow.addEventListener("close", function(){
+    	$.destroy();
+    	$.off();
+    	$.multiWindow.close();
+	});
+	
 }

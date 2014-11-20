@@ -527,18 +527,19 @@ function getPurchaseRow(eSwipe){
 	cancelView.add(cancelArrow);
 	cancelView.add(cancelLabel);
 	
-	cancelView.addEventListener('click', function(e) {
+	function cancelClicked (e) {
 		
-		e.cancelBubble = true;
-		clearTableData();
-	    
-	});
+	  e.cancelBubble = true;
+	  clearTableData();
+	  cancelView.removeEventListener('click', cancelClicked);
+	}
+	cancelView.addEventListener('click', cancelClicked);
 
 	view.add(purchaseView);
 	view.add(cancelView);
 
 	row.add(view);
-
+	
 	return row;
 }
 
@@ -621,8 +622,8 @@ function getSwipeRow(eSwipe) {
 	cancelView.add(verticalSeparator);
 	cancelView.add(cancelArrow);
 	cancelView.add(cancelLabel);
-
-	buyView.addEventListener('click', function(e) {
+	
+	function buyClicked(e){
 		
 		e.cancelBubble = true;
 		console.log(eSwipe.rowData.id);
@@ -630,24 +631,22 @@ function getSwipeRow(eSwipe) {
 		if (networkCheck.getNetworkStatus()==0)  alert('No Internet Connection');
 		else {
 			buyActionPerformed(eSwipe.rowData.id,eSwipe);
-			
-		// buyProduct(eSwipe.rowData.id,eSwipe);
-		
+			buyView.removeEventListener('click', buyClicked);
 		}
-	});
+	 	
+	 cancelView.removeEventListener('click', cancelClicked);
+	}
 
-	cancelView.addEventListener('click', function(e) {
+	buyView.addEventListener('click', buyClicked);
+
+	function cancelClicked(e){
 		
 		e.cancelBubble = true;
 		clearTableData();
-		/*
-		if(OS_IOS) clearTableData();
-		else{
-			var previousRow = eSwipe.source;
-			$.productsTable.updateRow(eSwipe.index, previousRow);
-		}
-		*/
-	});
+		buyView.removeEventListener('click', buyClicked);
+		cancelView.removeEventListener('click', cancelClicked);
+	}
+	cancelView.addEventListener('click', cancelClicked);
 
 	view.add(buyView);
 	view.add(cancelView);

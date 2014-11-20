@@ -97,7 +97,7 @@ var loadStaticView = function(id) {
 	
 	$.staticView.add(view);
 	$.staticView.add(horizontalSeparator);
-	anim.popIn(view);
+	 // anim.popIn(view);
 };
 
 
@@ -155,3 +155,11 @@ Ti.App.addEventListener("app:addViewToMidContainer", function(e) {
 //Default view
 init('Home');
 
+if(!OS_IOS){
+	
+	$.startWindow.addEventListener("close", function(){
+    	$.destroy();
+    	$.off();
+    	$.startWindow.close();
+	});
+}	

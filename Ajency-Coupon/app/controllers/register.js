@@ -339,3 +339,10 @@ function checkemail(emailAddress) {
 	return (testresults);
 };
 // $.register.open();
+if(!OS_IOS){
+	
+$.registerWindow.addEventListener("close", function(){
+    	$.destroy();
+    	$.off();
+	});
+}	

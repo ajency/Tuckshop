@@ -11,21 +11,6 @@ var loaderAnimate;
 var instanceOfListener;
 var instanceOfFireListener;
 
-//logout user after 5 minutes for multi users (SERVICE)
-var service ;
-
-var urlSession;
-var session;
-if (!OS_IOS) {
-	var SECONDS = 100;
-	
-	var intent = Titanium.Android.createServiceIntent({
-	    url : 'logoutService.js'
-	});
-	intent.putExtra('interval', SECONDS * 10000);
-	
-	 service = Titanium.Android.createService(intent);
-} 
 
 if (OS_IOS) {
 	Titanium.UI.iPhone.setAppBadge(null);
@@ -442,8 +427,8 @@ var updateCreditAmount = function() {
 			var testItem = e.testItems[0];
 			//if application is deleted from device load the products
 			if (! localStorage.getAllProducts()) {
-				
-				subscribeToChannel();
+				fetchProductsJs.fetchCloudProducts('menu');
+				// subscribeToChannel();
 
 			} else {
 				var main = Alloy.createController('menu', {}).getView().open();
@@ -525,7 +510,7 @@ function doNavigation(){
 						$.index.open();
 				break;
 			case 1:
-			
+					if(localStorage.getLastLoggedInUserId())
 					var main = Alloy.createController('menu', {}).getView().open();
 				break;		
 	
@@ -584,6 +569,8 @@ if(!OS_IOS){
 
 	$.index.addEventListener("close", function(){
     	$.destroy();
+    	$.off();
+    	$.index.close();
 	});
    	
    	
