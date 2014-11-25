@@ -301,7 +301,6 @@ var displayTransactionHistory = function(data) {
 //	transactionScroll= null;
 	
 	if (_.size(data)>=1 ) {      //only if records are present
-		
 		if(connectionErrorViewPresent){  //Connection view needs to be set 
 		
 			if(connectionErrorAlreadyShown !=0){  //set it since it is present the first time
@@ -524,6 +523,7 @@ var sortTransactions = function(period) {
     allItems = dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId());
     
     if(transactionScroll != null ){
+    	console.log('transaction scroll not null');
     	$.mainView.remove(transactionScroll);
     	$.mainView.removeAllChildren();
     	transactionScroll= null;
@@ -627,12 +627,11 @@ var fetchDeltaTransaction = function(currentTab) {
    		 loaderAnimate = setInterval(loadingLocalAnimation,200);
 		*/
 		
-		
 	Cloud.Objects.query({
 		classname : 'testItems',
 		limit : 1000,
 
-		where : { "$and": [ {userId : localStorage.getUserId()},
+		where : { "$and": [ {userId : localStorage.getLastLoggedInUserId()},
 		{ created_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
 		
 		]}
@@ -642,17 +641,18 @@ var fetchDeltaTransaction = function(currentTab) {
 		if (e.success) {
 			
 			hideAnimateConnectionView();
-			
-    		
+			console.log('The length');
+    		console.log(e.testItems.length);
            //If new items are fetched
 			if (e.testItems.length > 0) {
-			
+				
                 dbOperations.saveTransactionRows(e.testItems);
 				//week is loaded first
 		    	sortTransactions(currentTab);
 				
 			}
 			hideAnimateView();
+			
 			/*
 			hideImageView();
     		clearInterval(loaderAnimate);

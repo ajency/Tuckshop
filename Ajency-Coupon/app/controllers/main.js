@@ -1,6 +1,7 @@
 var __ = require('platformSupport');
 var myAnimation = require('animation');
 var anim = require('alloy/animation');
+var alloy = require('alloy');
 
 console.log('main called');
 if (OS_IOS) {
@@ -126,19 +127,20 @@ var init = function(view) {
 	}, 200);
 };
 
-
-Ti.App.addEventListener("app:addViewToMidContainer", function(e) {
-	
-	clearViews();
+alloy.Globals.midContainerReference = function (e) {
+  
+  clearViews();
 	
 	var id = e.id;
 	
 	switch(id) {
 	    case 'Home':
+	    	console.log('Home');
 	    	init('Home');
 	        break;
 	        
 	    case 'Transaction History':
+	    	console.log('Transaction history');
 	    	init('Transaction History');
 	    	break;
 	        
@@ -148,8 +150,9 @@ Ti.App.addEventListener("app:addViewToMidContainer", function(e) {
 	    	loadStaticView(id);
 	    	getAllProducts(id);
 	}
-        
-});
+};
+
+Ti.App.addEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
 
 
 //Default view

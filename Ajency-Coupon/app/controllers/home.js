@@ -292,7 +292,8 @@ function getSum(data){
 		
 		sum += parseInt(item.productPrice) ;
 	});
-	
+	console.log("the Sum");
+	console.log(sum);
 	Ti.App.fireEvent('Calculate',{value:sum});
 	
 }

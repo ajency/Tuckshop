@@ -104,6 +104,10 @@ function receivePush(e) {
 
 //Navigation track (Default - Home)
 Alloy.Globals.navigatedView = 'Home';
+
+Alloy.Globals.midContainerReference;
+Alloy.Globals.navigatedFromAllProducts = false;
+
 var dbOperations=require('/dbOperations');
 dbOperations.createDB();
 
@@ -112,7 +116,7 @@ Alloy.Globals.autoLogin=false;
 Alloy.Globals.logoutInterval;
          
 Alloy.Globals.forceLogout = function (){
-	
+		
        Alloy.Globals.logoutInterval = setTimeout(function(){
        	
 			Cloud.Users.logout(function (e) {
@@ -131,6 +135,6 @@ Alloy.Globals.forceLogout = function (){
    		 			}
  			});
  			
-		},50000);
+		},250000);
 };
 

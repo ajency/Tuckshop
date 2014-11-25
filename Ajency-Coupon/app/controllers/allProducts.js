@@ -167,7 +167,7 @@ var fetchDeltaTransaction = function(eSwipe) {
 		classname : 'testItems',
 		limit : 1000,
 
-		where : { "$and": [ {userId : localStorage.getUserId() },
+		where : { "$and": [ {userId : localStorage.getLastLoggedInUserId() },
 		{ created_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
 		
 		]}
@@ -352,8 +352,12 @@ function buyActionPerformed(productid,eSwipe){
 				}
 			}
 			else{
-			    if(totalUsers ===1)	
-			      var main = Alloy.createController('index', {}).getView().open();
+				
+			    if(totalUsers ===1){
+			    	alloy.Globals.navigatedFromAllProducts = true; // so that switch on index.js is not executed when single user present
+			    	 var main = Alloy.createController('index', {}).getView().open();
+			    }	
+			     
 			      
 			    else if(totalUsers>1)
 			      var multiView = Alloy.createController('multiUser', {}).getView().open();

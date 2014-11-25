@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <!--<property name="acs-oauth-secret-development" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
+    <property name="acs-oauth-secret-development" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
     <property name="acs-oauth-key-development" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
-    <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>-->
-    
-    <property name="acs-oauth-secret-development" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
-    <property name="acs-oauth-key-development" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
-    <property name="acs-api-key-development" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property>
+    <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
     <property name="acs-oauth-secret-production" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
     <property name="acs-oauth-key-production" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
     <property name="acs-api-key-production" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property>
@@ -74,7 +70,7 @@
                 android:name="BoutiqueAlloyApplication" android:theme="@style/Theme.NoActionBar">
                 <activity
                     android:configChanges="keyboardHidden|orientation|screenSize"
-                    android:label="TuckShop1"
+                    android:label="TuckShopMulti"
                     android:name=".BoutiqueAlloyActivity" android:screenOrientation="portrait">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN"/>

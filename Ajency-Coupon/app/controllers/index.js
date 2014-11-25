@@ -261,6 +261,9 @@ function loginClicked(e) {
 							Ti.API.info('test credited date:::\n' + user.custom_fields.credited_date_at);
 							day = moment(user.custom_fields.credited_date_at);
 							
+							if(alloy.Globals.midContainerReference != null)
+							Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
+							
 							//get the last credited date
 							updateCreditDate();
                             /*
@@ -510,8 +513,10 @@ function doNavigation(){
 						$.index.open();
 				break;
 			case 1:
-					if(localStorage.getLastLoggedInUserId())
-					var main = Alloy.createController('menu', {}).getView().open();
+					if(localStorage.getLastLoggedInUserId() && !alloy.Globals.navigatedFromAllProducts){ //if user has navigated from all products/register then do not open menu
+						var main = Alloy.createController('menu', {}).getView().open();
+					}
+					
 				break;		
 	
 			default:		
