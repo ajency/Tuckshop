@@ -418,12 +418,18 @@ var displayTransactionHistory = function(data) {
 			top : '20%',
 			right : 0
 		});
-
+		
+		var value;
+		if (OS_IOS) 
+			value = parseInt(data[i].productPrice);
+		else
+			value = data[i].productPrice;	
+			
 		priceLabel = Ti.UI.createLabel({
 			touchEnabled : false,
 			top : '10%',
 			right : 0,
-			text : data[i].productPrice,
+			text : value,
 			color : '#3B0B0B',
 			font : {
 				fontFamily : "OpenSans-Regular",

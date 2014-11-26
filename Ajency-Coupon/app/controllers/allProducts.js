@@ -635,10 +635,11 @@ function getSwipeRow(eSwipe) {
 		if (networkCheck.getNetworkStatus()==0)  alert('No Internet Connection');
 		else {
 			buyActionPerformed(eSwipe.rowData.id,eSwipe);
+			cancelView.removeEventListener('click', cancelClicked);
 			buyView.removeEventListener('click', buyClicked);
 		}
 	 	
-	 cancelView.removeEventListener('click', cancelClicked);
+	
 	}
 
 	buyView.addEventListener('click', buyClicked);
