@@ -343,7 +343,7 @@ var displayTransactionHistory = function(data) {
    
 	for (var i = 0; len = _.size(data), i < len; i++) {
 		
-		var day = moment(data[i].created_at);
+		var day = moment(data[i].updated_at);
 
 		outerView = Ti.UI.createView({
 			layout : 'vertical',
@@ -546,8 +546,8 @@ var sortTransactions = function(period) {
 		    
 			var weekTransaction = allItems.filter(function(item) {
 
-				var created_at = moment(item.created_at).format('L');
-				return (created_at >= startWeek && created_at <= endWeek);
+				var updated_at = moment(item.updated_at).format('L');
+				return (updated_at >= startWeek && updated_at <= endWeek);
 			});
 
 			var params = {
@@ -563,8 +563,8 @@ var sortTransactions = function(period) {
 
 			var monthTransaction = allItems.filter(function(item) {
 
-				var created_at = moment(item.created_at).format('L');
-				return (created_at >= startMonth && created_at <= endMonth);
+				var updated_at = moment(item.updated_at).format('L');
+				return (updated_at >= startMonth && updated_at <= endMonth);
 			});
 
 			var params = {
@@ -638,7 +638,7 @@ var fetchDeltaTransaction = function(currentTab) {
 		limit : 1000,
 
 		where : { "$and": [ {userId : localStorage.getLastLoggedInUserId()},
-		{ created_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
+		{ updated_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
 		
 		]}
 		

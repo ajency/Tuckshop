@@ -207,7 +207,7 @@ var getAllTransactionRows = function (userid) {
 	while (rows.isValidRow()){
 	
 		  data.push({
-		  		created_at: rows.fieldByName('updated_at'),
+		  		updated_at: rows.fieldByName('updated_at'),
 		  		productName: rows.fieldByName('productName'),
 		  		productPrice: rows.fieldByName('productPrice') 
 		  	

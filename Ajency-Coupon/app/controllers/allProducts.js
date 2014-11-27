@@ -168,7 +168,7 @@ var fetchDeltaTransaction = function(eSwipe) {
 		limit : 1000,
 
 		where : { "$and": [ {userId : localStorage.getLastLoggedInUserId() },
-		{ created_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
+		{ updated_at : {"$gt" : dbOperations.getLatestTransactionDate(localStorage.getLastLoggedInUserId()) } }
 		
 		]}
 		
