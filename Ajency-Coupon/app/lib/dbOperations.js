@@ -4,7 +4,7 @@ var createDB = function(){
  	var db = Ti.Database.open('TuckshopDatabase');
  	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER, last_credit_date TEXT)');
  	
-	db.execute('CREATE TABLE IF NOT EXISTS transactions (user_id INTEGER, created_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS transactions (txn_id INTEGER UNIQUE, user_id INTEGER, updated_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
 	
 	db.close();
  	
@@ -172,8 +172,8 @@ var saveTransactionRows = function  (data) {
    data.reverse();
    for (var i = 0, len = data.length; i < len; i++) {
    	
-	db.execute('INSERT INTO transactions (user_id, created_at, productName, productPrice, productId, quantity ) VALUES (?, ?, ?, ?, ?, ?)'
-	, localStorage.getLastLoggedInUserId(),data[i].created_at,data[i].productName,data[i].productPrice,data[i].productId,data[i].quantity);
+	db.execute('INSERT OR REPLACE INTO transactions (txn_id, user_id, updated_at, productName, productPrice, productId, quantity ) VALUES (?, ?, ?, ?, ?, ?, ?)'
+	, data[i].id, localStorage.getLastLoggedInUserId(), data[i].updated_at, data[i].productName, data[i].productPrice, data[i].productId, data[i].quantity);
    }
     
    db.close();
@@ -207,7 +207,7 @@ var getAllTransactionRows = function (userid) {
 	while (rows.isValidRow()){
 	
 		  data.push({
-		  		created_at: rows.fieldByName('created_at'),
+		  		created_at: rows.fieldByName('updated_at'),
 		  		productName: rows.fieldByName('productName'),
 		  		productPrice: rows.fieldByName('productPrice') 
 		  	
@@ -225,8 +225,8 @@ var getAllTransactionRows = function (userid) {
 var getLatestTransactionDate = function (userid){
 	
 	var db = getDB();
-	var row = db.execute('SELECT * FROM transactions WHERE user_id =? ORDER BY created_at DESC LIMIT 1',userid);
-	var returnDate = row.fieldByName('created_at');
+	var row = db.execute('SELECT * FROM transactions WHERE user_id =? ORDER BY updated_at DESC LIMIT 1',userid);
+	var returnDate = row.fieldByName('updated_at');
 	
 	row.close();
 	db.close();

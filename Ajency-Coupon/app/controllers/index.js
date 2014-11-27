@@ -580,5 +580,11 @@ if(!OS_IOS){
    	
    	
 }
-
+else{
+	$.win1.addEventListener("close", function  () {
+	  $.destroy();
+      $.off();
+      $.win1.close();
+	});
+}
 

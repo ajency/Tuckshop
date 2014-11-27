@@ -10,7 +10,7 @@
     <property name="acs-oauth-key-production" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
     <property name="acs-api-key-production" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>-->
     <id>com.ajency.tuckshopapp</id>
-    <name>TuckShop</name>
+    <name>Boutique(Alloy)</name>
     <version>1.0</version>
     <publisher>Ajency.in</publisher>
     <url>http://www.ajency.in</url>
@@ -70,7 +70,7 @@
                 android:name="BoutiqueAlloyApplication" android:theme="@style/Theme.NoActionBar">
                 <activity
                     android:configChanges="keyboardHidden|orientation|screenSize"
-                    android:label="TuckShopMulti"
+                    android:label="TuckShop"
                     android:name=".BoutiqueAlloyActivity" android:screenOrientation="portrait">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN"/>
