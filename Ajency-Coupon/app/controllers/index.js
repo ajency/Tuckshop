@@ -264,8 +264,9 @@ function loginClicked(e) {
 							if(alloy.Globals.midContainerReference != null)
 							Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
 							
+							subscribeToChannel();
 							//get the last credited date
-							updateCreditDate();
+							//updateCreditDate();
                             /*
 							//if application is deleted from device load the products
 							if (! localStorage.getAllProducts()) {
@@ -313,47 +314,32 @@ function loginClicked(e) {
 }
 
 /*
- * Auto Login function
+ * Subscribe the device to a channel for
+ * push notification
  */
+function subscribeToChannel() {
+	
+	
+	// Subscribes the device to the 'news_alerts' channel
+	// Specify the push type as either 'android' for Android or 'ios' for iOS
+	Cloud.PushNotifications.subscribeToken({
+		device_token : deviceToken,
+		channel : 'testtest',
+		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
+	}, function(e) {
+		if (e.success) {
+			updateCreditDate();
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			localStorage.saveErrorAtIndex('subscribeToChannel');
+            showConnectionErrorView();
+            console.log('SUBSCRIBE CHANNEL');
+		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	});
+}
 
-var autoLogin = function  () {
-
-  if (localStorage.getSessionId() != null){
-  		showImageView();
-   		// start the setInverval -- adjust the time to make a smooth animation
-    	loaderAnimate = setInterval(loadingAnimation,200);
-		
-		hideComponents();
-		hideConnectionErrorView();
-    
-    
-        Cloud.sessionId = localStorage.getSessionId();
-        Cloud.Users.showMe(function (e) {
-                if (e.success) {
-                	var user = e.users[0];
-                    hideImageView();
-					clearInterval(loaderAnimate);
-					day = moment(user.custom_fields.credited_date_at);
-					updateCreditDate();
-                }else{
-                	hideImageView();
-					clearInterval(loaderAnimate);
-					alert('Could not connect to server.');
-					showComponents();
-					/*
-					if(e.code==400){
-					  alert('Failed to find current User');
-					  showComponents();
-					}else{
-						type='autoLogin';
-                		showConnectionErrorView();
-					}
-				    */
-                }
-                
-         });
- 	}	      
-};
 
 /*
  * Update the new credit date
@@ -389,7 +375,7 @@ var updateCreditDate = function() {
 				// type='updateCreditDate';
                 showConnectionErrorView();
                 console.log('UPDATE CREDIT DATE');
-			//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+			
 			}
 
 		});
@@ -397,7 +383,8 @@ var updateCreditDate = function() {
 	else{
 		//if application is deleted from device load the products
 		if (! localStorage.getAllProducts() && !alloy.Globals.pushNotificationReceived) {
-			subscribeToChannel();
+			fetchProductsJs.fetchCloudProducts('menu');
+			// subscribeToChannel();
 
 		} else {
 			Ti.App.fireEvent('destroy:menu:instance');
@@ -450,32 +437,6 @@ var updateCreditAmount = function() {
 	});
 };
 
-/*
- * Subscribe the device to a channel for
- * push notification
- */
-function subscribeToChannel() {
-	
-	
-	// Subscribes the device to the 'news_alerts' channel
-	// Specify the push type as either 'android' for Android or 'ios' for iOS
-	Cloud.PushNotifications.subscribeToken({
-		device_token : deviceToken,
-		channel : 'test',
-		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
-	}, function(e) {
-		if (e.success) {
-			fetchProductsJs.fetchCloudProducts('menu');
-		} else {
-			hideImageView();
-			clearInterval(loaderAnimate);
-			localStorage.saveErrorAtIndex('subscribeToChannel');
-            showConnectionErrorView();
-            console.log('SUBSCRIBE CHANNEL');
-		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
-		}
-	});
-}
 
 /*
  * validation for email address

@@ -25,15 +25,45 @@ var deviceToken = null;
 Alloy.Globals.pushNotificationReceived = false; //handle push notifications on auto login
 
 if (OS_IOS) {
+	
 	console.log('In iphone');
 	Titanium.UI.iPhone.setAppBadge(null);
-	Ti.Network.registerForPushNotifications({
-		// Specifies which notifications to receive
-		types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_ALERT, Ti.Network.NOTIFICATION_TYPE_SOUND],
-		success : deviceTokenSuccess,
-		error : deviceTokenError,
-		callback : receivePush
-	});
+	// Check if the device is running iOS 8 or later
+		if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+			
+		    function registerForPush() {
+		        Ti.Network.registerForPushNotifications({
+		            success: deviceTokenSuccess,
+		            error: deviceTokenError,
+		            callback: receivePush
+		        });
+		        // Remove event listener once registered for push notifications
+		        Ti.App.iOS.removeEventListener('usernotificationsettings', registerForPush); 
+		    };
+		 
+			// Wait for user settings to be registered before registering for push notifications
+		    Ti.App.iOS.addEventListener('usernotificationsettings', registerForPush);
+		 
+		    // Register notification types to use
+		    Ti.App.iOS.registerUserNotificationSettings({
+			    types: [
+		            Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+		            Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
+		            Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE
+		        ]
+		    });
+		
+		} 
+		else{
+			Ti.Network.registerForPushNotifications({
+				// Specifies which notifications to receive
+				types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_ALERT, Ti.Network.NOTIFICATION_TYPE_SOUND],
+				success : deviceTokenSuccess,
+				error : deviceTokenError,
+				callback : receivePush
+			});
+		}
+		
 
 } else {
 	// Require the module
@@ -56,7 +86,9 @@ if (OS_IOS) {
 		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
 		var fetchProductsJs = require('/fetchCloudProducts');
 		fetchProductsJs.fetchCloudProducts('alloy');
-	//	alert("Notification received: " + evt.payload);
+		
+		var a = JSON.parse(evt.payload);
+		alert(a.android.alert);
 	});
 	
 	/*
@@ -84,7 +116,7 @@ if (OS_IOS) {
 // Save the device token for subsequent API calls
 function deviceTokenSuccess(e) {
 	deviceToken = e.deviceToken;
-	localStorage.saveDeviceToken(e.deviceToken);
+	
 }
 
 function deviceTokenError(e) {
@@ -98,7 +130,10 @@ function deviceTokenError(e) {
 function receivePush(e) {
 	var fetchProductsJs = require('/fetchCloudProducts');
 	fetchProductsJs.fetchCloudProducts('alloy');
-//	alert("Notification received: " + e.payload);
+	// alert("Notification received: " + e);
+	console.log('Push ios');
+	console.log(e);
+	alert(e);
 }
 
 
@@ -138,3 +173,7 @@ Alloy.Globals.forceLogout = function (){
 		},250000);
 };
 
+
+if(Titanium.App.version === '2.0' && dbOperations.getCount() ===0){    //clear all products for an app update version 2.0 so that users do not have to refresh
+	Ti.App.Properties.removeProperty('allProductResponse');
+}
