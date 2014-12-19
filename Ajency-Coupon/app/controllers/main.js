@@ -11,7 +11,12 @@ if (OS_IOS) {
 
 $.headerMenu.addEventListener('click', function(e){
 	
-	Ti.App.fireEvent('menu:toggleLeftMenu');
+	if($.headerMenu.image ==='/back.png'){ //menu back to navigate back to categories page from products
+		$.headerMenu.image ='/images/menu.png';
+		Ti.App.fireEvent('screen:back');
+	}
+	else	
+		Ti.App.fireEvent('menu:toggleLeftMenu');
 });
 
 
@@ -136,17 +141,20 @@ alloy.Globals.midContainerReference = function (e) {
 	switch(id) {
 	    case 'Home':
 	    	console.log('Home');
+	    	$.headerMenu.image ='/images/menu.png';
 	    	init('Home');
 	        break;
 	        
 	    case 'Transaction History':
 	    	console.log('Transaction history');
+	    	$.headerMenu.image ='/images/menu.png';
 	    	init('Transaction History');
 	    	break;
 	        
 	    default :
 	    	//Default values will be product category ids.
 	    	console.log('Product id: '+id);
+	    	$.headerMenu.image ='/back.png';
 	    	loadStaticView(id);
 	    	getAllProducts(id);
 	}

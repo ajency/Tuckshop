@@ -35,12 +35,8 @@ function toggle(e) {
     $.drawer[fn]();
 }
 
-//Back button navigation for android
-if(!OS_IOS){
-	
-	$.drawer.addEventListener('android:back', function(e) {
-		
-	    e.cancelBubble = true;
+var navigatePrevious = function (e) {
+  	 e.cancelBubble = true;
 	    
 	    if($.drawer.instance.isLeftWindowOpen()) $.drawer.instance.toggleLeftWindow();
 	    
@@ -64,8 +60,16 @@ if(!OS_IOS){
 				refreshLeftMenu();
 		    }
 		  }
-	});
+};
+
+//Back button navigation for android
+if(!OS_IOS){
+	
+	$.drawer.addEventListener('android:back', navigatePrevious);
 }
+
+//menu back to navigate back to categories page from products
+Ti.App.addEventListener('screen:back',navigatePrevious);
 
 function destroyMenu (){
 	$.destroy();
