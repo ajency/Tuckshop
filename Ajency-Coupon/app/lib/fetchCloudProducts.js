@@ -17,7 +17,7 @@ var fetchCloudProducts = function(controllername) {
 	//fetch all the juices
 	Cloud.Objects.query({
 		classname : 'things',
-		per_page : 100
+		limit : 1000
 		
 	}, function(e) {
 

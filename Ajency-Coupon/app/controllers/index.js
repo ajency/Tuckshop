@@ -6,6 +6,7 @@ var myAnimation = require('animation');
 
 var moment = require('alloy/moment');
 var day;
+var totalSum;
 //for image loader
 var loaderAnimate;
 var instanceOfListener;
@@ -114,7 +115,10 @@ $.errorLabel.addEventListener('click',function(e){
     				
     				else if(localStorage.getErrorAtIndex() === 'updateCreditAmount')
     				updateCreditAmount();
-    		
+    				
+    				else if(localStorage.getErrorAtIndex() === 'removeCarryForward')
+    				removeCarryForward(totalSum);
+    				
     		        else if(localStorage.getErrorAtIndex() === 'deviceTokenError'){
     		        	// Initialize the module
 						CloudPush.retrieveDeviceToken({
@@ -346,7 +350,8 @@ function subscribeToChannel() {
  * after a month is over
  */
 var updateCreditDate = function() {
-
+	
+    totalSum=0;
 	//	createdDateValue=new Date(day.add('months',1));
 	//	Ti.API.info('Date:::\n' + new Date(day.add('months',1)));
 	createdDateValue = day.add('months', 1);
@@ -363,8 +368,21 @@ var updateCreditDate = function() {
 		}, function(e) {
 			if (e.success) {
 				var user = e.users[0];
-				dbOperations.updateCreditDate(user.id, user.credited_date_at);
-				updateCreditAmount();
+				
+				//whether to perform carry forward or no
+				_.each(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()), function(item){
+		
+					totalSum += parseInt(item.productPrice) ;
+				});
+				console.log("The Sum after a month");
+				console.log(totalSum);
+				
+				dbOperations.updateCreditDate(user.id, user.custom_fields.credited_date_at);
+				
+				if(totalSum<0)
+					updateCreditAmount();
+				else
+				    removeCarryForward(totalSum);
 				
 			//	alert('Success:\n' + 'id: ' + user.id + '\n' + 'credited date: ' + user.credited_date_at);
 
@@ -396,6 +414,39 @@ var updateCreditDate = function() {
 	}
 
 };
+
+
+/*
+ * Remove any carry forward balance 
+ */
+var removeCarryForward = function (totalSum) {
+	
+     Cloud.Objects.create({
+		classname : 'testItems',
+		fields : {
+			productName : 'Carry Forward',
+			productPrice : -totalSum,
+			productId : 1010,
+			userId : localStorage.getUserId()
+		}
+	}, function(e) {
+		if (e.success) {
+			console.log('Amount carry forward in index');
+			var testItem = e.testItems[0];	
+			
+			updateCreditAmount();
+			
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			localStorage.saveErrorAtIndex('removeCarryForward');
+            showConnectionErrorView();
+            console.log('CARRY FORWARD AMOUNT');
+		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	}); 
+};
+
 
 /*
  * make entry of credited amount in transaction

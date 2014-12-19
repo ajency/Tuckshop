@@ -9,6 +9,7 @@ var filteredProductArray =[];
 var allProductIdsArray =[];
 
 var day;
+var totalSum;
 
 var loaderTableAnimate;
 var loaderAnimate;
@@ -243,7 +244,8 @@ var makeTransactionEntry = function(productid,eSwipe) {
  * after a month is over
  */
 var updateCreditDate = function(productid,eSwipe) {
-
+	
+	totalSum = 0;
 	createdDateValue = day.add('months', 1);
 
 	if (moment().diff(createdDateValue, 'minutes') > 0) {
@@ -254,8 +256,21 @@ var updateCreditDate = function(productid,eSwipe) {
 		}, function(e) {
 			if (e.success) {
 				var user = e.users[0];
-				dbOperations.updateCreditDate(user.id, user.credited_date_at);
-				updateCreditAmount(productid,eSwipe);
+				
+				//whether to perform carry forward or no
+				_.each(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()), function(item){
+		
+					totalSum += parseInt(item.productPrice) ;
+				});
+				console.log('In all products');
+				console.log(user);
+				console.log(user.credited_date_at);
+				dbOperations.updateCreditDate(user.id, user.custom_fields.credited_date_at);
+				if(totalSum<0)
+					updateCreditAmount(productid,eSwipe);
+				else
+				    removeCarryForward(totalSum, productid, eSwipe);
+				
 
 			} else {
 				$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'updateCreditDate'));
@@ -267,6 +282,32 @@ var updateCreditDate = function(productid,eSwipe) {
 		makeTransactionEntry(productid,eSwipe);
 	}
 
+};
+
+/*
+ * Remove any carry forward balance 
+ */
+var removeCarryForward = function (totalSum, productid,eSwipe) {
+	
+     Cloud.Objects.create({
+		classname : 'testItems',
+		fields : {
+			productName : 'Carry Forward',
+			productPrice : -totalSum,
+			productId : 1010,
+			userId : localStorage.getUserId()
+		}
+	}, function(e) {
+		if (e.success) {
+			console.log('Amount carry forward in index');
+			var testItem = e.testItems[0];	
+			
+			updateCreditAmount(productid,eSwipe);
+			
+		} else {
+			$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'removeCarryForward'));
+		}
+	}); 
 };
 
 /*
@@ -304,7 +345,7 @@ var checkIfLoggedIn = function  (productid,eSwipe) {
         	
                 if (e.success) {
                 	var user = e.users[0];
-                    
+                    console.log('Logged in');
 					day = moment(user.custom_fields.credited_date_at);
 					updateCreditDate(productid,eSwipe);
                 	
@@ -344,8 +385,10 @@ function buyActionPerformed(productid,eSwipe){
 					checkIfLoggedIn(productid,eSwipe);
 				}
 				else{
+					console.log('App not closed');
 					day = moment(dbOperations.getLastCreditDate(localStorage.getLastLoggedInUserId()));
-					
+					console.log('day');
+					console.log(day);
 					updateCreditDate(productid,eSwipe);
 					
 				 	$.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
@@ -417,7 +460,9 @@ function getErrorRow(eSwipe,type){
 		    	updateCreditDate(eSwipe.rowData.id,eSwipe);
 		    else if(type === 'updateCreditAmount')
 		    	updateCreditAmount(eSwipe.rowData.id,eSwipe);
-		    	
+		    else if(type === 'removeCarryForward')
+		    	removeCarryForward(totalSum, eSwipe.rowData.id,eSwipe);
+		    		
 		    $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 		}	
 		

@@ -43,7 +43,7 @@ if (OS_IOS) {
 		 
 			// Wait for user settings to be registered before registering for push notifications
 		    Ti.App.iOS.addEventListener('usernotificationsettings', registerForPush);
-		 
+		 	
 		    // Register notification types to use
 		    Ti.App.iOS.registerUserNotificationSettings({
 			    types: [
@@ -88,7 +88,16 @@ if (OS_IOS) {
 		fetchProductsJs.fetchCloudProducts('alloy');
 		
 		var a = JSON.parse(evt.payload);
-		alert(a.android.alert);
+		
+		var confirm = Titanium.UI.createAlertDialog({
+        	title: 'Notification Received',
+        	message: a.android.alert,
+        	buttonNames: ['OK'],
+        	cancel: 0
+		});
+		
+		confirm.show();
+		// alert(a.android.alert);
 	});
 	
 	/*
@@ -131,9 +140,9 @@ function receivePush(e) {
 	var fetchProductsJs = require('/fetchCloudProducts');
 	fetchProductsJs.fetchCloudProducts('alloy');
 	// alert("Notification received: " + e);
-	console.log('Push ios');
+	
 	console.log(e);
-	alert(e);
+	alert(e.data.alert);
 }
 
 
@@ -174,6 +183,7 @@ Alloy.Globals.forceLogout = function (){
 };
 
 
-if(Titanium.App.version === '2.0' && dbOperations.getCount() ===0){    //clear all products for an app update version 2.0 so that users do not have to refresh
+if(Titanium.App.version >= '2.0' && dbOperations.getCount() ===0){    //clear all products for an app update version 2.0 so that users do not have to refresh
+	console.log('App version greater');
 	Ti.App.Properties.removeProperty('allProductResponse');
 }
