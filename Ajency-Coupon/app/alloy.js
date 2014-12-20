@@ -142,7 +142,15 @@ function receivePush(e) {
 	// alert("Notification received: " + e);
 	
 	console.log(e);
-	alert(e.data.alert);
+	// alert(e.data.alert);
+	var confirm = Titanium.UI.createAlertDialog({
+        	title: 'Notification Received',
+        	message: e.data.alert,
+        	buttonNames: ['OK'],
+        	cancel: 0
+		});
+		
+	confirm.show();
 }
 
 

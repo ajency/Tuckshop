@@ -317,6 +317,11 @@ function loginClicked(e) {
 
 }
 
+//Action on keyboard done key
+$.passwordTextfield.addEventListener('return', function(e) {
+	loginClicked();
+});
+
 /*
  * Subscribe the device to a channel for
  * push notification
