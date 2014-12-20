@@ -429,7 +429,7 @@ var removeCarryForward = function (totalSum) {
      Cloud.Objects.create({
 		classname : 'testItems',
 		fields : {
-			productName : 'Carry Forward',
+			productName : 'Debit balance',
 			productPrice : -totalSum,
 			productId : 1010,
 			userId : localStorage.getUserId()
