@@ -72,7 +72,7 @@ var populateUserList = function(data) {
 	 
 	  deleteUserView = Ti.UI.createImageView({
 			image : '/images/delete_user.png',
-			width : Ti.UI.FILL,
+			width : Ti.UI.SIZE,
 			height : Ti.UI.FILL,
 			id: i
 		});
@@ -90,7 +90,7 @@ var populateUserList = function(data) {
 	  	    id : i,
 			layout : 'vertical',
 			height : Ti.UI.FILL,
-			width : '90%'
+			width : '89.5%'
 	  });
 	 
 	 		
@@ -116,8 +116,8 @@ var populateUserList = function(data) {
 	  
 	expandImageView = Ti.UI.createImageView({
 			image : '/images/expand-arrow.png',
-			left : '2%',
-			width : Ti.UI.FILL,
+			left : '5%',
+			width : Ti.UI.SIZE,
 			height : Ti.UI.FILL,
 			id: i,
 			right : '0%',
