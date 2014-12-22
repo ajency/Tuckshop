@@ -12,7 +12,13 @@
 	height: '60%'
 },
 
-"#headerLogo" :{
+"#headerLogo[platform=ios]" :{
+	image: '/images/header_logo.png',
+	width: '50%',
+	height: '40%'
+},
+
+"#headerLogo[platform=android]" :{
 	image: '/images/header_logo.png',
 	width: '50%',
 	height: '60%'

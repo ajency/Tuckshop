@@ -2,12 +2,12 @@
 	<View class="container">
 		<View class="ver">
 			
-			<View id="headerView" class="top0 w-fill" height="9%">
-				<ImageView id="headerMenu" class="top4 bottom4 left1"/>
-				<ImageView id="headerLogo" class="top4 bottom4"/>
+			<View id="headerView" class="top0 w-fill" height="11.5%">
+				<ImageView id="headerMenu" class="top6 bottom6 left1"/>
+				<ImageView id="headerLogo" top="40%"/>
 			</View>
 			
-			<View id="staticView" class="top0 w-fill ts-bg-yellow" height="25%"/>
+			<View id="staticView" class="top0 w-fill ts-bg-yellow" height="23%"/>
 			
 			<View id="midContainer" class="ver top0 w-fill h-fill"></View>
 			
