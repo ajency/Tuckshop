@@ -13,10 +13,8 @@ $.headerMenu.addEventListener('click', function(e){
 	
 	if($.headerMenu.image ==='/images/menu_back.png'){ //menu back to navigate back to categories page from products
 		$.headerMenu.image ='/images/menu.png';
-		if(!OS_IOS)
-			Ti.App.fireEvent('screen:back:android');
-		else	
-			Ti.App.fireEvent('screen:back:ios');
+		Ti.App.fireEvent('screen:back');
+		
 	}
 	else	
 		Ti.App.fireEvent('menu:toggleLeftMenu');

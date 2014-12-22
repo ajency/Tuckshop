@@ -90,7 +90,7 @@ if (OS_IOS) {
 		var a = JSON.parse(evt.payload);
 		
 		var confirm = Titanium.UI.createAlertDialog({
-        	title: 'Notification Received',
+        	title: 'Notification',
         	message: a.android.alert,
         	buttonNames: ['OK'],
         	cancel: 0
@@ -144,7 +144,7 @@ function receivePush(e) {
 	console.log(e);
 	// alert(e.data.alert);
 	var confirm = Titanium.UI.createAlertDialog({
-        	title: 'Notification Received',
+        	title: 'Notification',
         	message: e.data.alert,
         	buttonNames: ['OK'],
         	cancel: 0

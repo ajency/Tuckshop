@@ -46,8 +46,11 @@ var navigatePrevious = function (e) {
 		    
 		    if(currentView === 'Home'){
 		    	
-		    	var activity = Titanium.Android.currentActivity;
-				activity.finish();
+		    	if(!OS_IOS){
+		    		var activity = Titanium.Android.currentActivity;
+					activity.finish();
+		    	}
+		    	
 		    }
 		    
 		    else{
@@ -62,43 +65,15 @@ var navigatePrevious = function (e) {
 		  }
 };
 
-var navigateIosPrevious = function (e) {
-  	 e.cancelBubble = true;
-	    
-	    if($.drawer.instance.isLeftWindowOpen()) $.drawer.instance.toggleLeftWindow();
-	    
-	    else{
-	    	
-		    var currentView = alloy.Globals.navigatedView;
-		    
-		    if(currentView === 'Home'){
-		    	
-		    	currentView.close();
-		    }
-		    
-		    else{
-		    	
-		    	alloy.Globals.navigatedView = 'Home';
-		    	
-		    	var evtData = {id: 'Home'};
-				Ti.App.fireEvent("app:addViewToMidContainer", evtData);
-				
-				refreshLeftMenu();
-		    }
-		  }
-};
 
 //Back button navigation for android
 if(!OS_IOS){
 	
 	$.drawer.addEventListener('android:back', navigatePrevious);
-	//menu back to navigate back to categories page from products
-	Ti.App.addEventListener('screen:back:android',navigatePrevious);
 }
-else{
-	//menu back to navigate back to categories page from products
-	Ti.App.addEventListener('screen:back:ios',navigateIosPrevious);
-}
+
+//menu back to navigate back to categories page from products
+Ti.App.addEventListener('screen:back',navigatePrevious);
 
 
 function destroyMenu (){
