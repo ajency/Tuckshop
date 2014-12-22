@@ -11,7 +11,7 @@ if (OS_IOS) {
 
 $.headerMenu.addEventListener('click', function(e){
 	
-	if($.headerMenu.image ==='/back.png'){ //menu back to navigate back to categories page from products
+	if($.headerMenu.image ==='/images/menu_back.png'){ //menu back to navigate back to categories page from products
 		$.headerMenu.image ='/images/menu.png';
 		Ti.App.fireEvent('screen:back');
 	}
@@ -147,14 +147,14 @@ alloy.Globals.midContainerReference = function (e) {
 	        
 	    case 'Transaction History':
 	    	console.log('Transaction history');
-	    	$.headerMenu.image ='/images/menu.png';
+	    	$.headerMenu.image ='/images/menu_back.png';
 	    	init('Transaction History');
 	    	break;
 	        
 	    default :
 	    	//Default values will be product category ids.
 	    	console.log('Product id: '+id);
-	    	$.headerMenu.image ='/back.png';
+	    	$.headerMenu.image ='/images/menu_back.png';
 	    	loadStaticView(id);
 	    	getAllProducts(id);
 	}
