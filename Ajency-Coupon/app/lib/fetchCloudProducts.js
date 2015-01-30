@@ -1,16 +1,68 @@
 
 //for local storage
 var localStorage=require('/localStorage');
-
+var alloy = require('alloy');
 var allProductIdsArray =[];
 var filteredProductArray =[];
 var xhr = Ti.Network.createHTTPClient();
+
+var fetchCategories = function (controllername) {
+	
+	alloy.Globals.categoryResponse = [];
+	Ti.App.Properties.removeProperty('allCategoryResponse');
+	  
+	Cloud.Objects.query({
+		classname : 'categories',
+		limit : 1000,
+		
+		where : {
+			organizationId : localStorage.getOrganizationId()
+		}
+		
+	}, function(e) {
+
+		if (e.success) {
+			console.log('categories success response');
+			console.log(e);
+			
+			for (var i = 0,len=e.categories.length; i < len; i++) {
+				
+				var category = e.categories[i];
+				
+				alloy.Globals.categoryResponse.unshift(category);
+			}
+			
+			localStorage.saveAllCategories(alloy.Globals.categoryResponse);	
+			
+			fetchCloudProducts(controllername);
+		}else{
+			if (controllername === 'menu') {
+				Ti.App.fireEvent('errorIndex',{name:'fetchCategories'});
+			
+			} else if (controllername === 'index') {
+				Ti.App.fireEvent('errorOnRegister',{name:'fetchCategories'});			
+			
+			}else if (controllername === 'leftMenu') {
+				
+				Ti.App.fireEvent('errorOnFetch',{name:'fetchCategories'});			
+			}else if (controllername === 'alloy') {
+				alert('Failed to fetch new Products! Please Click Refresh');
+							
+			}else if (controllername === 'home') {
+				
+				Ti.App.fireEvent('errorOnHome',{name:'fetchCategories'});		
+			}
+		}
+	});
+			
+};
+
 var fetchCloudProducts = function(controllername) {
 	var flag = 3;
 	/*
 	 * Clear all data
 	 */
-	
+	console.log('fetch called');
 	 allProductsArray = [];
 	 Ti.App.Properties.removeProperty('allProductResponse');
 	 
@@ -57,17 +109,10 @@ var fetchCloudProducts = function(controllername) {
 	        
 			transactionsOnProductIds(controllername);
 			
-		//	navigateControllers(controllername);
-
-			/*
-			 for (var i = 0; i < e.things.length; i++) {
-
-			 var thing = e.things[i];
-			 Ti.API.info(thing.productName);
-
-			 }
-			 */
+		
 		} else {
+			console.log('the error');
+			console.log(e);
 			if (controllername === 'menu') {
 				Ti.App.fireEvent('errorIndex',{name:'fetchCloudProducts'});
 			
@@ -77,7 +122,10 @@ var fetchCloudProducts = function(controllername) {
 			}else if (controllername === 'leftMenu') {
 				Ti.App.fireEvent('errorOnFetch',{name:'fetchCloudProducts'});			
 			}else if (controllername === 'alloy') {
-				alert('Failed to fetch new Products! Please Click Refresh');			
+				alert('Failed to fetch new Products! Please Click Refresh');
+							
+			}else if (controllername === 'home') {
+				Ti.App.fireEvent('errorOnHome',{name:'fetchCloudProducts'});		
 			}
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 		}
@@ -128,6 +176,9 @@ var transactionsOnProductIds = function(controllername) {
 						
 			}else if (controllername === 'alloy') {
 				alert('Failed to fetch new Products! Please Click Refresh');			
+			}else if (controllername === 'home') {
+			
+				Ti.App.fireEvent('errorOnHome',{name:'transactionsOnProductIds'});		
 			}
 			
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -185,7 +236,9 @@ var navigateControllers= function(controllername){
 	
 //	localStorage.saveAllProducts(allProductsArray);
      //   Ti.App.Properties.setList('allProductResponse', allProductsArray);
-
+			
+			alloy.Globals.pushNotificationReceived = false;   //finished processing push notification
+			
 			if (controllername === 'menu') {
 				console.log('In menu');
 				var main = Alloy.createController('menu', {}).getView().open();
@@ -195,12 +248,14 @@ var navigateControllers= function(controllername){
 				var index = Alloy.createController('index', {}).getView();
 				index.open();			
 			}else if (controllername === 'leftMenu') {
-				Ti.App.fireEvent('successOnFetch');			
+				Ti.App.fireEvent('successOnFetch');		
+					
 			}else if (controllername === 'home') {
 				Ti.App.fireEvent('successOnHome');			
 			}
 };
 
+exports.fetchCategories = fetchCategories;
 exports.transactionsOnProductIds = transactionsOnProductIds;
 exports.fetchCloudProducts = fetchCloudProducts;
 /*

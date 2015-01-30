@@ -83,7 +83,8 @@ var showConnectionErrorView = function () {
 };
 
 $.registerErrorLabel.addEventListener('click',function(e){
-	if (networkCheck.getNetworkStatus()==0) 
+	
+		if (networkCheck.getNetworkStatus()==0) 
 			alert('No Internet Connection');
 		
 		else{
@@ -92,22 +93,29 @@ $.registerErrorLabel.addEventListener('click',function(e){
     		loaderAnimate = setInterval(loadingAnimation,200);
     		hideConnectionErrorView(); 
     		
-		if(type==='autoLogin')
-    		autoLogin();
-    	else if(type==='updateCreditAmount')
-    		updateCreditAmount();
-    	else if(type==='subscribeToChannel')
-    		subscribeToChannel();
-    	
-    	else if(type==='fetchCloudProducts'){
-    			 
-				fetchProductsJs.fetchCloudProducts('index');
-    		 }
-    		 
-    	else if(type==='transactionsOnProductIds'){
-    			 
-				fetchProductsJs.transactionsOnProductIds('index');
-    		}	
+			if(type==='autoLogin')
+	    		autoLogin();
+	    	else if(type==='organizationData')
+	    		organizationData();	
+	    	else if(type==='updateCreditAmount')
+	    		updateCreditAmount();
+	    	else if(type==='subscribeToChannel')
+	    		subscribeToChannel();
+	    	
+	    	else if(type==='fetchCategories'){
+	    		
+	    			 fetchProductsJs.fetchCategories('index');
+	    		 }
+	    		 
+	    	else if(type==='fetchCloudProducts'){
+	    			 
+					fetchProductsJs.fetchCloudProducts('index');
+	    		 }
+	    		 
+	    	else if(type==='transactionsOnProductIds'){
+	    			 
+					fetchProductsJs.transactionsOnProductIds('index');
+	    		}	
     				
 		}	
 });
@@ -126,6 +134,7 @@ Ti.App.addEventListener('errorOnRegister', function(data) {
 	
 });
 
+
 /*
  * Register the user
  */
@@ -142,8 +151,8 @@ function registerClicked(e) {
 		if (!checkemail($.usernameTextfield.value)) {
 			alert("Please enter a valid email");
 		} else {
-			//check if email is ajency mail
-			if (enteredEmailValue[1] === 'ajency.in') {
+			//check if email is ajency mail or ascotwm mail
+			if (enteredEmailValue[1] === 'ajency.in' || 'ascotwm.com') {
 
 				//check for network
 				if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) {
@@ -157,43 +166,7 @@ function registerClicked(e) {
 				   // start the setInverval -- adjust the time to make a smooth animation
                    loaderAnimate = setInterval(loadingAnimation,200);
 				   hideComponents();
-				   /*
-				   Cloud.Users.query({
-        			
-        			where: {
-           			 	username:  $.usernameTextfield.value
-        				}
-    				}, function (e) {
-    					
-    					if(e.success){  //user doesnt exist
-    						console.log('the no of users');
-    						console.log(e.users.length);
-    						if(e.users.length>0){
-    							console.log('user created');
-    							if(!firstRequest){  //if not the first request (which is set in error and success of create user)
-    							   var user = e.users[0];
-							
-									localStorage.saveUserId(user);
-                           			localStorage.saveUserName($.usernameTextfield.value);
-                            		localStorage.saveDisplayName(enteredEmailValue[0]);
-                           	    	
-                           	    	updateCreditAmount();
-    							}  
-    						}
-    						else
-    						createNewUser();
-    					}else{
-    						
-    				           //if there is a connection timeout
-    							hideImageView();
-								showComponents();
-								clearInterval(loaderAnimate);
-								alert('Could not connect to server. Try again ');
-    					
-    					}
-       				 
-    				});
-    				*/
+				   
     				
     				Cloud.Users.create({
 						username : $.usernameTextfield.value,
@@ -215,7 +188,22 @@ function registerClicked(e) {
                             localStorage.saveUserName($.usernameTextfield.value);
                             localStorage.saveDisplayName(enteredEmailValue[0]);
                             
-							updateCreditAmount();
+                             /*
+                              * ORGANIZATION PURPOSE
+                              */ 
+                            if(enteredEmailValue[1]==='ajency.in')
+                            	localStorage.saveOrganizationId(1);
+                            	
+                            else if(enteredEmailValue[1]==='ascotwm.com')
+                            	localStorage.saveOrganizationId(2);
+                            	
+                            
+                            //Check if particular organization details present
+                            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+                            	 updateCreditAmount();
+                            else 
+                            	organizationData();	
+							// updateCreditAmount();
 
 						} else {
 							
@@ -237,7 +225,7 @@ function registerClicked(e) {
 					
 				}
 			} else {
-				alert('Enter Ajency mail id');
+				alert('Sorry your organization is not registered');
 			}
 
 		}
@@ -248,10 +236,34 @@ function registerClicked(e) {
 
 }
 
-var createNewUser = function(){ 	
-			
-							
+
+/*
+ * organization data
+ */
+function organizationData () {
+	
+    Cloud.Objects.query({
+		classname : 'organization',
+		limit : 1000,
+		where : {
+			organizationId : localStorage.getOrganizationId()
+		}
+		
+	}, function(e) {
+
+		if (e.success) {
+			 dbOperations.saveOrganizationRow(e.organization);
+			 updateCreditAmount();
+		}
+		else{
+			hideImageView();
+			clearInterval(loaderAnimate);
+			type='organizationData';
+            showConnectionErrorView();
+		}
+	});	
 };
+
 
 /*
  * make entry of credited amount in transaction
@@ -309,8 +321,9 @@ function subscribeToChannel() {
 	}, function(e) {
 		if (e.success) {
 			var fetchProductsJs = require('/fetchCloudProducts');
-			fetchProductsJs.fetchCloudProducts('index');
-			//	alert('Subscribed');
+			// fetchProductsJs.fetchCloudProducts('index');  //for categories
+			fetchProductsJs.fetchCategories('index');
+			
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);

@@ -7,7 +7,7 @@
 				<Label text="Create my account" class="w-fill ts-brown text-center" top="5.5%"/>
 					
 				<TextField top="4%"  id="usernameTextfield" class="span13 text-center border-rounded f-s3.3 keyboard-email" 
-					hintText="Ajency email id"/>
+					hintText="Organization email id"/>
 				<TextField top="2%" id="passwordTextfield" class="span13 text-center border-rounded f-s3.3  keyboard-password" 
 					hintText="Password" maxLength="4"/>
 				 <ImageView id="animateObject" height="0" width="0" top="0" ></ImageView>

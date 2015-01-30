@@ -344,7 +344,7 @@
 
 //App specific tss [ts-TuckShop]
 ".ts-logo" :{
-	image: "/images/logo.png",
+	image: "/images/logo1.png",
 	width:'45%',
 	height:'29%'
 }

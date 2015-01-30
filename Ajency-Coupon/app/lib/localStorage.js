@@ -1,4 +1,20 @@
 
+var saveOrganizationId=function(id){
+	Ti.App.Properties.setInt('organizationId', id);
+};
+
+var getOrganizationId=function(){
+  return Ti.App.Properties.getInt('organizationId');
+};
+
+var saveAllCategories=function(data){
+	Ti.App.Properties.setObject('allCategoryResponse', data);
+};
+
+var getAllCategories=function(){
+  return Ti.App.Properties.getObject('allCategoryResponse');
+};
+
 var saveAllProducts=function(data){
 	Ti.App.Properties.setObject('allProductResponse', data);
 };
@@ -73,6 +89,15 @@ var saveErrorAtIndex = function (name) {
 var getErrorAtIndex = function () {
     return Ti.App.Properties.getString('errorAtIndex');
 };
+
+
+exports.saveOrganizationId=saveOrganizationId;
+exports.getOrganizationId=getOrganizationId;
+
+
+exports.saveAllCategories=saveAllCategories;
+exports.getAllCategories=getAllCategories;
+
 
 exports.saveAllProducts=saveAllProducts;
 exports.getAllProducts=getAllProducts;

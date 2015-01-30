@@ -6,6 +6,8 @@ var createDB = function(){
  	
 	db.execute('CREATE TABLE IF NOT EXISTS transactions (txn_id INTEGER UNIQUE, user_id INTEGER, updated_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
 	
+	db.execute('CREATE TABLE IF NOT EXISTS organizations (organizationId INTEGER UNIQUE, organizationName TEXT, organization_logo TEXT)');
+	
 	db.close();
  	
 };
@@ -234,6 +236,67 @@ var getLatestTransactionDate = function (userid){
 	return returnDate;
 };
 
+//Organization related
+var saveOrganizationRow = function  (data) {
+   var db = getDB();
+   console.log('data passed');
+   console.log(data);
+   
+   for (var i = 0, len = data.length; i < len; i++) {
+   	console.log('In loop');
+	db.execute('INSERT OR REPLACE INTO organizations (organizationId, organizationName, organization_logo) VALUES (?, ?, ?)'
+	, data[i].organizationId, data[i].organizationName, data[i].photo.urls.small_240);
+   }
+    
+   db.close();
+};
+
+
+var getOrganizationRow = function  () {
+ 
+    var db = getDB();
+	var data = [];
+	
+	var rows = db.execute('SELECT * FROM organizations');
+	console.log('rows');
+	console.log(rows);
+	
+	while (rows.isValidRow()){
+	
+		  data.push({
+		  		organizationId: rows.fieldByName('organizationId'),
+		  		organizationName: rows.fieldByName('organizationName'),
+		  		organization_logo: rows.fieldByName('organization_logo') 
+		  	
+		  });
+	
+	  rows.next();
+	}
+	rows.close();
+	db.close();
+	
+	return data;
+};
+
+var checkOrganizationPresent =  function (id) {  //check if users transactions present
+    
+    var db = getDB();
+    
+	var row = db.execute('SELECT * FROM organizations WHERE organizationId = ?',id);
+    
+	if(row.isValidRow()){
+		row.close();
+		db.close();
+		return true;
+	}	
+	else{
+		row.close();
+		db.close();
+		return false;
+	}
+		
+};
+
 exports.createDB = createDB;
 exports.checkIfRowExists = checkIfRowExists;
 exports.insertRow = insertRow;
@@ -262,3 +325,9 @@ exports.saveTransactionRows = saveTransactionRows;
 exports.checkTransactionsPresentForUser = checkTransactionsPresentForUser;
 exports.getAllTransactionRows = getAllTransactionRows;
 exports.getLatestTransactionDate = getLatestTransactionDate;
+
+//Organization related
+
+exports.saveOrganizationRow = saveOrganizationRow;
+exports.getOrganizationRow = getOrganizationRow;
+exports.checkOrganizationPresent = checkOrganizationPresent;

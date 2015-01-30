@@ -35,12 +35,16 @@ var getCategoriesJson = function(categoryId){
 	var data = {};
 	
 	Ti.include("/data/categoriesData.js");
-	var feeds = eval('(' + categoriesJsonTuckShop + ')');
+	// var feeds = eval('(' + categoriesJsonTuckShop + ')');
+	var feeds = localStorage.getAllCategories();
+	
 	
 	for(var i=0; len=_.size(feeds), i<len; i++){
-		
+		console.log(feeds[i]);
 		if(feeds[i].categoryId === categoryId){
-			data.imagePath = feeds[i].imagePath;
+			
+			 // data.imagePath = feeds[i].imagePath;
+			data.imagePath = feeds[i].photo.urls.small_240;
 			data.labelText = feeds[i].categoryFancyName;
 		}
 	}

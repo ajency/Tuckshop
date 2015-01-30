@@ -6,7 +6,7 @@ var row = label = null;
 var fetchProductsJs = require('/fetchCloudProducts');
 var loaderAnimate;
 var networkCheck=require('/networkCheck');
-var type='fetchCloudProducts';
+var type='fetchCategories';
 
 // set the length of the images you have in your sequence
 var loaderArrayLength=4;
@@ -168,6 +168,8 @@ Ti.App.addEventListener('successOnFetch', function(data) {
 	$.leftMenuRefreshLabel.visible=true;
 	$.leftMenuRefreshLabel.text="Refresh";
 	
+	// Ti.App.fireEvent('successOnHome');
+	Ti.App.fireEvent('refreshCategories');
 });
 
 function refreshClick(){
@@ -180,7 +182,10 @@ function refreshClick(){
     	$.menuTable.visible=false;
     	$.leftMenuRefreshLabel.visible=false;
     	
-    	if(type==='fetchCloudProducts') //fails on fetch products
+    	if(type==='fetchCategories') //fails on fetch categories
+    		fetchProductsJs.fetchCategories('leftMenu');
+    		
+    	else if(type==='fetchCloudProducts') 
     		fetchProductsJs.fetchCloudProducts('leftMenu');
     	
     	else if(type==='transactionsOnProductIds')

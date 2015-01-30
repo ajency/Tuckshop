@@ -85,6 +85,19 @@ var showConnectionErrorView = function () {
     $.errorLabel.width="30%";
 };
 
+/*
+ * Check if organization details present
+ */
+if(localStorage.getOrganizationId()){
+		
+	if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
+		
+		 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+		
+		 $.companyLogo.image = organizationDetails[0].organization_logo;
+	}
+}
+
 if (localStorage.getErrorAtIndex()) {   // if error is present do not allow the user to navigate
 	
 	if (OS_IOS)
@@ -130,6 +143,13 @@ $.errorLabel.addEventListener('click',function(e){
     				
     				else if(localStorage.getErrorAtIndex() === 'subscribeToChannel')
     				subscribeToChannel();
+    				
+    				else if(localStorage.getErrorAtIndex() === 'organizationData')
+    				organizationData();
+    				
+    				else if(localStorage.getErrorAtIndex() === 'fetchCategories'){
+						fetchProductsJs.fetchCategories('menu');
+    				}
     				
     				else if(localStorage.getErrorAtIndex() === 'fetchCloudProducts'){
 						fetchProductsJs.fetchCloudProducts('menu');
@@ -195,12 +215,41 @@ function openRegister(e) {
 /*
  *Textfield to retrieve the last value
  */
-if(Object.keys(args).length != 0){
+if(Object.keys(args).length != 0){       //populate from multi user page
 	$.usernameTextfield.value = args.title;
 }
 else if( localStorage.getUserName()) {
 	$.usernameTextfield.value = localStorage.getUserName();
 };
+
+/*
+ * organization data
+ */
+function organizationData () {
+	
+    Cloud.Objects.query({
+		classname : 'organization',
+		limit : 1000,
+		where : {
+			organizationId : localStorage.getOrganizationId()
+		}
+		
+	}, function(e) {
+
+		if (e.success) {
+			
+			 dbOperations.saveOrganizationRow(e.organization);
+			 subscribeToChannel();
+		}
+		else{
+			hideImageView();
+			clearInterval(loaderAnimate);
+			type='organizationData';
+            showConnectionErrorView();
+		}
+	});	
+};
+
 
 /*
  * Login button clicked
@@ -218,8 +267,8 @@ function loginClicked(e) {
 		if (!checkemail($.usernameTextfield.value)) {
 			alert("Please enter a valid email");
 		} else {
-			//check if email is ajency mail
-			if (enteredEmailValue[1] === 'ajency.in') {
+			//check if email is ajency mail or ascot mail
+			if (enteredEmailValue[1] === 'ajency.in' ||'ascotwm.com') {
 				//check for network
 				if (networkCheck.getNetworkStatus()==0) {
 					alert('No Internet Connection');
@@ -268,7 +317,22 @@ function loginClicked(e) {
 							if(alloy.Globals.midContainerReference != null)
 							Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
 							
-							subscribeToChannel();
+							/*
+                              * ORGANIZATION PURPOSE
+                              */ 
+                            if(enteredEmailValue[1]==='ajency.in')	
+                                localStorage.saveOrganizationId(1);
+                            else if(enteredEmailValue[1]==='ascotwm.com')    	
+                            	localStorage.saveOrganizationId(2);
+                            
+                            //Check if particular organization details present
+                            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+                            	 subscribeToChannel();
+                            else 
+                            	organizationData();		
+							
+                            	
+							
 							//get the last credited date
 							//updateCreditDate();
                             /*
@@ -304,7 +368,7 @@ function loginClicked(e) {
 					});
 				}
 			} else {
-                alert('Enter Ajency mail id');
+                alert('Sorry your organization is not registered');
                 $.loginButton.enabled = true;
 			}
 
@@ -406,8 +470,8 @@ var updateCreditDate = function() {
 	else{
 		//if application is deleted from device load the products
 		if (! localStorage.getAllProducts() && !alloy.Globals.pushNotificationReceived) {
-			fetchProductsJs.fetchCloudProducts('menu');
-			// subscribeToChannel();
+			// fetchProductsJs.fetchCloudProducts('menu'); //for categories
+			   fetchProductsJs.fetchCategories('menu');	
 
 		} else {
 			Ti.App.fireEvent('destroy:menu:instance');
@@ -473,8 +537,8 @@ var updateCreditAmount = function() {
 			var testItem = e.testItems[0];
 			//if application is deleted from device load the products
 			if (! localStorage.getAllProducts()) {
-				fetchProductsJs.fetchCloudProducts('menu');
-				// subscribeToChannel();
+				// fetchProductsJs.fetchCloudProducts('menu'); // for categories
+				 fetchProductsJs.fetchCategories('menu');
 
 			} else {
 				var main = Alloy.createController('menu', {}).getView().open();
@@ -513,7 +577,7 @@ function checkemail(emailAddress) {
 
 //autoLogin();
 function doNavigation(){
-	
+	console.log('In do navigation');
 	var result = dbOperations.ifTableExists();
 	var rows;
 	if(result.isValidRow()) {
@@ -523,6 +587,7 @@ function doNavigation(){
 		switch(totalUsers){
 	
 			case 0: 
+					
 					if (OS_IOS)
 						$.win1.open();
 

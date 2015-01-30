@@ -5,11 +5,19 @@ var args = arguments[0] || {};
 
 var type;
 var loaderAnimate;
- 
+var feedsForCategories;
+var rowheight;
+var rowTop;
+var separatorViewDistance;
+var separatorHeight;
+
+var animateObject;
+var homeErrorLabel;
+
 //for local storage
 var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
-
+var fetchProductsJs = require('/fetchCloudProducts');
 
 // set the length of the images you have in your sequence
 var loaderArrayLength = 4;
@@ -19,8 +27,9 @@ var loaderIndex = 1;
 
 // this function will be called by the setInterval
 function loadingAnimation() {
-	// set the image property of the imageview by constructing the path with the loaderIndex variable
-	$.animateObject.image = "/images/loaderlogin-" + loaderIndex + ".png";
+	
+	if(animateObject!=null)
+	  animateObject.image = "/images/loaderlogin-" + loaderIndex + ".png";
 	//increment the index so that next time it loads the next image in the sequence
 	loaderIndex++;
 	// if you have reached the end of the sequence, reset it to 1
@@ -28,51 +37,117 @@ function loadingAnimation() {
 		loaderIndex = 1;
 }
 
+function getDeviceType(){
+	
+	if(Alloy.isTablet){
+		rowHeight=150;
+		rowTop=12.6;
+		separatorViewDistance=30;
+		separatorHeight=1.8;
+	}   
+	else{
+		rowHeight=90;
+		rowTop=21;
+		separatorViewDistance=18;
+		separatorHeight=1.08;
+	}
+	   	   
+	 
+};
+
+getDeviceType();
 /*
  * Show and hide imageview
  */
 
 var showImageView = function() {
-	$.animateObject.height = 96;
-	$.animateObject.width = 96;
-    $.animateObject.top= '45%';
+	
+	 animateObject =Ti.UI.createImageView({
+			    height : 96,
+			    width : 96,
+			    top: '45%'
+	 });
+	 
+	 $.categoryView.add(animateObject);
+	
+	// $.animateObject.height = 96;
+	// $.animateObject.width = 96;
+    // $.animateObject.top= '45%';
 };
 
 var hideImageView = function(argument) {
-
-	$.animateObject.height = 0;
-	$.animateObject.width = 0;
-	$.animateObject.top= 0;
+	
+	if(animateObject!=null)
+		$.categoryView.remove(animateObject);
+	// $.animateObject.height = 0;
+	// $.animateObject.width = 0;
+	// $.animateObject.top= 0;
 };
 
 var showConnectionErrorView = function () {
-    $.homeErrorLabel.height="12%";
-    $.homeErrorLabel.width="30%";
-    $.homeErrorLabel.top= "45%";
+	 
+	  	
+	 homeErrorLabel=Ti.UI.createLabel({
+  		height:"12%",
+  		width: "30%",
+    	top : "45%",
+ 	 	text :'Tap to Retry',
+ 	 	font : {
+			fontFamily : "OpenSans-Regular",
+			fontSize : 15
+		}
+     
+     });
+     
+     $.categoryView.add(homeErrorLabel);
+    // $.homeErrorLabel.height="12%";
+    // $.homeErrorLabel.width="30%";
+    // $.homeErrorLabel.top= "45%";
     
 };
 
-$.homeErrorLabel.addEventListener('click',function(e){
+if(homeErrorLabel!=null){
+	
+	homeErrorLabel.addEventListener('click',function(e){
+	
     	if (networkCheck.getNetworkStatus()==0) 
 			alert('No Internet Connection');
 		else{
-			// fetchAllTransactions();	
-			showImageView();
-			loaderAnimate = setInterval(loadingAnimation, 250);
-			if(type ==='fetchCloudProducts') //fails on fetch products
-    			fetchProductsJs.fetchCloudProducts('home');
+			
+			if(type ==='fetchAllTransactions')   //Since loader function already present inside fetch transactions
+				fetchAllTransactions();
+			else{
+				showImageView();
+				loaderAnimate = setInterval(loadingAnimation, 250);
+				hideConnectionErrorView();
+				
+				if(type ==='organizationData') 
+    			   organizationData();
+    				
+				else if(type ==='fetchCategories') //fails on fetch products
+    				fetchProductsJs.fetchCategories('home');
+    			
+				else if(type ==='fetchCloudProducts') //fails on fetch products
+    				fetchProductsJs.fetchCloudProducts('home');
     	
-    		else if(type ==='transactionsOnProductIds')
-				fetchProductsJs.transactionsOnProductIds('home');
+    			else if(type ==='transactionsOnProductIds')
+					fetchProductsJs.transactionsOnProductIds('home');
+			}		
+			
 		}
    			
     	
-});
+	});
+}
+
 
 var hideConnectionErrorView= function  () {
-    $.homeErrorLabel.height=0;
-    $.homeErrorLabel.width=0;
-    $.homeErrorLabel.top=0;
+	
+	if(homeErrorLabel!=null)
+		$.categoryView.remove(homeErrorLabel);
+    // $.homeErrorLabel.height=0;
+    // $.homeErrorLabel.width=0;
+    // $.homeErrorLabel.top=0;
 };
 
 var isOdd = function(no){
@@ -88,8 +163,8 @@ var createRow = function(){
 	
 	var view = Ti.UI.createView({
 		width: Ti.UI.FILL,
-		height: '25%',
-		top: '3.5%'
+		height: rowHeight,
+		top: rowTop
 	});
 	
 	return(view);
@@ -118,12 +193,12 @@ var getGrid = function(position, data){
 		height: '60%',
 		width: '30%',
 		align: 'center',
-		image: data.imagePath
+		image: data.photo.urls.small_240
 	});
 	
 	var label = Ti.UI.createLabel({
 		touchEnabled: false,
-		height: '40%',
+		height:'40%',
 		width: '100%',
 		textAlign: 'center',
 		color: '#000000',
@@ -167,9 +242,9 @@ var horizontalSeparator = function(){
 	
 	var view = Ti.UI.createView({
 		backgroundColor: '#F0C60A',
-		height: '0.3%', 
+		height: separatorHeight, 
 		width: '85%',
-		top: '5%'
+		top: separatorViewDistance
 	});
 	
 	return(view);
@@ -179,7 +254,7 @@ var horizontalSeparator = function(){
 var bottomView = function(){
 	
 	var view = Ti.UI.createView({
-		height: '5%', 
+		height: separatorViewDistance, 
 		width: '100%',
 		top: '0%'
 	});
@@ -192,7 +267,8 @@ var bottomView = function(){
 //Initialize the categories UI according to the JSON
 var initCategories = function(feeds){
 	
-	var outerRow, leftGrid, rightGrid = null; 
+	console.log('Init categories');
+	var outerRow= leftGrid= rightGrid = null; 
 	
 	for(var i=0; len=feeds.length, i<len; i++){
 		
@@ -244,7 +320,6 @@ var initCategories = function(feeds){
 //fetch all the transactions
 var fetchAllTransactions = function(e) {
 	
-   var loaderAnimate;
 	showImageView();
 	// start the setInverval -- adjust the time to make a smooth animation
 	loaderAnimate = setInterval(loadingAnimation, 250);
@@ -267,10 +342,14 @@ var fetchAllTransactions = function(e) {
 			dbOperations.saveTransactionRows(e.testItems);
 			getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
 		
+            feedsForCategories = localStorage.getAllCategories();
             initCategories(feedsForCategories);
+            
+			
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);
+			type='fetchAllTransactions';
 			showConnectionErrorView();
 		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 		}
@@ -281,8 +360,38 @@ var fetchAllTransactions = function(e) {
 Ti.include("/data/categoriesData.js");
 
 var categoriesJson = categoriesJsonTuckShop;
+ // var categoriesJson = alloy.Globals.categoryResponse;
+ 
+// var feedsForCategories = eval('(' + categoriesJson + ')');
 
-var feedsForCategories = eval('(' + categoriesJson + ')');
+
+/*
+ * organization data
+ */
+function organizationData () {
+	
+    Cloud.Objects.query({
+		classname : 'organization',
+		limit : 1000,
+		where : {
+			organizationId : localStorage.getOrganizationId()
+		}
+		
+	}, function(e) {
+
+		if (e.success) {
+			 
+			 dbOperations.saveOrganizationRow(e.organization);
+			 fetchProductsJs.fetchCategories('home');	
+		}
+		else{
+			hideImageView();
+			clearInterval(loaderAnimate);
+			type='organizationData';
+			showConnectionErrorView();
+		}
+	});	
+};
 
 function getSum(data){
 	
@@ -301,11 +410,78 @@ function getSum(data){
 
 Ti.App.fireEvent('Display',{displayValue:localStorage.getDisplayName()});
 
+Ti.App.addEventListener('errorOnHome', function(data) {
+	
+	hideImageView();
+	clearInterval(loaderAnimate);
+	type=data.name;
+	showConnectionErrorView();
+	
+	
+});
+
+
+Ti.App.addEventListener('successOnHome',function(e){
+	
+	console.log('Success on home called');
+	
+	hideImageView();
+	if(loaderAnimate!=null)
+	clearInterval(loaderAnimate);
+	
+	$.categoryView.removeAllChildren();
+	feedsForCategories = localStorage.getAllCategories();
+	initCategories(feedsForCategories);
+    
+});
+
+Ti.App.addEventListener('refreshCategories',function(e){
+	
+	$.categoryView.removeAllChildren();
+	initCategories(feedsForCategories);	
+});
+
 if (!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()))
 	fetchAllTransactions();
 
 else{
 	getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
-	initCategories(feedsForCategories);
+	
+	
+	if(Titanium.App.version >= '4.0' && !localStorage.getAllCategories() && !alloy.Globals.pushNotificationReceived){ //Update purpose
+		
+		showImageView();
+		loaderAnimate = setInterval(loadingAnimation, 250);
+		hideConnectionErrorView();
+		
+		enteredEmailValue=localStorage.getUserName().split('@');
+		
+		if(enteredEmailValue[1]==='ajency.in'){
+			console.log('Entered is ajency mail');
+			localStorage.saveOrganizationId(1);
+		}	   
+        else if(enteredEmailValue[1]==='ascotwm.com')    	
+        	localStorage.saveOrganizationId(2);
+        
+        organizationData();	
+        	
+	}
+	else if(!alloy.Globals.pushNotificationReceived){  //No push notification received
+		console.log('No push received');
+		feedsForCategories = localStorage.getAllCategories();
+		initCategories(feedsForCategories);
+	}
+	else if(alloy.Globals.pushNotificationReceived){   //push notification being processed
+			
+			$.categoryView.removeAllChildren();
+   			showImageView();
+			// start the setInverval -- adjust the time to make a smooth animation
+			loaderAnimate = setInterval(loadingAnimation, 250);
+			hideConnectionErrorView();
+       	
+		
+	}
+	
+	
 }
 

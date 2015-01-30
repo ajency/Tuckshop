@@ -3,7 +3,7 @@
 	<Window  class="container exit" id="index" >
 		<View class="ver top0" height="80%">
 			<View class="ver w-fill h-size top1">
-				<ImageView class="ts-logo"/>
+				<ImageView id="companyLogo" class="ts-logo"/>
 					<TextField top="4%"  id="usernameTextfield" class="span13 text-center border-rounded f-s3.3 keyboard-email" 
 					hintText="Username"/>
 					<TextField top="2%" id="passwordTextfield" class="span13 text-center border-rounded f-s3.3 password keyboard-password" 

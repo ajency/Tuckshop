@@ -24,6 +24,10 @@ var localStorage=require('/localStorage');
 var deviceToken = null;
 Alloy.Globals.pushNotificationReceived = false; //handle push notifications on auto login
 
+var dbOperations=require('/dbOperations');
+dbOperations.createDB();
+
+
 if (OS_IOS) {
 	
 	console.log('In iphone');
@@ -85,7 +89,13 @@ if (OS_IOS) {
 	CloudPush.addEventListener('callback', function(evt) {
 		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
 		var fetchProductsJs = require('/fetchCloudProducts');
-		fetchProductsJs.fetchCloudProducts('alloy');
+		
+		//Update purpose 4.0
+		var totalUsers = dbOperations.getCount();
+		if(totalUsers ===1)
+			fetchProductsJs.fetchCategories('home');
+		else if(totalUsers>1)
+			fetchProductsJs.fetchCategories('alloy');	
 		
 		var a = JSON.parse(evt.payload);
 		
@@ -137,11 +147,18 @@ function deviceTokenError(e) {
 
 // Process incoming push notifications (ios)
 function receivePush(e) {
-	var fetchProductsJs = require('/fetchCloudProducts');
-	fetchProductsJs.fetchCloudProducts('alloy');
-	// alert("Notification received: " + e);
 	
-	console.log(e);
+	Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
+	var fetchProductsJs = require('/fetchCloudProducts');
+	
+	//Update purpose 4.0
+	var totalUsers = dbOperations.getCount();
+	if(totalUsers ===1)
+		fetchProductsJs.fetchCategories('home');
+	else if(totalUsers>1)
+		fetchProductsJs.fetchCategories('alloy');
+	
+	
 	// alert(e.data.alert);
 	var confirm = Titanium.UI.createAlertDialog({
         	title: 'Notification',
@@ -153,15 +170,12 @@ function receivePush(e) {
 	confirm.show();
 }
 
-
+Alloy.Globals.categoryResponse=[];
 //Navigation track (Default - Home)
 Alloy.Globals.navigatedView = 'Home';
 
 Alloy.Globals.midContainerReference;
 Alloy.Globals.navigatedFromAllProducts = false;
-
-var dbOperations=require('/dbOperations');
-dbOperations.createDB();
 
 Alloy.Globals.autoLogin=false;          
 
@@ -191,7 +205,7 @@ Alloy.Globals.forceLogout = function (){
 };
 
 
-if(Titanium.App.version >= '2.0' && dbOperations.getCount() ===0){    //clear all products for an app update version 2.0 so that users do not have to refresh
-	console.log('App version greater');
-	Ti.App.Properties.removeProperty('allProductResponse');
-}
+// if(Titanium.App.version >= '2.0' && dbOperations.getCount() ===0){    //clear all products for an app update version 2.0 so that users do not have to refresh
+	// console.log('App version greater');
+	// Ti.App.Properties.removeProperty('allProductResponse');
+// }
