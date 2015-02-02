@@ -2,7 +2,7 @@ var localStorage=require('/localStorage');
 
 var createDB = function(){
  	var db = Ti.Database.open('TuckshopDatabase');
- 	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER, last_credit_date TEXT)');
+ 	db.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER, user_name TEXT, login_status BOOlEAN, session_id INTEGER, last_credit_date TEXT, organization_id INTEGER)');
  	
 	db.execute('CREATE TABLE IF NOT EXISTS transactions (txn_id INTEGER UNIQUE, user_id INTEGER, updated_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
 	
@@ -10,6 +10,27 @@ var createDB = function(){
 	
 	db.close();
  	
+};
+
+// organization_id column is added to the users table for version 4.0
+// ADD COLUMN TO A TABLE
+var addColumn = function() {
+    var db = getDB();
+    
+    var fieldExists = false;
+    resultSet = db.execute('PRAGMA TABLE_INFO(' + 'users' + ')');
+    
+    while (resultSet.isValidRow()) {
+        if(resultSet.field(1)=='organization_id') {
+            fieldExists = true;
+        }
+        resultSet.next();
+    } // end while
+    if(!fieldExists) {
+        // field does not exist, so add it
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organization_id' + ' ' + 'INTEGER');
+    }
+    db.close();
 };
 
 var getDB = function() {
@@ -74,6 +95,13 @@ var getLoginStatus = function  (id) {
   	row.close();
   	db.close();
   	return returnStatus;
+};
+
+var setOrganizationId = function (userid,organizationid) {
+	console.log('Setting organization id');
+    var db = getDB();
+	db.execute('UPDATE users SET organization_id=? WHERE user_id=?',organizationid,userid);
+	db.close();
 };
 
 var onlineLoginStatus = function (id){
@@ -298,10 +326,13 @@ var checkOrganizationPresent =  function (id) {  //check if users transactions p
 };
 
 exports.createDB = createDB;
+exports.addColumn = addColumn;
 exports.checkIfRowExists = checkIfRowExists;
 exports.insertRow = insertRow;
 exports.getCount = getCount;
 exports.ifTableExists = ifTableExists;
+
+exports.setOrganizationId = setOrganizationId;
 
 exports.getLoginStatus = getLoginStatus;
 exports.onlineLoginStatus = onlineLoginStatus;

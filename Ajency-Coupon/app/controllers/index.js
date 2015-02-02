@@ -295,12 +295,6 @@ function loginClicked(e) {
 							
 							alloy.Globals.autoLogin = true;
 							
-							if(dbOperations.checkIfRowExists(user.id))
-							  	dbOperations.onlineLoginStatus(user.id);
-							
-							else
-								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at);
-							
 							if(dbOperations.getCount()>1)
 								alloy.Globals.forceLogout();
     						 
@@ -317,6 +311,15 @@ function loginClicked(e) {
 							if(alloy.Globals.midContainerReference != null)
 							Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
 							
+							if(alloy.Globals.navigatePrevious != null)
+							Ti.App.removeEventListener("screen:back", alloy.Globals.navigatePrevious);
+							
+							if(alloy.Globals.successOnRefresh != null)
+							Ti.App.removeEventListener("successOnFetch", alloy.Globals.successOnRefresh);
+							
+							if(alloy.Globals.toggleLeft != null)
+							Ti.App.removeEventListener("menu:toggleLeftMenu", alloy.Globals.toggleLeft);
+							
 							/*
                               * ORGANIZATION PURPOSE
                               */ 
@@ -331,7 +334,13 @@ function loginClicked(e) {
                             else 
                             	organizationData();		
 							
-                            	
+                            if(dbOperations.checkIfRowExists(user.id)){
+                            	dbOperations.onlineLoginStatus(user.id);
+                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);
+                            }
+                                
+							else
+								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id);	
 							
 							//get the last credited date
 							//updateCreditDate();
@@ -392,12 +401,21 @@ $.passwordTextfield.addEventListener('return', function(e) {
  */
 function subscribeToChannel() {
 	
+	var pushChannel;
+	//different channels for different organizations
+	if(localStorage.getOrganizationId()===1){
+		console.log('first organization');
+		pushChannel = 'test';
+	}
+		
+	else if(localStorage.getOrganizationId()===2)	
+	    pushChannel = 'ascotwm_push';
 	
 	// Subscribes the device to the 'news_alerts' channel
 	// Specify the push type as either 'android' for Android or 'ios' for iOS
 	Cloud.PushNotifications.subscribeToken({
 		device_token : deviceToken,
-		channel : 'test',
+		channel : pushChannel,
 		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
 	}, function(e) {
 		if (e.success) {
@@ -597,6 +615,13 @@ function doNavigation(){
 			case 1:
 					if(localStorage.getLastLoggedInUserId() && !alloy.Globals.navigatedFromAllProducts){ //if user has navigated from all products/register then do not open menu
 						var main = Alloy.createController('menu', {}).getView().open();
+					}
+					else if(!localStorage.getLastLoggedInUserId()){
+						if (OS_IOS)
+							$.win1.open();
+	
+						else 
+							$.index.open();
 					}
 					
 				break;		

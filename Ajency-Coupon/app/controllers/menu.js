@@ -24,31 +24,35 @@ function refreshLeftMenu(){
 }
 
 
-
-Ti.App.addEventListener('menu:toggleLeftMenu', function(data) {
-	
+alloy.Globals.toggleLeft = function (data) {
+    
     $.drawer.instance.toggleLeftWindow();
-});
+};
+
+Ti.App.addEventListener('menu:toggleLeftMenu', alloy.Globals.toggleLeft);
 
 function toggle(e) {
     var fn = 'toggle' + e.source.title + 'Window';
     $.drawer[fn]();
 }
 
-var navigatePrevious = function (e) {
+alloy.Globals.navigatePrevious = function (e) {
   	 e.cancelBubble = true;
 	    
 	    if($.drawer.instance.isLeftWindowOpen()) $.drawer.instance.toggleLeftWindow();
 	    
 	    else{
-	    	
+	    	console.log('Called');
 		    var currentView = alloy.Globals.navigatedView;
-		    
+		    console.log('current view');
+		    console.log(currentView);
 		    if(currentView === 'Home'){
 		    	
 		    	if(!OS_IOS){
+		    		console.log('In finish');
 		    		var activity = Titanium.Android.currentActivity;
 					activity.finish();
+					
 		    	}
 		    	
 		    }
@@ -69,11 +73,11 @@ var navigatePrevious = function (e) {
 //Back button navigation for android
 if(!OS_IOS){
 	
-	$.drawer.addEventListener('android:back', navigatePrevious);
+	$.drawer.addEventListener('android:back', alloy.Globals.navigatePrevious);
 }
 
 //menu back to navigate back to categories page from products
-Ti.App.addEventListener('screen:back',navigatePrevious);
+Ti.App.addEventListener('screen:back',alloy.Globals.navigatePrevious);
 
 
 function destroyMenu (){

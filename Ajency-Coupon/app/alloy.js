@@ -26,7 +26,7 @@ Alloy.Globals.pushNotificationReceived = false; //handle push notifications on a
 
 var dbOperations=require('/dbOperations');
 dbOperations.createDB();
-
+dbOperations.addColumn();
 
 if (OS_IOS) {
 	
@@ -174,7 +174,13 @@ Alloy.Globals.categoryResponse=[];
 //Navigation track (Default - Home)
 Alloy.Globals.navigatedView = 'Home';
 
+Alloy.Globals.successOnRefresh;
+
+Alloy.Globals.navigatePrevious;
+Alloy.Globals.toggleLeft;
+
 Alloy.Globals.midContainerReference;
+
 Alloy.Globals.navigatedFromAllProducts = false;
 
 Alloy.Globals.autoLogin=false;          

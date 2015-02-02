@@ -267,8 +267,7 @@ var bottomView = function(){
 //Initialize the categories UI according to the JSON
 var initCategories = function(feeds){
 	
-	console.log('Init categories');
-	var outerRow= leftGrid= rightGrid = null; 
+	var outerRow, leftGrid, rightGrid = null; 
 	
 	for(var i=0; len=feeds.length, i<len; i++){
 		
@@ -462,6 +461,8 @@ else{
 		}	   
         else if(enteredEmailValue[1]==='ascotwm.com')    	
         	localStorage.saveOrganizationId(2);
+        
+        dbOperations.setOrganizationId(localStorage.getLastLoggedInUserId(), localStorage.getOrganizationId());
         
         organizationData();	
         	

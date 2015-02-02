@@ -159,8 +159,9 @@ Ti.App.addEventListener('errorOnFetch', function(data) {
 	type=data.name;
 });
 
-Ti.App.addEventListener('successOnFetch', function(data) {
-	console.log('Success on fetch');
+alloy.Globals.successOnRefresh = function (data) {
+	
+  	console.log('Success on fetch');
 	hideImageView();
 	if(loaderAnimate!=null)
 	clearInterval(loaderAnimate);
@@ -170,7 +171,9 @@ Ti.App.addEventListener('successOnFetch', function(data) {
 	
 	// Ti.App.fireEvent('successOnHome');
 	Ti.App.fireEvent('refreshCategories');
-});
+};
+
+Ti.App.addEventListener('successOnFetch', alloy.Globals.successOnRefresh);
 
 function refreshClick(){
 	if (networkCheck.getNetworkStatus()==0) 

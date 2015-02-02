@@ -167,13 +167,22 @@ function registerClicked(e) {
                    loaderAnimate = setInterval(loadingAnimation,200);
 				   hideComponents();
 				   
-    				
+    			    /*
+                      * ORGANIZATION PURPOSE
+                      */ 
+                    if(enteredEmailValue[1]==='ajency.in')
+                    	localStorage.saveOrganizationId(1);
+                    	
+                    else if(enteredEmailValue[1]==='ascotwm.com')
+                    	localStorage.saveOrganizationId(2);
+                            		
     				Cloud.Users.create({
 						username : $.usernameTextfield.value,
 						password : $.passwordTextfield.value,
 						password_confirmation : $.passwordTextfield.value,
 						custom_fields : {
-							credited_date_at : moment().format()
+							credited_date_at : moment().format(),
+							organization_id : localStorage.getOrganizationId()
 						}
 					}, function(e) {
 						
@@ -182,20 +191,11 @@ function registerClicked(e) {
 							
 							var user = e.users[0];
 							
-							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at);
+							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id);
 							
 							localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);
                             localStorage.saveDisplayName(enteredEmailValue[0]);
-                            
-                             /*
-                              * ORGANIZATION PURPOSE
-                              */ 
-                            if(enteredEmailValue[1]==='ajency.in')
-                            	localStorage.saveOrganizationId(1);
-                            	
-                            else if(enteredEmailValue[1]==='ascotwm.com')
-                            	localStorage.saveOrganizationId(2);
                             	
                             
                             //Check if particular organization details present
@@ -312,11 +312,18 @@ var updateCreditAmount = function() {
  */
 function subscribeToChannel() {
 	
+	var pushChannel;
+	//different channels for different organizations
+	if(localStorage.getOrganizationId()===1)
+		pushChannel = 'test';
+	else if(localStorage.getOrganizationId()===2)	
+	    pushChannel = 'ascotwm_push';
+	    
 	// Subscribes the device to the 'news_alerts' channel
 	// Specify the push type as either 'android' for Android or 'ios' for iOS
 	Cloud.PushNotifications.subscribeToken({
 		device_token : deviceToken,
-		channel : 'test',
+		channel : pushChannel,
 		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
 	}, function(e) {
 		if (e.success) {
