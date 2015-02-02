@@ -13,6 +13,9 @@ $.headerMenu.addEventListener('click', function(e){
 	
 	if($.headerMenu.image ==='/images/menu_back.png'){ //menu back to navigate back to categories page from products
 		$.headerMenu.image ='/images/menu.png';
+		
+		if(alloy.Globals.successOnRefresh != null)
+			Ti.App.removeEventListener("successOnFetch", alloy.Globals.successOnRefresh);
 		Ti.App.fireEvent('screen:back');
 		
 	}

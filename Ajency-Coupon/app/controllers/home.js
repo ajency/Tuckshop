@@ -435,7 +435,7 @@ Ti.App.addEventListener('successOnHome',function(e){
 });
 
 Ti.App.addEventListener('refreshCategories',function(e){
-	
+	 e.cancelBubble = true;
 	$.categoryView.removeAllChildren();
 	initCategories(feedsForCategories);	
 });
