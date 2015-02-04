@@ -1,4 +1,5 @@
 var localStorage=require('/localStorage');
+var moment = require('alloy/moment');
 
 var createDB = function(){
  	var db = Ti.Database.open('TuckshopDatabase');
@@ -264,6 +265,31 @@ var getLatestTransactionDate = function (userid){
 	return returnDate;
 };
 
+var getDailyTransactions = function(userid){
+	
+	var startDay = moment().startOf('day');
+	var endDay =  moment().endOf('day');
+	var data = [];
+	
+	var db = getDB();	
+	var rows = db.execute('SELECT * FROM transactions WHERE user_id =? AND ?<updated_at<?',userid, startDay, endDay);
+	console.log(rows);
+  	while (rows.isValidRow()){
+  		
+	   data.push({
+	   			productName: rows.fieldByName('productName'),
+	   			productPrice: rows.fieldByName('productPrice'), 
+		  		updated_at: rows.fieldByName('updated_at')
+		  });
+		  
+	  rows.next();
+	}
+	rows.close();
+	db.close();
+	
+	return data;
+};
+
 //Organization related
 var saveOrganizationRow = function  (data) {
    var db = getDB();
@@ -356,6 +382,7 @@ exports.saveTransactionRows = saveTransactionRows;
 exports.checkTransactionsPresentForUser = checkTransactionsPresentForUser;
 exports.getAllTransactionRows = getAllTransactionRows;
 exports.getLatestTransactionDate = getLatestTransactionDate;
+exports.getDailyTransactions = getDailyTransactions;
 
 //Organization related
 
