@@ -336,7 +336,7 @@ function loginClicked(e) {
 							
                             if(dbOperations.checkIfRowExists(user.id)){
                             	dbOperations.onlineLoginStatus(user.id);
-                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);
+                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);  //adding the organization id value to the users table
                             }
                                 
 							else
@@ -401,15 +401,11 @@ $.passwordTextfield.addEventListener('return', function(e) {
  */
 function subscribeToChannel() {
 	
-	var pushChannel;
-	//different channels for different organizations
-	if(localStorage.getOrganizationId()===1){
-		console.log('first organization');
-		pushChannel = 'test';
-	}
+	
+	//fetch push channel organization wise
+	 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
 		
-	else if(localStorage.getOrganizationId()===2)	
-	    pushChannel = 'ascotwm_push';
+	 var pushChannel = organizationDetails[0].organizationPushChannel;
 	
 	// Subscribes the device to the 'news_alerts' channel
 	// Specify the push type as either 'android' for Android or 'ios' for iOS

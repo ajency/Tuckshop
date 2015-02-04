@@ -312,12 +312,10 @@ var updateCreditAmount = function() {
  */
 function subscribeToChannel() {
 	
-	var pushChannel;
-	//different channels for different organizations
-	if(localStorage.getOrganizationId()===1)
-		pushChannel = 'test';
-	else if(localStorage.getOrganizationId()===2)	
-	    pushChannel = 'ascotwm_push';
+	//fetch push channel: organization wise
+	 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+		
+	 var pushChannel = organizationDetails[0].organizationPushChannel;
 	    
 	// Subscribes the device to the 'news_alerts' channel
 	// Specify the push type as either 'android' for Android or 'ios' for iOS
