@@ -95,7 +95,16 @@ var loadStaticView = function(id) {
 			view = null;
 			view = Alloy.createController("transactionHistoryStaticView").getView();
 			break;
-			
+		
+		case 'Settings':
+		    view.setLayout('horizontal');
+		    boldLabel.height='auto';
+			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
+			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
+			boldLabel.setText('Settings');
+			view.add(boldLabel);
+			break;
+					
 		default:
 			//Category ids
 			var data = getCategoriesJson(id);
@@ -135,6 +144,11 @@ var init = function(view) {
 				loadStaticView(view);
 				$.midContainer.add(Alloy.createController("transactionHistory").getView());
 				break;
+			
+			case 'Settings':
+				loadStaticView(view);
+				$.midContainer.add(Alloy.createController("settings").getView());
+				break;	
 		}
 		
 	}, 200);
@@ -158,7 +172,12 @@ alloy.Globals.midContainerReference = function (e) {
 	    	$.headerMenu.image ='/images/menu_back.png';
 	    	init('Transaction History');
 	    	break;
-	        
+	    
+	    case 'Settings':
+	    	$.headerMenu.image ='/images/menu_back.png';   
+	    	init('Settings');
+	    	break;
+	    	
 	    default :
 	    	//Default values will be product category ids.
 	    	console.log('Product id: '+id);

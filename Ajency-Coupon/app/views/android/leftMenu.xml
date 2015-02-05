@@ -24,7 +24,7 @@
 				</View>
 			</View>
 			<ImageView id="animateObject" height="0" width="0" top="0" image="/images/loader-1.png" ></ImageView>
-			<TableView id="menuTable" top="4%" class="w-fill " height="28%"  separatorColor="#F0C60A" onClick="onMenuTableClick"/>
+			<TableView id="menuTable" top="4%" class="w-fill " height="34%"  separatorColor="#F0C60A" onClick="onMenuTableClick"/>
 			<View top="1%" height="5%">
 				<Label id="leftMenuRefreshLabel" left="35%" height="40" width="200" onClick="refreshClick">Refresh</Label>
 		    </View>

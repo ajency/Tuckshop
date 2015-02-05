@@ -191,7 +191,7 @@ function registerClicked(e) {
 							
 							var user = e.users[0];
 							
-							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id);
+							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily');
 							
 							localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);

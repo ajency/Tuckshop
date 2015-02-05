@@ -498,6 +498,7 @@ else{
         	localStorage.saveOrganizationId(2);
         
         dbOperations.setOrganizationId(localStorage.getLastLoggedInUserId(), localStorage.getOrganizationId());
+        dbOperations.updateMailStatus(localStorage.getLastLoggedInUserId(), 1, 'daily');
         
         organizationData();	
         	

@@ -13,7 +13,7 @@ var createDB = function(){
  	
 };
 
-// organization_id column is added to the users table for version 4.0
+// organization_id, mails, daily_weekly columns are added to the users table for version 4.0
 // ADD COLUMN TO A TABLE
 var addColumn = function() {
     var db = getDB();
@@ -30,6 +30,8 @@ var addColumn = function() {
     if(!fieldExists) {
         // field does not exist, so add it
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organization_id' + ' ' + 'INTEGER');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'mails' + ' ' + 'INTEGER');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'daily_weekly' + ' ' + 'TEXT');
     }
     db.close();
 };
@@ -61,10 +63,10 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 		
 };
 
-var insertRow = function (user, username, status, sessionid, date){
+var insertRow = function (user, username, status, sessionid, date, organization_id, mails, daily_weekly){
 	
 	var db = getDB();
-	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date) VALUES (?, ?, ?, ?, ?)', user, username, status, sessionid, date);
+	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organization_id, mails, daily_weekly) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organization_id, mails, daily_weekly);
 	db.close();
 };
 
@@ -87,6 +89,23 @@ var ifTableExists = function (db){
 	return table;
 };
 
+var getMailStatus = function (id) {
+	
+     var db = getDB();
+     var row = db.execute("SELECT mails,daily_weekly FROM users WHERE user_id=?", [id]);
+  	 
+  	 var returnObj = { 
+  	 	mails: row.fieldByName('mails'),
+  	    daily_weekly: row.fieldByName('daily_weekly') 
+  	 };
+  	 
+  	 row.close();
+  	 db.close();
+  	 
+  	 return returnObj; 
+     
+};
+
 var getLoginStatus = function  (id) {
 	
 	var db = getDB();
@@ -98,12 +117,25 @@ var getLoginStatus = function  (id) {
   	return returnStatus;
 };
 
+/*
+ * UPDATE PURPOSE
+ */
 var setOrganizationId = function (userid,organizationid) {
 	console.log('Setting organization id');
     var db = getDB();
 	db.execute('UPDATE users SET organization_id=? WHERE user_id=?',organizationid,userid);
 	db.close();
 };
+
+var updateMailStatus = function (userid, mails, daily_weekly) {
+	
+    var db = getDB();
+	db.execute('UPDATE users SET mails=?, daily_weekly=? WHERE user_id=?', mails, daily_weekly, userid);
+	db.close();
+};
+/*
+ * 
+ */
 
 var onlineLoginStatus = function (id){
 	var db = getDB();
@@ -359,7 +391,10 @@ exports.getCount = getCount;
 exports.ifTableExists = ifTableExists;
 
 exports.setOrganizationId = setOrganizationId;
+exports.updateMailStatus = updateMailStatus;
 
+
+exports.getMailStatus = getMailStatus;
 exports.getLoginStatus = getLoginStatus;
 exports.onlineLoginStatus = onlineLoginStatus;
 exports.offlineLoginStatus = offlineLoginStatus;

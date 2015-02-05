@@ -55,7 +55,7 @@ function populateLeftMenu(){
 	}
 	
 	if(loginStatus)   //user online
-	 	labelText = ['Home', 'Transaction History', 'Logout'];
+	 	labelText = ['Home', 'Transaction History', 'Settings', 'Logout'];
 	else
 		labelText = ['Home', 'Transaction History'];
 			
@@ -139,6 +139,12 @@ function onMenuTableClick(e){
 			evtData = null;
 	        break;
 	    
+	    case 'Settings':
+	    	Ti.App.fireEvent('menu:toggleLeftMenu');
+			Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+			evtData = null;
+	        break;
+	        
 	    case 'Logout':
 	         userLogout();
 	        break;

@@ -337,10 +337,11 @@ function loginClicked(e) {
                             if(dbOperations.checkIfRowExists(user.id)){
                             	dbOperations.onlineLoginStatus(user.id);
                             	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);  //adding the organization id value to the users table
+                            	dbOperations.updateMailStatus(user.id, 1, 'daily');
                             }
                                 
 							else
-								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id);	
+								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily');	
 							
 							//get the last credited date
 							//updateCreditDate();
