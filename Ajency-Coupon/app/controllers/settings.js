@@ -6,6 +6,37 @@ var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId()
 var mailSwitchValue = mailStatus.mails;
 var dailyWeeklySwitchValue = mailStatus.daily_weekly;
 
+console.log('Switch values');
+console.log(mailSwitchValue);
+console.log(dailyWeeklySwitchValue);
+
+if (!OS_IOS){
+	
+	var RealSwitch = require("com.yydigital.realswitch");
+	
+	var leftValue;
+	
+	if(Alloy.isTablet)
+	   leftValue = '43%';
+	else
+	   leftValue = '38%';
+	   
+	var dailyWeeklySwitch = RealSwitch.createRealSwitch({
+		
+		titleOn:'    ',
+		titleOff:'    ',
+  		left: leftValue,
+  		focusable: true
+  		
+	});
+	
+    $.dailyWeeklySwitch = dailyWeeklySwitch;
+    
+	$.dailyWeeklyView.add($.dailyWeeklySwitch);
+}
+
+
+
 function populateStates(boolValue){
 	console.log('populate called');
 	console.log(boolValue);

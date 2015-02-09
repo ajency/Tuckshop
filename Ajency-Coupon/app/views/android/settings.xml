@@ -1,13 +1,14 @@
 <Alloy>
 	<View class="ver">
 		<View class="w-fill" height="70">
-			<Label class="left2">Daily Mails</Label>
+			<Label class="left2">Mails</Label>
 			<Switch id="mailSwitch" class="right3" style="Titanium.UI.Android.SWITCH_STYLE_CHECKBOX"/>
 			<View bottom="0%" width="Ti.UI.FILL" height="0.8" backgroundColor="#F0C60A"></View>
 		</View>
 		<View id="dailyWeeklyView" class="w-fill" height="70">
-			<Label class="left2">Daily/Weekly</Label>
-			<Switch id="dailyWeeklySwitch" class="right3" titleOn="Daily" titleOff="Weekly" />
+			<Label class="left2">Weekly</Label>
+			<!-- <Switch id="dailyWeeklySwitch" class="right3" titleOn="Daily" titleOff="Weekly" /> -->
+			<Label class="right3">Daily</Label>
 			<View bottom="0%" width="Ti.UI.FILL" height="0.8" backgroundColor="#F0C60A"></View>
 		</View>
 	</View>

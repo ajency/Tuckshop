@@ -337,7 +337,10 @@ function loginClicked(e) {
                             if(dbOperations.checkIfRowExists(user.id)){
                             	dbOperations.onlineLoginStatus(user.id);
                             	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);  //adding the organization id value to the users table
-                            	dbOperations.updateMailStatus(user.id, 1, 'daily');
+                            	
+                            	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
+                            	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
+                            	  dbOperations.updateMailStatus(user.id, 1, 'daily');
                             }
                                 
 							else
