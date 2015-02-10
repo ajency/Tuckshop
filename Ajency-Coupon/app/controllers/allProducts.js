@@ -160,6 +160,75 @@ function clearTableData() {
 	
 }
 
+//send mail depending on date which it was last sent
+
+function sendEmail(eSwipe){
+	
+	var ms= moment().diff(dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId()));
+	
+	var d = moment.duration(ms).asHours();
+	console.log('minutes');
+	console.log(d);
+	
+	//Whether to send mail or no depending on the last sent mail
+	if(moment.duration(ms).asHours() >= 24){
+		
+	  console.log('Mail sending successfull');
+	  
+	  //send the start date and end date to fetch the records
+	  var data = dbOperations.getDailyTransactions(localStorage.getLastLoggedInUserId(), dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId()), moment.utc().format());
+		console.log(data);
+		
+		var productNameArray=[];
+		var productpriceArray = [];
+		var productTimeArray = [];
+    		
+		for(i=0;i<data.length;i++){
+			productNameArray.unshift(data[i].productName);
+			productpriceArray.unshift(data[i].productPrice);
+			productTimeArray.unshift(moment(data[i].updated_at).format('L'));
+		}
+		
+		var myTable= "<table><tr><td style='width: 100px; text-align: center;'>Product Name</td>";
+    		myTable+= "<td style='width: 100px; text-align: center;'>Product Price</td>";
+    		myTable+="<td style='width: 100px; text-align: center;'>Date</td></tr>";
+    	
+		for(i=0; i<data.length; i++){
+			myTable+="<tr><td style='width: 100px; text-align: center;'>" + productNameArray[i] + "</td>";
+    		myTable+="<td style='width: 100px; text-align: center;'>" +productpriceArray[i] + "</td>";
+    		myTable+="<td style='width: 100px; text-align: center;'>" + productTimeArray[i] + "</td></tr>";
+		};
+		
+		 myTable+="</table>";
+		   
+		Cloud.Emails.send({
+		    template: 'Daily Purchase',
+		    recipients: 'vishnu@ajency.in',
+		    displayName:  localStorage.getDisplayName(),
+		    structure: myTable
+		    
+		}, function (e) {
+		    if (e.success) {
+		        
+		        dbOperations.updateLastMailDate(localStorage.getLastLoggedInUserId(), moment().format());
+		        clearInterval(loaderTableAnimate);
+				$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+				
+		    } else {
+		        // alert('Error:\n' +((e.error && e.message) || JSON.stringify(e)));
+		        $.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'sendEmail'));    
+		    }
+		});	
+	}
+	else{
+		console.log('Mail sending not successfull');
+		clearInterval(loaderTableAnimate);
+		$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+	}
+	
+};
+
+ 
 //fetch delta of transactions
 var fetchDeltaTransaction = function(eSwipe) {
 	
@@ -183,9 +252,9 @@ var fetchDeltaTransaction = function(eSwipe) {
 				dbOperations.saveTransactionRows(e.testItems);
 			}
 			
-			
-			clearInterval(loaderTableAnimate);
-			$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+			sendEmail(eSwipe);
+			// clearInterval(loaderTableAnimate);
+			// $.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
 			
 			getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
 			
@@ -462,7 +531,10 @@ function getErrorRow(eSwipe,type){
 		    	updateCreditAmount(eSwipe.rowData.id,eSwipe);
 		    else if(type === 'removeCarryForward')
 		    	removeCarryForward(totalSum, eSwipe.rowData.id,eSwipe);
-		    		
+		    
+		    else if(type === 'sendEmail')
+		    	sendEmail(eSwipe);
+		    			
 		    $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 		}	
 		

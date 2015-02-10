@@ -13,7 +13,7 @@ var createDB = function(){
  	
 };
 
-// organization_id, mails, daily_weekly columns are added to the users table for version 4.0
+// organization_id, last_mail_date, mails, daily_weekly columns are added to the users table for version 4.0
 // ADD COLUMN TO A TABLE
 var addColumn = function() {
     var db = getDB();
@@ -30,6 +30,7 @@ var addColumn = function() {
     if(!fieldExists) {
         // field does not exist, so add it
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organization_id' + ' ' + 'INTEGER');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'last_mail_date' + ' ' + 'TEXT');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'mails' + ' ' + 'INTEGER');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'daily_weekly' + ' ' + 'TEXT');
     }
@@ -63,10 +64,10 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 		
 };
 
-var insertRow = function (user, username, status, sessionid, date, organization_id, mails, daily_weekly){
+var insertRow = function (user, username, status, sessionid, date, organization_id, mails, daily_weekly, mailDate){
 	
 	var db = getDB();
-	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organization_id, mails, daily_weekly) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organization_id, mails, daily_weekly);
+	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organization_id, mails, daily_weekly, last_mail_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organization_id, mails, daily_weekly, moment.utc(mailDate).format());
 	db.close();
 };
 
@@ -217,6 +218,35 @@ var getLastCreditDate = function(userid){
   	return returnDate;
 };
 
+var updateLastMailDate = function(userid, date){
+	
+	var db = getDB();
+	db.execute('UPDATE users SET last_mail_date=? WHERE user_id=?', moment.utc(date).format(), userid);
+	db.close();
+};
+
+var getLastMailDate = function(userid){
+	
+	var db = getDB();
+  	var row = db.execute("SELECT last_mail_date FROM users WHERE user_id=?", userid);
+  	var returnDate = row.fieldByName('last_mail_date');
+  	
+  	row.close();
+  	db.close();
+  	return returnDate;	
+};
+
+var getUserName = function(userid){
+	
+    var db = getDB();
+  	var row = db.execute("SELECT user_name FROM users WHERE user_id=?", userid);
+  	var returnName = row.fieldByName('user_name');
+  	
+  	row.close();
+  	db.close();
+  	return returnName;		
+};
+
 //Transaction related
 
 var getTxnCount = function (){
@@ -297,17 +327,17 @@ var getLatestTransactionDate = function (userid){
 	return returnDate;
 };
 
-var getDailyTransactions = function(userid){
+var getDailyTransactions = function(userid, startDate, endDate){
 	
 	var startDay = moment().startOf('day');
 	var endDay =  moment().endOf('day');
 	var data = [];
 	
 	var db = getDB();	
-	var rows = db.execute('SELECT * FROM transactions WHERE user_id =? AND ?<updated_at<?',userid, startDay, endDay);
-	console.log(rows);
+	var rows = db.execute('SELECT * FROM transactions WHERE user_id =? AND updated_at BETWEEN ? AND ?',userid, startDate, endDate);
+	
   	while (rows.isValidRow()){
-  		
+  		 
 	   data.push({
 	   			productName: rows.fieldByName('productName'),
 	   			productPrice: rows.fieldByName('productPrice'), 
@@ -410,6 +440,10 @@ exports.logoutUsers = logoutUsers;
 exports.updateCreditDate = updateCreditDate;
 exports.getLastCreditDate = getLastCreditDate;
 
+exports.updateLastMailDate = updateLastMailDate;
+exports.getLastMailDate = getLastMailDate;
+
+exports.getUserName = getUserName;
 //transaction related
 
 exports.getTxnCount = getTxnCount;

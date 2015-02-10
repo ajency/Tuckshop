@@ -341,10 +341,14 @@ function loginClicked(e) {
                             	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
                             	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
                             	  dbOperations.updateMailStatus(user.id, 1, 'daily');
+                            	  
+                            	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
+                            	if(mailDate === null)
+                            	  dbOperations.updateLastMailDate(user.id, moment().format());
                             }
                                 
 							else
-								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily');	
+								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily',moment().format());	
 							
 							//get the last credited date
 							//updateCreditDate();
