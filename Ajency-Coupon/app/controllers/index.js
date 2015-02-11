@@ -336,7 +336,7 @@ function loginClicked(e) {
 							
                             if(dbOperations.checkIfRowExists(user.id)){
                             	dbOperations.onlineLoginStatus(user.id);
-                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organization_id);  //adding the organization id value to the users table
+                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organizationId);  //adding the organization id value to the users table
                             	
                             	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
                             	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
@@ -345,10 +345,14 @@ function loginClicked(e) {
                             	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
                             	if(mailDate === null)
                             	  dbOperations.updateLastMailDate(user.id, moment().format());
+                            	
+                            	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
+                            	if(userType === null)
+                            	   dbOperations.updateUserType(user.id, user.admin);	
                             }
                                 
 							else
-								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily',moment().format());	
+								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',moment().format(), user.admin);	
 							
 							//get the last credited date
 							//updateCreditDate();

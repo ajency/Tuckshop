@@ -182,7 +182,7 @@ function registerClicked(e) {
 						password_confirmation : $.passwordTextfield.value,
 						custom_fields : {
 							credited_date_at : moment().format(),
-							organization_id : localStorage.getOrganizationId()
+							organizationId : localStorage.getOrganizationId()
 						}
 					}, function(e) {
 						
@@ -191,7 +191,7 @@ function registerClicked(e) {
 							
 							var user = e.users[0];
 							
-							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organization_id, 1, 'daily', moment().format());
+							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily', moment().format(), user.admin);
 							
 							localStorage.saveUserId(user);
                             localStorage.saveUserName($.usernameTextfield.value);

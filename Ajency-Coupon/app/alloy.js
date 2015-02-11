@@ -171,6 +171,8 @@ function receivePush(e) {
 }
 
 Alloy.Globals.categoryResponse=[];
+
+Alloy.Globals.userResponse = [];
 //Navigation track (Default - Home)
 Alloy.Globals.navigatedView = 'Home';
 

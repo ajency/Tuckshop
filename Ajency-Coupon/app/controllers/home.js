@@ -442,36 +442,6 @@ Ti.App.addEventListener('refreshCategories',function(e){
 	initCategories(feedsForCategories);	
 });
 
-/*
-function sendEmail(data){
-	
-	var productNameArray=[];
-	var productpriceArray = [];
-	var productTimeArray = [];
-	
-	for(i=0;i<data.length;i++){
-		productNameArray.push(data[i].productName);
-		productpriceArray.push(data[i].productPrice);
-		productTimeArray.push(data[i].updated_at);
-	}
-	
-	Cloud.Emails.send({
-	    template: 'Daily Purchase',
-	    recipients: 'vishnu@ajency.in',
-	    productName: productNameArray,
-	    productPrice: productpriceArray,
-	    updated_at: productTimeArray
-	}, function (e) {
-	    if (e.success) {
-	        alert('Success');
-	    } else {
-	        alert('Error:\n' +
-	            ((e.error && e.message) || JSON.stringify(e)));
-	    }
-	});
-};
-
-*/
 
 if (!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUserId()))
 	fetchAllTransactions();
@@ -479,8 +449,6 @@ if (!dbOperations.checkTransactionsPresentForUser(localStorage.getLastLoggedInUs
 else{
 	getSum(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()));
 	
-	// var data = dbOperations.getDailyTransactions(localStorage.getLastLoggedInUserId());
-	// sendEmail(data);
 	
 	if(Titanium.App.version >= '4.0' && !localStorage.getAllCategories() && !alloy.Globals.pushNotificationReceived){ //Update purpose
 		
@@ -500,7 +468,8 @@ else{
         dbOperations.setOrganizationId(localStorage.getLastLoggedInUserId(), localStorage.getOrganizationId());
         dbOperations.updateMailStatus(localStorage.getLastLoggedInUserId(), 1, 'daily');
         dbOperations.updateLastMailDate(localStorage.getLastLoggedInUserId(), moment().format());
-        
+        dbOperations.updateUserType(localStorage.getLastLoggedInUserId(), false);
+         
         organizationData();	
         	
 	}

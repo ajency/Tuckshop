@@ -13,7 +13,7 @@ var createDB = function(){
  	
 };
 
-// organization_id, last_mail_date, mails, daily_weekly columns are added to the users table for version 4.0
+// organizationId, last_mail_date, mails, daily_weekly columns are added to the users table for version 4.0
 // ADD COLUMN TO A TABLE
 var addColumn = function() {
     var db = getDB();
@@ -22,15 +22,16 @@ var addColumn = function() {
     resultSet = db.execute('PRAGMA TABLE_INFO(' + 'users' + ')');
     
     while (resultSet.isValidRow()) {
-        if(resultSet.field(1)=='organization_id') {
+        if(resultSet.field(1)=='organizationId') {
             fieldExists = true;
         }
         resultSet.next();
     } // end while
     if(!fieldExists) {
         // field does not exist, so add it
-        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organization_id' + ' ' + 'INTEGER');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organizationId' + ' ' + 'INTEGER');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'last_mail_date' + ' ' + 'TEXT');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'admin' + ' ' + 'TEXT');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'mails' + ' ' + 'INTEGER');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'daily_weekly' + ' ' + 'TEXT');
     }
@@ -64,10 +65,10 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 		
 };
 
-var insertRow = function (user, username, status, sessionid, date, organization_id, mails, daily_weekly, mailDate){
+var insertRow = function (user, username, status, sessionid, date, organizationId, mails, daily_weekly, mailDate, admin){
 	
 	var db = getDB();
-	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organization_id, mails, daily_weekly, last_mail_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organization_id, mails, daily_weekly, moment.utc(mailDate).format());
+	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organizationId, mails, daily_weekly, last_mail_date, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organizationId, mails, daily_weekly, moment.utc(mailDate).format(), admin);
 	db.close();
 };
 
@@ -124,7 +125,7 @@ var getLoginStatus = function  (id) {
 var setOrganizationId = function (userid,organizationid) {
 	console.log('Setting organization id');
     var db = getDB();
-	db.execute('UPDATE users SET organization_id=? WHERE user_id=?',organizationid,userid);
+	db.execute('UPDATE users SET organizationId=? WHERE user_id=?',organizationid,userid);
 	db.close();
 };
 
@@ -234,6 +235,24 @@ var getLastMailDate = function(userid){
   	row.close();
   	db.close();
   	return returnDate;	
+};
+
+var updateUserType = function (userid, usertype) {
+	
+	var db = getDB();
+	db.execute('UPDATE users SET admin=? WHERE user_id=?', usertype, userid);
+	db.close();    
+};
+
+var getUserType = function (userid) {
+	
+	var db = getDB();
+  	var row = db.execute("SELECT admin FROM users WHERE user_id=?", userid);
+  	var returnType = row.fieldByName('admin');
+  	
+  	row.close();
+  	db.close();
+  	return returnType;  
 };
 
 var getUserName = function(userid){
@@ -442,6 +461,9 @@ exports.getLastCreditDate = getLastCreditDate;
 
 exports.updateLastMailDate = updateLastMailDate;
 exports.getLastMailDate = getLastMailDate;
+
+exports.updateUserType = updateUserType;
+exports.getUserType = getUserType;
 
 exports.getUserName = getUserName;
 //transaction related

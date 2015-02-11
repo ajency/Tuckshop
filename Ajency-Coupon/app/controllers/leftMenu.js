@@ -54,8 +54,13 @@ function populateLeftMenu(){
 		   loginStatus = 0;   
 	}
 	
-	if(loginStatus)   //user online
-	 	labelText = ['Home', 'Transaction History', 'Settings', 'Logout'];
+	if(loginStatus){ //user online
+		if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
+			labelText = ['Home', 'Transaction History', 'Manage', 'Settings', 'Logout'];
+		else	
+			labelText = ['Home', 'Transaction History', 'Settings', 'Logout'];
+	}   
+	 	
 	else
 		labelText = ['Home', 'Transaction History'];
 			
@@ -139,6 +144,12 @@ function onMenuTableClick(e){
 			evtData = null;
 	        break;
 	    
+	    case 'Manage':
+	        Ti.App.fireEvent('menu:toggleLeftMenu');
+			Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+			evtData = null;
+	        break;
+	        
 	    case 'Settings':
 	    	Ti.App.fireEvent('menu:toggleLeftMenu');
 			Ti.App.fireEvent("app:addViewToMidContainer", evtData);

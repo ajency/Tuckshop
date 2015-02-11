@@ -96,6 +96,29 @@ var loadStaticView = function(id) {
 			view = Alloy.createController("transactionHistoryStaticView").getView();
 			break;
 		
+		case 'Manage':
+		    view.setLayout('horizontal');
+		    boldLabel.height='auto';
+			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
+			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
+			boldLabel.setText('Manage');
+			view.add(boldLabel);
+			break;
+		
+		case 'Manage Users':
+			view.setLayout('horizontal');
+		    boldLabel.height='auto';
+			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
+			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
+			boldLabel.setText('Users');
+			view.add(boldLabel);
+			break;
+		
+		case 'UserList':
+			view = null;
+			view = Alloy.createController("adminHistoryStaticView").getView();
+			break;
+					
 		case 'Settings':
 		    view.setLayout('horizontal');
 		    boldLabel.height='auto';
@@ -130,6 +153,16 @@ var getAllProducts = function(categoryId){
 	$.midContainer.add(Alloy.createController("allProducts", params).getView());
 };
 
+var getAllUsers = function () {
+    
+    $.midContainer.add(Alloy.createController("usersList").getView());
+};
+
+var getUserTransactions = function(userId){
+	
+	var params = {userId: userId};
+	$.midContainer.add(Alloy.createController("adminHistory", params).getView());	
+};
 
 var init = function(view) {
 	setTimeout(function(){
@@ -145,6 +178,11 @@ var init = function(view) {
 				$.midContainer.add(Alloy.createController("transactionHistory").getView());
 				break;
 			
+			case 'Manage':
+				loadStaticView(view);
+				$.midContainer.add(Alloy.createController("adminMainView").getView());
+				break;	
+				
 			case 'Settings':
 				loadStaticView(view);
 				$.midContainer.add(Alloy.createController("settings").getView());
@@ -173,11 +211,31 @@ alloy.Globals.midContainerReference = function (e) {
 	    	init('Transaction History');
 	    	break;
 	    
+	    case 'Manage':
+	    	$.headerMenu.image ='/images/menu_back.png';   
+	    	init('Manage');
+	    	break;
+	    
+	    case 'Manage Users':
+	    	  console.log('Manage users');
+	    	  $.headerMenu.image ='/images/menu_back.png';
+	    	  loadStaticView(id);
+	    	  getAllUsers();	
+	    	  break;
+	    
+	    case 'UserList':
+	    	  console.log('Users List');
+	    	  console.log(e.userid);
+	    	  $.headerMenu.image ='/images/menu_back.png';	
+	    	  loadStaticView(id);
+	    	  getUserTransactions(e.userid);
+	    	  break;	
+	    	  		  	
 	    case 'Settings':
 	    	$.headerMenu.image ='/images/menu_back.png';   
 	    	init('Settings');
 	    	break;
-	    	
+	    	  			
 	    default :
 	    	//Default values will be product category ids.
 	    	console.log('Product id: '+id);
