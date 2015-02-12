@@ -158,9 +158,8 @@ var getAllUsers = function () {
     $.midContainer.add(Alloy.createController("usersList").getView());
 };
 
-var getUserTransactions = function(userId){
+var getUserTransactions = function(params){
 	
-	var params = {userId: userId};
 	$.midContainer.add(Alloy.createController("adminHistory", params).getView());	
 };
 
@@ -228,7 +227,8 @@ alloy.Globals.midContainerReference = function (e) {
 	    	  console.log(e.userid);
 	    	  $.headerMenu.image ='/images/menu_back.png';	
 	    	  loadStaticView(id);
-	    	  getUserTransactions(e.userid);
+	    	  var params = {userid: e.userid, username: e.username};
+	    	  getUserTransactions(params);
 	    	  break;	
 	    	  		  	
 	    case 'Settings':

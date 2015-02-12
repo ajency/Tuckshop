@@ -1,7 +1,7 @@
 var moment = require('alloy/moment');
 var args = arguments[0] || {};
 
-console.log(args.userId);
+console.log(args.userid);
 
 //Transaction History view
 var outerView = innerView = leftView = rightView = imageView = transactionScroll = localAnimateObject =  null;
@@ -547,7 +547,8 @@ var sortTransactions = function(period) {
 			});
 
 			var params = {
-				data : weekTransaction
+				data : weekTransaction,
+				username: args.username
 			};
 			Ti.App.fireEvent('app:adminStaticView', params);
 
@@ -564,7 +565,8 @@ var sortTransactions = function(period) {
 			});
 
 			var params = {
-				data : monthTransaction
+				data : monthTransaction,
+				username: args.username
 			};
 			Ti.App.fireEvent('app:adminStaticView', params);
 
@@ -575,7 +577,8 @@ var sortTransactions = function(period) {
 		case 'tab_all':
 
 			var params = {
-				data : allItems
+				data : allItems,
+				username: args.username
 			};
 			Ti.App.fireEvent('app:adminStaticView', params);
 			displayTransactionHistory(allItems);
@@ -629,7 +632,7 @@ var fetchAllTransaction = function(currentTab) {
 		limit : 1000,
 
 		where : {
-			userId : args.userId
+			userId : args.userid
 		}
 		
 	}, function(e) {

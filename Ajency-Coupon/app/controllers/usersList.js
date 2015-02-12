@@ -67,6 +67,7 @@ var populateUsers = function(jsonData) {
 		row = Ti.UI.createTableViewRow({
 			id: 'UserList',
 			userid: jsonData[i].id,
+			username: jsonData[i].username,
 			height : 70,
 			backgroundSelectedColor : 'transparent',
 		    backgroundColor : 'white'
@@ -146,10 +147,8 @@ else
 
 $.usersTable.addEventListener('click', function(e) {
 	
-    
-    console.log('row data');
-    console.log(e.rowData);	
-	 var evtData = {id: e.rowData.id, userid: e.rowData.userid };
+	//passing the id , userid, username to identify the screen, user id and display username respectively
+	 var evtData = {id: e.rowData.id, userid: e.rowData.userid, username: e.rowData.username };
 		 
 	 alloy.Globals.navigatedView = evtData.id;
 	 Ti.App.fireEvent("app:addViewToMidContainer", evtData);

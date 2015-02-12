@@ -1,3 +1,4 @@
+
 var hideTransactionValues=function(){
 	
 	$.creditView.visible=false;
@@ -34,6 +35,9 @@ function getSum(data){
 
 
 Ti.App.addEventListener('app:adminStaticView',function(e){
+	
+	enteredEmailValue = e.username.split('@');
+	$.topLabel.text = enteredEmailValue[0];
 	
 	var data = e.data;
 	

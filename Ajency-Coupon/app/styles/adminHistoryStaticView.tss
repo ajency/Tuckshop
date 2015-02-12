@@ -1,4 +1,26 @@
+"#topLabel" :{
+	color: '#3B0B0B',
+	font: { 
+		fontFamily: "OpenSans-Bold", 
+		fontSize: 40 
+	} 
+},
 
-".container" : {
-  
+".headerLabel" :{
+	top: '13%',
+	touchEnabled: false
+},
+
+"ImageView" :{
+	image: '/images/indian_rupee.png',
+	width: 12,
+	height: 12
+},
+
+".valueLabel" :{
+	font:{
+		fontFamily: "OpenSans-Regular",
+		fontWeight: 'bold',
+		fontSize: 15
+	}
 }

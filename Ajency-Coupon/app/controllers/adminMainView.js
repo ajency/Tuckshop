@@ -68,8 +68,8 @@ var getGrid = function(position, data){
 	
 	var label = Ti.UI.createLabel({
 		touchEnabled: false,
-		height:'40%',
-		width: '100%',
+		height:'100%',
+		width: '50%',
 		textAlign: 'center',
 		color: '#000000',
 		font : {
