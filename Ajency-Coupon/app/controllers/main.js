@@ -130,7 +130,7 @@ var loadStaticView = function(id) {
 		
 		case 'Product Transaction':
 			view = null;
-			view = Alloy.createController("adminHistoryStaticView").getView();
+			view = Alloy.createController("productHistoryStaticView").getView();
 			break;
 							
 		case 'Settings':

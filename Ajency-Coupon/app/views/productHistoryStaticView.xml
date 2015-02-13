@@ -1,0 +1,43 @@
+<Alloy>
+	<View class="container">
+		
+		<View class="top0 left2 w-size" height="40%">
+			<Label id="topLabel" class="left0 w-auto h-auto "/>
+		</View>
+		
+		<View class="hor top0 w-fill" height="55%">
+			
+			<View class="ver h-fill" width="30%" left="4%">
+				<Label text="Quantity" class="f-s3.3 ts-brown headerLabel"/>
+				
+				<View id="quantityView" class="hor w-size h-size" top="10%">
+					<Label id="quantity" class="ts-brown valueLabel" text="500"/>
+				</View>
+			</View>
+			
+			<View left="0" height="75%" top="12.5%" bottom="12.5%" width="0.3%" backgroundColor="#444444"/>
+			
+			<View class="ver h-fill" width="30%" left="0">
+				<Label text="Debit" class="f-s3.3 ts-brown headerLabel" visible="false"/>
+				
+				<View id="debitView" class="hor w-size h-size" top="10%">
+					<ImageView/>
+					<Label id="debit" class="ts-brown valueLabel" text="75"/>
+				</View>
+			</View>
+			
+			<View left="0" height="75%" top="12.5%" bottom="12.5%" width="0.3%" backgroundColor="#444444"/>
+			
+			<View class="ver h-fill" width="30%" left="0" right="4%">
+				<Label text="Total" class="f-s3.3 ts-brown headerLabel" visible="false"/>
+				
+				<View id="totalView" class="hor w-size h-size" top="10%">
+					<ImageView/>
+					<Label id="total" class="ts-brown valueLabel" text="425"/>
+				</View>
+			</View>
+			
+		</View>
+		
+	</View>
+</Alloy>
