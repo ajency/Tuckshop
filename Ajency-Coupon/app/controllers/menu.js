@@ -42,7 +42,7 @@ alloy.Globals.navigatePrevious = function (e) {
 	    if($.drawer.instance.isLeftWindowOpen()) $.drawer.instance.toggleLeftWindow();
 	    
 	    else{
-	    	console.log('Called');
+	    	
 		    var currentView = alloy.Globals.navigatedView;
 		    console.log('current view');
 		    console.log(currentView);
@@ -56,7 +56,27 @@ alloy.Globals.navigatePrevious = function (e) {
 		    	}
 		    	
 		    }
-		    
+		    else if(currentView === 'Manage Users' || currentView === 'Manage Products'){
+		    	
+		    	alloy.Globals.navigatedView = 'Manage';
+		    	
+		    	var evtData = {id: 'Manage'};
+				Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+		    }
+		    else if(currentView === 'UserList'){
+		    	
+		    	alloy.Globals.navigatedView = 'Manage Users';
+		    	
+		    	var evtData = {id: 'Manage Users'};
+				Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+		    }
+		    else if(currentView === 'Product Transaction'){
+		    	
+		    	alloy.Globals.navigatedView = 'Manage Products';
+		    	
+		    	var evtData = {id: 'Manage Products'};
+				Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+		    }
 		    else{
 		    	
 		    	alloy.Globals.navigatedView = 'Home';

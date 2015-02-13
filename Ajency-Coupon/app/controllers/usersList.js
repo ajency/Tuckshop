@@ -148,7 +148,7 @@ else
 $.usersTable.addEventListener('click', function(e) {
 	
 	//passing the id , userid, username to identify the screen, user id and display username respectively
-	 var evtData = {id: e.rowData.id, userid: e.rowData.userid, username: e.rowData.username };
+	 var evtData = {id: e.rowData.id, userid: e.rowData.userid, name: e.rowData.username };
 		 
 	 alloy.Globals.navigatedView = evtData.id;
 	 Ti.App.fireEvent("app:addViewToMidContainer", evtData);

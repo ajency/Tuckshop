@@ -12,7 +12,7 @@ if (OS_IOS) {
 $.headerMenu.addEventListener('click', function(e){
 	
 	if($.headerMenu.image ==='/images/menu_back.png'){ //menu back to navigate back to categories page from products
-		$.headerMenu.image ='/images/menu.png';
+		// $.headerMenu.image ='/images/menu.png';
 		
 		if(alloy.Globals.successOnRefresh != null)
 			Ti.App.removeEventListener("successOnFetch", alloy.Globals.successOnRefresh);
@@ -118,7 +118,21 @@ var loadStaticView = function(id) {
 			view = null;
 			view = Alloy.createController("adminHistoryStaticView").getView();
 			break;
-					
+		
+		case 'Manage Products':
+			view.setLayout('horizontal');
+		    boldLabel.height='auto';
+			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
+			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
+			boldLabel.setText('Products');
+			view.add(boldLabel);
+			break;
+		
+		case 'Product Transaction':
+			view = null;
+			view = Alloy.createController("adminHistoryStaticView").getView();
+			break;
+							
 		case 'Settings':
 		    view.setLayout('horizontal');
 		    boldLabel.height='auto';
@@ -159,6 +173,16 @@ var getAllUsers = function () {
 };
 
 var getUserTransactions = function(params){
+	
+	$.midContainer.add(Alloy.createController("adminHistory", params).getView());	
+};
+
+var productSelection = function (argument) {
+	 
+	 $.midContainer.add(Alloy.createController("selectProduct").getView()); 
+};
+
+var getProductTransactions = function(params){
 	
 	$.midContainer.add(Alloy.createController("adminHistory", params).getView());	
 };
@@ -216,26 +240,40 @@ alloy.Globals.midContainerReference = function (e) {
 	    	break;
 	    
 	    case 'Manage Users':
-	    	  console.log('Manage users');
-	    	  $.headerMenu.image ='/images/menu_back.png';
-	    	  loadStaticView(id);
-	    	  getAllUsers();	
-	    	  break;
-	    
+			  console.log('Manage users');
+			  $.headerMenu.image ='/images/menu_back.png';
+			  loadStaticView(id);
+			  getAllUsers();	
+			  break;
+	    	  
 	    case 'UserList':
-	    	  console.log('Users List');
-	    	  console.log(e.userid);
+	    	  
 	    	  $.headerMenu.image ='/images/menu_back.png';	
 	    	  loadStaticView(id);
-	    	  var params = {userid: e.userid, username: e.username};
+	    	  
+	    	  var params = {userid: e.userid, name: e.name};
 	    	  getUserTransactions(params);
 	    	  break;	
-	    	  		  	
+	    
+	    case 'Manage Products':
+	    	  $.headerMenu.image ='/images/menu_back.png';
+	    	  loadStaticView(id);
+	    	  productSelection();
+	    	  break;	
+	    	  
+	    case 'Product Transaction':
+			  $.headerMenu.image ='/images/menu_back.png';	
+	    	  loadStaticView(id);
+	    	  
+	    	  var params = {productid: e.productid, name: e.name};
+	    	  getProductTransactions(params);
+	    	  break;	
+				  	  		  	
 	    case 'Settings':
-	    	$.headerMenu.image ='/images/menu_back.png';   
-	    	init('Settings');
-	    	break;
-	    	  			
+			  $.headerMenu.image ='/images/menu_back.png';   
+			  init('Settings');
+			  break;
+	   		
 	    default :
 	    	//Default values will be product category ids.
 	    	console.log('Product id: '+id);

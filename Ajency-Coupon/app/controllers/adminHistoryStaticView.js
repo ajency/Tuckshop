@@ -36,7 +36,7 @@ function getSum(data){
 
 Ti.App.addEventListener('app:adminStaticView',function(e){
 	
-	enteredEmailValue = e.username.split('@');
+	enteredEmailValue = e.name.split('@');
 	$.topLabel.text = enteredEmailValue[0];
 	
 	var data = e.data;
