@@ -397,12 +397,21 @@ var displayTransactionHistory = function(data) {
 				fontWeight : 'bold'
 			};
 		}
-
+		
+		//Display quantity value for products
+		var txnDetails;
+		
+		if(args.userid)
+			txnDetails = day.format("L");
+	
+		else if(args.productid)
+			txnDetails = day.format("L") +"  "+"Qty: "+ data[i].quantity ;
+			
 		dateLabel = Ti.UI.createLabel({
 			touchEnabled : false,
 			top : '10%',
 			left : 0,
-			text : day.format("L"),
+			text : txnDetails,
 			color : '#A4A4A4',
 			font : {
 				fontFamily : "OpenSans-Regular",
