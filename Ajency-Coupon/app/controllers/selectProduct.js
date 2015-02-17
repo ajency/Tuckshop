@@ -25,11 +25,11 @@ var changeEvent = function(e){
 	
 	var value;
 	
-	if(pickerName === 'first'){
-		value = e.source.columns[0].children[0].title;
-		pickerName = '';
-	}
-	else 
+	// if(pickerName === 'first'){
+		// value = e.source.columns[0].children[0].title;
+		// pickerName = '';
+	// }
+	// else 
 		value = e.selectedValue;
 	
 	var selectedProduct = _.filter(localStorage.getAllProducts(), function(product) {
@@ -93,6 +93,11 @@ function loadProductPicker(id){
 	
 	column1 = Ti.UI.createPickerColumn();
 	
+	
+	allProducts.unshift({productName: 'Select a Product'});
+	
+	console.log('length of products');
+	console.log(allProducts.length);
 	var productsData = allProducts;
 	
 	var data = [];
@@ -123,9 +128,9 @@ categoryPicker.addEventListener('change', function(e){
 	
 	loadProductPicker(parseInt(selectedCategory[0].categoryId));
 	
-	pickerName = 'first';
-	
-	productPicker.fireEvent('change');
+	// pickerName = 'first';
+// 	
+	// productPicker.fireEvent('change');
 	
 });
 
