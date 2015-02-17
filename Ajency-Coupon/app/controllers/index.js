@@ -268,7 +268,7 @@ function loginClicked(e) {
 			alert("Please enter a valid email");
 		} else {
 			//check if email is ajency mail or ascot mail
-			if (enteredEmailValue[1] === 'ajency.in' ||'ascotwm.com') {
+			if (enteredEmailValue[1] === 'ajency.in' || enteredEmailValue[1] === 'ascotwm.com') {
 				//check for network
 				if (networkCheck.getNetworkStatus()==0) {
 					alert('No Internet Connection');

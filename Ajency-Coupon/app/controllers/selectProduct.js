@@ -52,8 +52,9 @@ function loadCategoryPicker(){
 	
 	categoryPicker = Ti.UI.createPicker({
   		top:'20%',
-  		left :'4%',
-  		width: '70%',
+  		left :'20%',
+  		right: '20%',
+  		width: '60%',
   		backgroundColor: '#3B0B0B'
 	});
 
@@ -67,7 +68,7 @@ function loadCategoryPicker(){
 	
 	categoryPicker.add(data);
 	
-	$.leftView.add(categoryPicker);
+	$.pickerView.add(categoryPicker);
 }
 
 /*
@@ -79,13 +80,14 @@ function loadProductPicker(id){
     filterproducts(id);
     
     if(productPicker!=null)
-    	$.rightView.remove(productPicker);
+    	$.pickerView.remove(productPicker);
   
     	
 	productPicker = Ti.UI.createPicker({
   		top:'20%',
-  		left :'4%',
-  		width: '90%',
+  		left :'20%',
+  		right: '20%',
+  		width: '60%',
   		backgroundColor: '#3B0B0B'
 	});
 	
@@ -102,7 +104,7 @@ function loadProductPicker(id){
 	
 	productPicker.add([column1]);
 	
-	$.rightView.add(productPicker);
+	$.pickerView.add(productPicker);
 	
 	productPicker.addEventListener('change', changeEvent);
 }

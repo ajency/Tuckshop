@@ -151,8 +151,10 @@ function registerClicked(e) {
 		if (!checkemail($.usernameTextfield.value)) {
 			alert("Please enter a valid email");
 		} else {
+			console.log('Email id');
+			console.log()
 			//check if email is ajency mail or ascotwm mail
-			if (enteredEmailValue[1] === 'ajency.in' || 'ascotwm.com') {
+			if (enteredEmailValue[1] === 'ajency.in' || enteredEmailValue[1] === 'ascotwm.com') {
 
 				//check for network
 				if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) {

@@ -1,6 +1,4 @@
 <Alloy>
 	<View class="hor" id="pickerView">
-		<View id="leftView" width="50%"></View>
-		<View id="rightView" width="50%"></View>
 	</View>
 </Alloy>
