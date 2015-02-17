@@ -134,6 +134,71 @@ Ti.App.addEventListener('errorOnRegister', function(data) {
 	
 });
 
+function registration(){
+	
+	   $.usernameTextfield.blur();
+	   $.passwordTextfield.blur();
+	   showImageView();
+	   // start the setInverval -- adjust the time to make a smooth animation
+	   loaderAnimate = setInterval(loadingAnimation,200);
+	   hideComponents();
+	   
+	    /*
+	      * ORGANIZATION PURPOSE
+	      */ 
+	    if(enteredEmailValue[1] === 'ajency.in')
+	    	localStorage.saveOrganizationId(1);
+	    	
+	    else if(enteredEmailValue[1] === 'ascotwm.com')
+	    	localStorage.saveOrganizationId(2);
+	            		
+		Cloud.Users.create({
+			username : $.usernameTextfield.value,
+			password : $.passwordTextfield.value,
+			password_confirmation : $.passwordTextfield.value,
+			custom_fields : {
+				credited_date_at : moment().format(),
+				organizationId : localStorage.getOrganizationId()
+			}
+		}, function(e) {
+			
+		//	firstRequest = false ;
+			if (e.success) {
+				
+				var user = e.users[0];
+				
+				dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily', moment().format(), user.admin);
+				
+				localStorage.saveUserId(user);
+	            localStorage.saveUserName($.usernameTextfield.value);
+	            localStorage.saveDisplayName(enteredEmailValue[0]);
+	            	
+	            
+	            //Check if particular organization details present
+	            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+	            	 updateCreditAmount();
+	            else 
+	            	organizationData();	
+				// updateCreditAmount();
+	
+			} else {
+				
+				hideImageView();
+				showComponents();
+				clearInterval(loaderAnimate);
+				
+				if(e.code==400){
+					
+					alert('Username is already taken');
+				}
+				else{
+					
+					alert('Could not connect to server. Try again ');
+				}
+			//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+			}
+		});
+};
 
 /*
  * Register the user
@@ -151,8 +216,8 @@ function registerClicked(e) {
 		if (!checkemail($.usernameTextfield.value)) {
 			alert("Please enter a valid email");
 		} else {
-			console.log('Email id');
-			console.log()
+			
+			
 			//check if email is ajency mail or ascotwm mail
 			if (enteredEmailValue[1] === 'ajency.in' || enteredEmailValue[1] === 'ascotwm.com') {
 
@@ -162,68 +227,23 @@ function registerClicked(e) {
 
 				} else {
 					
-				   $.usernameTextfield.blur();
-				   $.passwordTextfield.blur();
-				   showImageView();
-				   // start the setInverval -- adjust the time to make a smooth animation
-                   loaderAnimate = setInterval(loadingAnimation,200);
-				   hideComponents();
-				   
-    			    /*
-                      * ORGANIZATION PURPOSE
-                      */ 
-                    if(enteredEmailValue[1]==='ajency.in')
-                    	localStorage.saveOrganizationId(1);
-                    	
-                    else if(enteredEmailValue[1]==='ascotwm.com')
-                    	localStorage.saveOrganizationId(2);
-                            		
-    				Cloud.Users.create({
-						username : $.usernameTextfield.value,
-						password : $.passwordTextfield.value,
-						password_confirmation : $.passwordTextfield.value,
-						custom_fields : {
-							credited_date_at : moment().format(),
-							organizationId : localStorage.getOrganizationId()
+					//do not allow another organization user to register
+					if(localStorage.getOrganizationId()){
+		
+						if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
+							
+						 	var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+							 if(organizationDetails[0].domainName === enteredEmailValue[1])
+							     registration();
+							 else
+							 	 alert('Sorry your organization is not registered');   
+							 
 						}
-					}, function(e) {
-						
-					//	firstRequest = false ;
-						if (e.success) {
-							
-							var user = e.users[0];
-							
-							dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily', moment().format(), user.admin);
-							
-							localStorage.saveUserId(user);
-                            localStorage.saveUserName($.usernameTextfield.value);
-                            localStorage.saveDisplayName(enteredEmailValue[0]);
-                            	
-                            
-                            //Check if particular organization details present
-                            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
-                            	 updateCreditAmount();
-                            else 
-                            	organizationData();	
-							// updateCreditAmount();
-
-						} else {
-							
-							hideImageView();
-							showComponents();
-							clearInterval(loaderAnimate);
-							
-							if(e.code==400){
-								
-								alert('Username is already taken');
-							}
-							else{
-								
-								alert('Could not connect to server. Try again ');
-							}
-						//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
-						}
-					});	
+					}
+					else{
+						registration();
+					}
+				   	
 					
 				}
 			} else {

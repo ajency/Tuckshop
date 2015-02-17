@@ -4,6 +4,8 @@ var alloy = require('alloy');
 var __ = require('platformSupport');
 var myAnimation = require('animation');
 
+var enteredEmailValue;
+
 var moment = require('alloy/moment');
 var day;
 var totalSum;
@@ -250,13 +252,111 @@ function organizationData () {
 	});	
 };
 
+function login(){
+	
+	
+	   $.usernameTextfield.blur();
+	   $.passwordTextfield.blur();
+	   showImageView();
+	   // start the setInverval -- adjust the time to make a smooth animation
+        loaderAnimate = setInterval(loadingAnimation,200);
+      
+	    hideComponents();
+	   
+		$.loginButton.enabled = false;
+		Cloud.Users.login({
+			login : $.usernameTextfield.value,
+			password : $.passwordTextfield.value
+		}, function(e) {
+			
+			if (e.success) {
+				var user = e.users[0];
+				//	subscribeToChannel();
+				
+				alloy.Globals.autoLogin = true;
+				
+				if(dbOperations.getCount()>1)
+					alloy.Globals.forceLogout();
+				 
+                localStorage.saveUserId(user);
+                localStorage.saveUserName($.usernameTextfield.value);
+                localStorage.saveDisplayName(enteredEmailValue[0]);
+                localStorage.saveSessionId(e.meta.session_id);
+				localStorage.saveCreditedDate(user.custom_fields.credited_date_at);
+                localStorage.saveLastLoggedInUserId(user.id);
+                
+				Ti.API.info('test credited date:::\n' + user.custom_fields.credited_date_at);
+				day = moment(user.custom_fields.credited_date_at);
+				
+				if(alloy.Globals.midContainerReference != null)
+				Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
+				
+				if(alloy.Globals.navigatePrevious != null)
+				Ti.App.removeEventListener("screen:back", alloy.Globals.navigatePrevious);
+				
+				if(alloy.Globals.successOnRefresh != null)
+				Ti.App.removeEventListener("successOnFetch", alloy.Globals.successOnRefresh);
+				
+				if(alloy.Globals.toggleLeft != null)
+				Ti.App.removeEventListener("menu:toggleLeftMenu", alloy.Globals.toggleLeft);
+				
+				/*
+                  * ORGANIZATION PURPOSE
+                  */ 
+                if(enteredEmailValue[1] === 'ajency.in')	
+                    localStorage.saveOrganizationId(1);
+                else if(enteredEmailValue[1] === 'ascotwm.com')    	
+                	localStorage.saveOrganizationId(2);
+                
+                //Check if particular organization details present
+                if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+                	 subscribeToChannel();
+                else 
+                	organizationData();		
+				
+                if(dbOperations.checkIfRowExists(user.id)){
+                	dbOperations.onlineLoginStatus(user.id);
+                	dbOperations.setOrganizationId(user.id,user.custom_fields.organizationId);  //adding the organization id value to the users table
+                	
+                	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
+                	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
+                	  dbOperations.updateMailStatus(user.id, 1, 'daily');
+                	  
+                	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
+                	if(mailDate === null)
+                	  dbOperations.updateLastMailDate(user.id, moment().format());
+                	
+                	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
+                	if(userType === null)
+                	   dbOperations.updateUserType(user.id, user.admin);	
+                }
+                    
+				else
+					dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',moment().format(), user.admin);	
+				
+				
+			} else {
+				hideImageView();
+				showComponents();
+				clearInterval(loaderAnimate);
+				
+				if(e.code==401){
+					alert('Invalid username and password');
+				}else{
+					alert('Could not connect to server. Try again ');
+				}
+				
+				$.loginButton.enabled = true;
+			}
+		});
+};
 
 /*
  * Login button clicked
  */
 function loginClicked(e) {
 	//	var main = Alloy.createController('menu').getView().open();
-	var enteredEmailValue;
+	
 	
 	//check if fields are empty
 	if ($.usernameTextfield.value.trim() != '' && $.passwordTextfield.value.trim() != '') {
@@ -275,118 +375,23 @@ function loginClicked(e) {
 
 				} else {
 					
-				   $.usernameTextfield.blur();
-				   $.passwordTextfield.blur();
-				   showImageView();
-				   // start the setInverval -- adjust the time to make a smooth animation
-                    loaderAnimate = setInterval(loadingAnimation,200);
-                  
-				    hideComponents();
-				   
-       				$.loginButton.enabled = false;
-					Cloud.Users.login({
-						login : $.usernameTextfield.value,
-						password : $.passwordTextfield.value
-					}, function(e) {
-						
-						if (e.success) {
-							var user = e.users[0];
-							//	subscribeToChannel();
+					//do not allow another organization user to login
+				   if(localStorage.getOrganizationId()){
+		
+						if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
 							
-							alloy.Globals.autoLogin = true;
-							
-							if(dbOperations.getCount()>1)
-								alloy.Globals.forceLogout();
-    						 
-                            localStorage.saveUserId(user);
-                            localStorage.saveUserName($.usernameTextfield.value);
-                            localStorage.saveDisplayName(enteredEmailValue[0]);
-                            localStorage.saveSessionId(e.meta.session_id);
-							localStorage.saveCreditedDate(user.custom_fields.credited_date_at);
-                            localStorage.saveLastLoggedInUserId(user.id);
-                            
-							Ti.API.info('test credited date:::\n' + user.custom_fields.credited_date_at);
-							day = moment(user.custom_fields.credited_date_at);
-							
-							if(alloy.Globals.midContainerReference != null)
-							Ti.App.removeEventListener("app:addViewToMidContainer", alloy.Globals.midContainerReference);
-							
-							if(alloy.Globals.navigatePrevious != null)
-							Ti.App.removeEventListener("screen:back", alloy.Globals.navigatePrevious);
-							
-							if(alloy.Globals.successOnRefresh != null)
-							Ti.App.removeEventListener("successOnFetch", alloy.Globals.successOnRefresh);
-							
-							if(alloy.Globals.toggleLeft != null)
-							Ti.App.removeEventListener("menu:toggleLeftMenu", alloy.Globals.toggleLeft);
-							
-							/*
-                              * ORGANIZATION PURPOSE
-                              */ 
-                            if(enteredEmailValue[1]==='ajency.in')	
-                                localStorage.saveOrganizationId(1);
-                            else if(enteredEmailValue[1]==='ascotwm.com')    	
-                            	localStorage.saveOrganizationId(2);
-                            
-                            //Check if particular organization details present
-                            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
-                            	 subscribeToChannel();
-                            else 
-                            	organizationData();		
-							
-                            if(dbOperations.checkIfRowExists(user.id)){
-                            	dbOperations.onlineLoginStatus(user.id);
-                            	dbOperations.setOrganizationId(user.id,user.custom_fields.organizationId);  //adding the organization id value to the users table
-                            	
-                            	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
-                            	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
-                            	  dbOperations.updateMailStatus(user.id, 1, 'daily');
-                            	  
-                            	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
-                            	if(mailDate === null)
-                            	  dbOperations.updateLastMailDate(user.id, moment().format());
-                            	
-                            	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
-                            	if(userType === null)
-                            	   dbOperations.updateUserType(user.id, user.admin);	
-                            }
-                                
-							else
-								dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',moment().format(), user.admin);	
-							
-							//get the last credited date
-							//updateCreditDate();
-                            /*
-							//if application is deleted from device load the products
-							if (! localStorage.getAllProducts()) {
-								
-								//Subscribe to channel for push notifications
-								subscribeToChannel();
-								var fetchProductsJs = require('/fetchCloudProducts');
-								//	fetchProductsJs.fetchCloudProducts('main');
-								fetchProductsJs.fetchCloudProducts('menu');
-
-							} else {
-								//	var main = Alloy.createController('main', {}).getView().open();
-								var main = Alloy.createController('menu', {}).getView().open();
-								hideImageView();
-								clearInterval(loaderAnimate);
-							}
-                            */
-						} else {
-							hideImageView();
-							showComponents();
-							clearInterval(loaderAnimate);
-							
-							if(e.code==401){
-								alert('Invalid username and password');
-							}else{
-								alert('Could not connect to server. Try again ');
-							}
-							
-							$.loginButton.enabled = true;
+						 	var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+							 if(organizationDetails[0].domainName === enteredEmailValue[1])
+							     login();
+							 else
+							 	 alert('Sorry your organization is not registered');  
 						}
-					});
+					}
+					else{
+						login();
+					}
+							
+				 
 				}
 			} else {
                 alert('Sorry your organization is not registered');
