@@ -389,6 +389,13 @@ function updateLastMailDate(){
 		} else {
 			 hideImageView();
 			 clearInterval(loaderAnimate);
+			 
+			 var toast = Ti.UI.createNotification({
+				message:"Please Login again to continue",
+				duration: Ti.UI.NOTIFICATION_DURATION_LONG
+			 });
+			 toast.show();
+			 
 			 alloy.Globals.navigatedFromAllProducts = true; // so that switch on index.js is not executed when single user present
 	    	 var main = Alloy.createController('index', {}).getView().open();
 		}
@@ -499,10 +506,12 @@ else{
         
         dbOperations.setOrganizationId(localStorage.getLastLoggedInUserId(), localStorage.getOrganizationId());
         dbOperations.updateMailStatus(localStorage.getLastLoggedInUserId(), 1, 'daily');
-       
+       	
+       	if (dbOperations.getSessionId(localStorage.getLastLoggedInUserId()) != null)
+       		Cloud.sessionId = localStorage.getSessionId();
+       		
         organizationData();
         
-        	
 	}
 	else if(!alloy.Globals.pushNotificationReceived){  //No push notification received
 		console.log('No push received');
