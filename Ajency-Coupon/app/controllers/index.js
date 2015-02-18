@@ -162,6 +162,10 @@ $.errorLabel.addEventListener('click',function(e){
 						fetchProductsJs.transactionsOnProductIds('menu');
     				}
     				
+    				else if(localStorage.getErrorAtIndex() === 'transactionsOnProductIdsGreaterThanThousand'){
+						fetchProductsJs.transactionsOnProductIdsGreaterThanThousand('menu');
+    				}
+    				
     				else if(localStorage.getErrorAtIndex() === 'pushRegisterError'){
 						
 					 	if (OS_IOS) {
@@ -330,7 +334,7 @@ function login(){
 			
 			if (e.success) {
 				var user = e.users[0];
-				  
+				
 				alloy.Globals.autoLogin = true;
 				
 				if(dbOperations.getCount()>1)

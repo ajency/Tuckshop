@@ -116,6 +116,10 @@ $.registerErrorLabel.addEventListener('click',function(e){
 	    			 
 					fetchProductsJs.transactionsOnProductIds('index');
 	    		}	
+	    	else if(type==='transactionsOnProductIdsGreaterThanThousand'){
+	    			 
+					fetchProductsJs.transactionsOnProductIdsGreaterThanThousand('index');
+	    		}	
     				
 		}	
 });

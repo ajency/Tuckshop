@@ -132,6 +132,9 @@ if(homeErrorLabel!=null){
     	
     			else if(type ==='transactionsOnProductIds')
 					fetchProductsJs.transactionsOnProductIds('home');
+				
+				else if(type ==='transactionsOnProductIdsGreaterThanThousand')
+					fetchProductsJs.transactionsOnProductIdsGreaterThanThousand('home');	
 			}		
 			
 		}

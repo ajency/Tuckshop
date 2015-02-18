@@ -90,6 +90,21 @@ var getErrorAtIndex = function () {
     return Ti.App.Properties.getString('errorAtIndex');
 };
 
+var saveMultiplierValue = function (number) {
+    Ti.App.Properties.setInt('multiplierValue',number);
+};
+
+var getMultiplierValue = function(){
+	return Ti.App.Properties.getInt('multiplierValue');
+};
+
+var saveTemporaryProducts = function (data) {
+    Ti.App.Properties.setObject('temporaryProducts',data);
+};
+
+var getTemporaryProducts = function(){
+	 return Ti.App.Properties.getObject('temporaryProducts');
+};
 
 exports.saveOrganizationId=saveOrganizationId;
 exports.getOrganizationId=getOrganizationId;
@@ -128,3 +143,9 @@ exports.getLastLoggedInUserId=getLastLoggedInUserId;
 
 exports.saveErrorAtIndex=saveErrorAtIndex;
 exports.getErrorAtIndex=getErrorAtIndex;
+
+exports.saveMultiplierValue = saveMultiplierValue;
+exports.getMultiplierValue = getMultiplierValue;
+
+exports.saveTemporaryProducts = saveTemporaryProducts;
+exports.getTemporaryProducts = getTemporaryProducts;

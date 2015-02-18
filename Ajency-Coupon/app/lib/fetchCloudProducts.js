@@ -10,6 +10,7 @@ var fetchCategories = function (controllername) {
 	
 	alloy.Globals.categoryResponse = [];
 	Ti.App.Properties.removeProperty('allCategoryResponse');
+	localStorage.saveMultiplierValue(1);
 	  
 	Cloud.Objects.query({
 		classname : 'categories',
@@ -135,6 +136,77 @@ var fetchCloudProducts = function(controllername) {
 	
 };
 
+//filter transactions based on product ids greater than 1000
+var transactionsOnProductIdsGreaterThanThousand = function(controllername){
+	
+	if(allProductIdsArray.length === 0){
+		
+		for (var i=0;len=localStorage.getAllProducts().length, i < len; i++) {
+		
+	   			allProductIdsArray.push(allProductsArray[i].productId);
+	      };
+	
+	}
+	
+	Cloud.Objects.query({
+		classname : 'testItems',
+		skip: 1000 * localStorage.getMultiplierValue(),
+		limit: 1000,
+		
+		where : {
+			 productId: {"$in": allProductIdsArray } 
+		} 
+		
+	}, function(e) {
+        console.log('the count');
+     //   console.log(e.testItems.length);
+		if (e.success) {
+			
+		    	
+		    if(e.testItems.length === 1000){
+		    	
+		    	var finalArray = e.testItems.concat(localStorage.getTemporaryProducts());
+		    	Ti.App.Properties.removeProperty('temporaryProducts');
+		    	localStorage.saveTemporaryProducts(finalArray);
+		    	
+		    	var number = localStorage.getMultiplierValue();
+		    	number = number+1;
+		    	localStorage.saveMultiplierValue(number);
+		    	
+		    	transactionsOnProductIdsGreaterThanThousand(controllername);
+		    }
+		    else{
+		    	var finalArray = e.testItems.concat(localStorage.getTemporaryProducts());
+		    	Ti.App.Properties.removeProperty('temporaryProducts');
+		    	Ti.App.Properties.removeProperty('multiplierValue');
+		    	computeQuantityOnProductids(finalArray,controllername);
+		    }
+				
+			
+		} else {
+			console.log('TRANSACTION IDS PRODUCT');
+			if (controllername === 'menu') {
+				Ti.App.fireEvent('errorIndex',{name:'transactionsOnProductIdsGreaterThanThousand'});
+			
+			} else if (controllername === 'index') {
+				Ti.App.fireEvent('errorOnRegister',{name:'transactionsOnProductIdsGreaterThanThousand'});			
+			
+			}else if (controllername === 'leftMenu') {
+				console.log('In left menu');
+				Ti.App.fireEvent('errorOnFetch',{name:'transactionsOnProductIdsGreaterThanThousand'});	
+						
+			}else if (controllername === 'alloy') {
+				alert('Failed to fetch new Products! Please Click Refresh');			
+			}else if (controllername === 'home') {
+			
+				Ti.App.fireEvent('errorOnHome',{name:'transactionsOnProductIdsGreaterThanThousand'});		
+			}
+			
+		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	 });
+};
+
 //filter transactions based on product ids
 var transactionsOnProductIds = function(controllername) {
 	
@@ -159,8 +231,12 @@ var transactionsOnProductIds = function(controllername) {
      //   console.log(e.testItems.length);
 		if (e.success) {
 			
-		    
-			computeQuantityOnProductids(e.testItems,controllername);
+		    if(e.testItems.length === 1000){
+				localStorage.saveTemporaryProducts(e.testItems);
+				transactionsOnProductIdsGreaterThanThousand(controllername);
+			}
+			else
+				computeQuantityOnProductids(e.testItems,controllername);
 			
 		} else {
 			console.log('TRANSACTION IDS PRODUCT');
@@ -257,6 +333,7 @@ var navigateControllers= function(controllername){
 
 exports.fetchCategories = fetchCategories;
 exports.transactionsOnProductIds = transactionsOnProductIds;
+exports.transactionsOnProductIdsGreaterThanThousand = transactionsOnProductIdsGreaterThanThousand;
 exports.fetchCloudProducts = fetchCloudProducts;
 /*
  function cachedImageView(imageDirectoryName, url) {

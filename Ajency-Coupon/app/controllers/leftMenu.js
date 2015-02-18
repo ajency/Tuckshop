@@ -210,6 +210,9 @@ function refreshClick(){
     	
     	else if(type==='transactionsOnProductIds')
 			fetchProductsJs.transactionsOnProductIds('leftMenu');
+			
+		else if(type==='transactionsOnProductIdsGreaterThanThousand')
+			fetchProductsJs.transactionsOnProductIdsGreaterThanThousand('leftMenu');	
 	}	
 };
 
