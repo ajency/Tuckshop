@@ -159,25 +159,14 @@ function clearTableData() {
 		$.productsTable.data = tableData;
 	
 }
-
-//send mail depending on date which it was last sent
-
+/*
+ * sending of mails
+ */
 function sendEmail(eSwipe){
 	
-	var ms= moment().diff(dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId()));
-	
-	var d = moment.duration(ms).asHours();
-	console.log('minutes');
-	console.log(d);
-	
-	//Whether to send mail or no depending on the last sent mail
-	if(moment.duration(ms).asHours() >= 24){
-		
-	  console.log('Mail sending successfull');
-	  
-	  //send the start date and end date to fetch the records
+	 //send the start date and end date to fetch the records
 	  var data = dbOperations.getDailyTransactions(localStorage.getLastLoggedInUserId(), dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId()), moment.utc().format());
-		console.log(data);
+	  console.log(data);
 		
 		var productNameArray=[];
 		var productpriceArray = [];
@@ -216,9 +205,48 @@ function sendEmail(eSwipe){
 				
 		    } else {
 		        // alert('Error:\n' +((e.error && e.message) || JSON.stringify(e)));
-		        $.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'sendEmail'));    
+		        $.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'sendEmail'));   
 		    }
 		});	
+};
+
+/*
+ * Update last mail date
+ */
+function updateLastMailDate(eSwipe){
+	
+	Cloud.Users.update({
+		custom_fields : {
+			last_mail_date : moment().format()
+		}
+	}, function(e) {
+		if (e.success) {
+			var user = e.users[0];
+			
+			sendEmail(eSwipe);
+
+		} else {
+			$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'updateLastMailDate')); 
+		}
+
+	});
+	
+};
+
+//send mail depending on date which it was last sent
+function checkMailDate(eSwipe){
+	
+	var ms= moment().diff(dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId()));
+	
+	var d = moment.duration(ms).asHours();
+	console.log('minutes');
+	console.log(d);
+	
+	//Whether to send mail or no depending on the last sent mail
+	if(moment.duration(ms).asHours() >24){
+		
+	  updateLastMailDate(eSwipe);	
+	  
 	}
 	else{
 		console.log('Mail sending not successfull');
@@ -252,7 +280,7 @@ var fetchDeltaTransaction = function(eSwipe) {
 				dbOperations.saveTransactionRows(e.testItems);
 			}
 			
-			sendEmail(eSwipe);
+			checkMailDate(eSwipe);
 			// clearInterval(loaderTableAnimate);
 			// $.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
 			
@@ -532,9 +560,11 @@ function getErrorRow(eSwipe,type){
 		    else if(type === 'removeCarryForward')
 		    	removeCarryForward(totalSum, eSwipe.rowData.id,eSwipe);
 		    
+		    else if(type === 'updateLastMailDate')
+		    	updateLastMailDate(eSwipe);
 		    else if(type === 'sendEmail')
-		    	sendEmail(eSwipe);
-		    			
+		    	sendEmail(eSwipe);		
+		    		
 		    $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 		}	
 		

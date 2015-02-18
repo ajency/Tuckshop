@@ -158,7 +158,8 @@ function registration(){
 			password_confirmation : $.passwordTextfield.value,
 			custom_fields : {
 				credited_date_at : moment().format(),
-				organizationId : localStorage.getOrganizationId()
+				organizationId : localStorage.getOrganizationId(),
+				last_mail_date: moment().format()
 			}
 		}, function(e) {
 			
@@ -167,7 +168,7 @@ function registration(){
 				
 				var user = e.users[0];
 				
-				dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily', moment().format(), user.admin);
+				dbOperations.insertRow(user.id, $.usernameTextfield.value, false, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily', user.custom_fields.last_mail_date, user.admin);
 				
 				localStorage.saveUserId(user);
 	            localStorage.saveUserName($.usernameTextfield.value);

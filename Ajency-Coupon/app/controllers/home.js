@@ -365,6 +365,34 @@ var categoriesJson = categoriesJsonTuckShop;
  
 // var feedsForCategories = eval('(' + categoriesJson + ')');
 
+/*
+ * Update last mail date
+ */
+function updateLastMailDate(){
+	
+	Cloud.Users.update({
+		custom_fields : {
+			last_mail_date : moment().format()
+		}
+	}, function(e) {
+		if (e.success) {
+			var user = e.users[0];
+			
+			dbOperations.updateLastMailDate(user.id, user.custom_fields.last_mail_date);
+        	dbOperations.updateUserType(user.id, user.admin);
+        	
+        	fetchProductsJs.fetchCategories('home');	
+
+		} else {
+			 hideImageView();
+			 clearInterval(loaderAnimate);
+			 alloy.Globals.navigatedFromAllProducts = true; // so that switch on index.js is not executed when single user present
+	    	 var main = Alloy.createController('index', {}).getView().open();
+		}
+
+	});
+	
+};
 
 /*
  * organization data
@@ -383,7 +411,8 @@ function organizationData () {
 		if (e.success) {
 			 
 			 dbOperations.saveOrganizationRow(e.organization);
-			 fetchProductsJs.fetchCategories('home');	
+			 updateLastMailDate();
+			 
 		}
 		else{
 			hideImageView();
@@ -467,10 +496,9 @@ else{
         
         dbOperations.setOrganizationId(localStorage.getLastLoggedInUserId(), localStorage.getOrganizationId());
         dbOperations.updateMailStatus(localStorage.getLastLoggedInUserId(), 1, 'daily');
-        dbOperations.updateLastMailDate(localStorage.getLastLoggedInUserId(), moment().format());
-        dbOperations.updateUserType(localStorage.getLastLoggedInUserId(), false);
-         
-        organizationData();	
+       
+        organizationData();
+        
         	
 	}
 	else if(!alloy.Globals.pushNotificationReceived){  //No push notification received

@@ -119,7 +119,6 @@ $.errorLabel.addEventListener('click',function(e){
 		
 		else{
 			 
-			
     			showImageView();
    				// start the setInverval -- adjust the time to make a smooth animation
     			loaderAnimate = setInterval(loadingAnimation,200);
@@ -142,6 +141,8 @@ $.errorLabel.addEventListener('click',function(e){
 						});
     		        }
     				
+    				else if(localStorage.getErrorAtIndex() === 'updateLastMailDate')
+    				updateLastMailDate();
     				
     				else if(localStorage.getErrorAtIndex() === 'subscribeToChannel')
     				subscribeToChannel();
@@ -224,6 +225,65 @@ else if( localStorage.getUserName()) {
 	$.usernameTextfield.value = localStorage.getUserName();
 };
 
+function dbUserInfo(e){
+	
+	var user = e.users[0];
+	
+	 if(dbOperations.checkIfRowExists(user.id)){
+    	dbOperations.onlineLoginStatus(user.id);
+    	dbOperations.setOrganizationId(user.id,user.custom_fields.organizationId);  //adding the organization id value to the users table
+    	
+    	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
+    	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
+    	  dbOperations.updateMailStatus(user.id, 1, 'daily');
+    	  
+    	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
+    	if(mailDate === null)
+    	  dbOperations.updateLastMailDate(user.id, user.custom_fields.last_mail_date);
+    	
+    	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
+    	if(userType === null)
+    	   dbOperations.updateUserType(user.id, user.admin);	
+    }
+        
+	else
+		dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',user.custom_fields.last_mail_date, user.admin);	
+				
+				
+};
+/*
+ * Update last mail date
+ */
+function updateLastMailDate(){
+	
+	Cloud.Users.update({
+		custom_fields : {
+			last_mail_date : moment().format()
+		}
+	}, function(e) {
+		if (e.success) {
+			var user = e.users[0];
+			
+			dbUserInfo(e);
+			
+			//Check if particular organization details present
+            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+            	 subscribeToChannel();
+            else 
+            	organizationData();	
+			
+
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			localStorage.saveErrorAtIndex('updateLastMailDate');
+            showConnectionErrorView();
+		}
+
+	});
+	
+};
+
 /*
  * organization data
  */
@@ -254,7 +314,6 @@ function organizationData () {
 
 function login(){
 	
-	
 	   $.usernameTextfield.blur();
 	   $.passwordTextfield.blur();
 	   showImageView();
@@ -271,8 +330,7 @@ function login(){
 			
 			if (e.success) {
 				var user = e.users[0];
-				//	subscribeToChannel();
-				
+				  
 				alloy.Globals.autoLogin = true;
 				
 				if(dbOperations.getCount()>1)
@@ -308,32 +366,20 @@ function login(){
                 else if(enteredEmailValue[1] === 'ascotwm.com')    	
                 	localStorage.saveOrganizationId(2);
                 
-                //Check if particular organization details present
-                if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
-                	 subscribeToChannel();
-                else 
-                	organizationData();		
 				
-                if(dbOperations.checkIfRowExists(user.id)){
-                	dbOperations.onlineLoginStatus(user.id);
-                	dbOperations.setOrganizationId(user.id,user.custom_fields.organizationId);  //adding the organization id value to the users table
-                	
-                	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());    //only if the mail status's are not set for the user
-                	if(mailStatus.mails === null && mailStatus.daily_weekly=== null)
-                	  dbOperations.updateMailStatus(user.id, 1, 'daily');
-                	  
-                	var mailDate = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());   
-                	if(mailDate === null)
-                	  dbOperations.updateLastMailDate(user.id, moment().format());
-                	
-                	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
-                	if(userType === null)
-                	   dbOperations.updateUserType(user.id, user.admin);	
-                }
-                    
-				else
-					dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',moment().format(), user.admin);	
-				
+               
+				if(!user.last_mail_date)
+				  updateLastMailDate(); 
+				else{
+					dbUserInfo(e);
+					
+					//Check if particular organization details present
+	                if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+	                	 subscribeToChannel();
+	                else 
+	                	organizationData();	
+				}  
+					
 				
 			} else {
 				hideImageView();
@@ -357,7 +403,6 @@ function login(){
 function loginClicked(e) {
 	//	var main = Alloy.createController('menu').getView().open();
 	
-	
 	//check if fields are empty
 	if ($.usernameTextfield.value.trim() != '' && $.passwordTextfield.value.trim() != '') {
 		
@@ -369,6 +414,7 @@ function loginClicked(e) {
 		} else {
 			//check if email is ajency mail or ascot mail
 			if (enteredEmailValue[1] === 'ajency.in' || enteredEmailValue[1] === 'ascotwm.com') {
+				
 				//check for network
 				if (networkCheck.getNetworkStatus()==0) {
 					alert('No Internet Connection');
@@ -377,7 +423,7 @@ function loginClicked(e) {
 					
 					//do not allow another organization user to login
 				   if(localStorage.getOrganizationId()){
-		
+						
 						if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
 							
 						 	var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
@@ -386,8 +432,11 @@ function loginClicked(e) {
 							 else
 							 	 alert('Sorry your organization is not registered');  
 						}
+						else
+						   login();	
 					}
 					else{
+						
 						login();
 					}
 							
