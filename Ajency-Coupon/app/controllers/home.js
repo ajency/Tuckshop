@@ -123,7 +123,10 @@ if(homeErrorLabel!=null){
 				
 				if(type ==='organizationData') 
     			   organizationData();
-    				
+    			
+    			else if(type ==='subscribeToPendingChannel') //fails on fetch products
+    				subscribeToPendingChannel();
+    					
 				else if(type ==='fetchCategories') //fails on fetch products
     				fetchProductsJs.fetchCategories('home');
     			
@@ -368,6 +371,36 @@ var categoriesJson = categoriesJsonTuckShop;
  
 // var feedsForCategories = eval('(' + categoriesJson + ')');
 
+
+/*
+ * subscribe to new channel for admin
+ */
+function subscribeToPendingChannel(){
+	
+	//fetch pending channel organization wise
+	 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+		
+	 var pendingChannel = organizationDetails[0].organizationPendingChannel;
+	 
+	Cloud.PushNotifications.subscribeToken({
+		device_token : deviceToken,
+		channel : pendingChannel,
+		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
+	}, function(e) {
+		if (e.success) {
+			
+			fetchProductsJs.fetchCategories('home');
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			type='subscribeToPendingChannel';
+            showConnectionErrorView();
+		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	});
+};
+
+
 /*
  * Update last mail date
  */
@@ -384,7 +417,10 @@ function updateLastMailDate(){
 			dbOperations.updateLastMailDate(user.id, user.custom_fields.last_mail_date);
         	dbOperations.updateUserType(user.id, user.admin);
         	
-        	fetchProductsJs.fetchCategories('home');	
+        	if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
+        		subscribeToPendingChannel();
+        	else
+        		fetchProductsJs.fetchCategories('home');	
 
 		} else {
 			 hideImageView();

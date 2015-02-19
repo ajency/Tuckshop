@@ -56,7 +56,7 @@ function populateLeftMenu(){
 	
 	if(loginStatus){ //user online
 		if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
-			labelText = ['Home', 'Transaction History', 'Manage', 'Settings', 'Logout'];
+			labelText = ['Home', 'Transaction History', 'Manage', 'Pending', 'Settings', 'Logout'];
 		else	
 			labelText = ['Home', 'Transaction History', 'Settings', 'Logout'];
 	}   

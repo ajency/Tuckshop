@@ -7,7 +7,7 @@ var createDB = function(){
  	
 	db.execute('CREATE TABLE IF NOT EXISTS transactions (txn_id INTEGER UNIQUE, user_id INTEGER, updated_at TEXT, productName TEXT, productPrice TEXT, productId INTEGER, quantity INTEGER)');
 	
-	db.execute('CREATE TABLE IF NOT EXISTS organizations (organizationId INTEGER UNIQUE, organizationName TEXT, organization_logo TEXT, organizationPushChannel TEXT, domainName TEXT)');
+	db.execute('CREATE TABLE IF NOT EXISTS organizations (organizationId INTEGER UNIQUE, organizationName TEXT, organization_logo TEXT, organizationPushChannel TEXT, organizationPendingChannel TEXT, domainName TEXT)');
 	
 	db.close();
  	
@@ -379,8 +379,8 @@ var saveOrganizationRow = function  (data) {
    
    for (var i = 0, len = data.length; i < len; i++) {
    	console.log('In loop');
-	db.execute('INSERT OR REPLACE INTO organizations (organizationId, organizationName, organization_logo, organizationPushChannel, domainName) VALUES (?, ?, ?, ?, ?)'
-	, data[i].organizationId, data[i].organizationName, data[i].photo.urls.small_240, data[i].organizationPushChannel, data[i].domainName);
+	db.execute('INSERT OR REPLACE INTO organizations (organizationId, organizationName, organization_logo, organizationPushChannel, organizationPendingChannel, domainName) VALUES (?, ?, ?, ?, ?, ?)'
+	, data[i].organizationId, data[i].organizationName, data[i].photo.urls.small_240, data[i].organizationPushChannel, data[i].organizationPendingChannel, data[i].domainName);
    }
     
    db.close();
@@ -403,6 +403,7 @@ var getOrganizationRow = function  () {
 		  		organizationName: rows.fieldByName('organizationName'),
 		  		organization_logo: rows.fieldByName('organization_logo'), 
 		  	    organizationPushChannel: rows.fieldByName('organizationPushChannel'),
+		  	    organizationPendingChannel: rows.fieldByName('organizationPendingChannel'),
 		  	    domainName: rows.fieldByName('domainName')
 		  });
 	

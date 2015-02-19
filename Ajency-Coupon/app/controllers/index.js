@@ -147,6 +147,9 @@ $.errorLabel.addEventListener('click',function(e){
     				else if(localStorage.getErrorAtIndex() === 'subscribeToChannel')
     				subscribeToChannel();
     				
+    				else if(localStorage.getErrorAtIndex() === 'subscribeToPendingChannel')
+    				subscribeToPendingChannel();
+    				
     				else if(localStorage.getErrorAtIndex() === 'organizationData')
     				organizationData();
     				
@@ -334,7 +337,8 @@ function login(){
 			
 			if (e.success) {
 				var user = e.users[0];
-				
+				console.log('User details');
+				console.log(user);
 				alloy.Globals.autoLogin = true;
 				
 				if(dbOperations.getCount()>1)
@@ -425,12 +429,14 @@ function loginClicked(e) {
 
 				} else {
 					
-					//do not allow another organization user to login
+					
 				   if(localStorage.getOrganizationId()){
 						
 						if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
 							
 						 	var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+						 	
+						 	//do not allow another organization user to login
 							 if(organizationDetails[0].domainName === enteredEmailValue[1])
 							     login();
 							 else
@@ -466,6 +472,34 @@ $.passwordTextfield.addEventListener('return', function(e) {
 });
 
 /*
+ * subscribe to new channel for admin
+ */
+function subscribeToPendingChannel(){
+	
+	//fetch pending channel organization wise
+	 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+		
+	 var pendingChannel = organizationDetails[0].organizationPendingChannel;
+	 
+	Cloud.PushNotifications.subscribeToken({
+		device_token : deviceToken,
+		channel : pendingChannel,
+		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
+	}, function(e) {
+		if (e.success) {
+			
+			updateCreditDate();
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			localStorage.saveErrorAtIndex('subscribeToPendingChannel');
+            showConnectionErrorView();
+		//	alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	});
+};
+
+/*
  * Subscribe the device to a channel for
  * push notification
  */
@@ -485,7 +519,12 @@ function subscribeToChannel() {
 		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
 	}, function(e) {
 		if (e.success) {
-			updateCreditDate();
+			//subscribe to new channel for admin
+			if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
+			   subscribeToPendingChannel();	
+			else
+			   updateCreditDate();
+		
 		} else {
 			hideImageView();
 			clearInterval(loaderAnimate);
