@@ -388,7 +388,7 @@ function subscribeToPendingChannel(){
 		type : Ti.Platform.name == 'android' ? 'android' : 'ios'
 	}, function(e) {
 		if (e.success) {
-			
+			alloy.Globals.populateLeftMenu();
 			fetchProductsJs.fetchCategories('home');
 		} else {
 			hideImageView();

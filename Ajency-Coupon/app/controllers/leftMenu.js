@@ -41,7 +41,7 @@ var hideImageView= function (argument) {
 	$.animateObject.width=0;
 };
 
-function populateLeftMenu(){
+Alloy.Globals.populateLeftMenu =  function (){
 	tableData = [];
 	var labelText= null;
 
@@ -93,9 +93,9 @@ function populateLeftMenu(){
 	}
 	
 	$.menuTable.data = tableData;
-}
+};
 
-populateLeftMenu();
+alloy.Globals.populateLeftMenu();
 
 if (OS_IOS)
 $.menuTable.setSeparatorInsets({
@@ -255,7 +255,7 @@ function userLogout(){
 				
 			else{
 				Ti.App.fireEvent('menu:toggleLeftMenu');
-				populateLeftMenu();
+				alloy.Globals.populateLeftMenu();
 			}
 			
    		 } else {
