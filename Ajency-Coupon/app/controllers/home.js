@@ -408,7 +408,8 @@ function updateLastMailDate(){
 	
 	Cloud.Users.update({
 		custom_fields : {
-			last_mail_date : moment().format()
+			last_mail_date : moment().format(),
+			device_token : deviceToken
 		}
 	}, function(e) {
 		if (e.success) {
@@ -417,8 +418,18 @@ function updateLastMailDate(){
 			dbOperations.updateLastMailDate(user.id, user.custom_fields.last_mail_date);
         	dbOperations.updateUserType(user.id, user.admin);
         	
-        	if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
+        	if(user.hasOwnProperty('role')){
+    			console.log('user has a role in home');
+    			dbOperations.updateUserRole(user.id, user.role);  
+    		}
+    		else
+    			dbOperations.updateUserRole(user.id, 'consumer'); 
+    		
+        	if(dbOperations.getUserRole(localStorage.getLastLoggedInUserId()) === 'cook'){
+        		console.log('cook id');
         		subscribeToPendingChannel();
+        	}
+        		
         	else
         		fetchProductsJs.fetchCategories('home');	
 

@@ -55,8 +55,11 @@ Alloy.Globals.populateLeftMenu =  function (){
 	}
 	
 	if(loginStatus){ //user online
+		
 		if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
 			labelText = ['Home', 'Transaction History', 'Manage', 'Pending', 'Settings', 'Logout'];
+		else if(dbOperations.getUserRole(localStorage.getLastLoggedInUserId()) === 'cook')
+			labelText = ['Home', 'Transaction History', 'Pending', 'Settings', 'Logout'];
 		else	
 			labelText = ['Home', 'Transaction History', 'Settings', 'Logout'];
 	}   
@@ -149,7 +152,13 @@ function onMenuTableClick(e){
 			Ti.App.fireEvent("app:addViewToMidContainer", evtData);
 			evtData = null;
 	        break;
-	        
+	    
+	    case 'Pending':
+	        Ti.App.fireEvent('menu:toggleLeftMenu');
+			Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+			evtData = null;
+	        break;
+	            
 	    case 'Settings':
 	    	Ti.App.fireEvent('menu:toggleLeftMenu');
 			Ti.App.fireEvent("app:addViewToMidContainer", evtData);

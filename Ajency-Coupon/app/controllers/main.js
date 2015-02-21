@@ -105,6 +105,15 @@ var loadStaticView = function(id) {
 			view.add(boldLabel);
 			break;
 		
+		case 'Pending':
+		    view.setLayout('horizontal');
+		    boldLabel.height='auto';
+			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
+			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
+			boldLabel.setText('Pending');
+			view.add(boldLabel);
+			break;
+			
 		case 'Manage Users':
 			view.setLayout('horizontal');
 		    boldLabel.height='auto';
@@ -160,7 +169,6 @@ var loadStaticView = function(id) {
 	 // anim.popIn(view);
 };
 
-
 var getAllProducts = function(categoryId){
 	
 	var params = {categoryId: categoryId};
@@ -205,7 +213,12 @@ var init = function(view) {
 				loadStaticView(view);
 				$.midContainer.add(Alloy.createController("adminMainView").getView());
 				break;	
-				
+			
+			case 'Pending':
+				loadStaticView(view);
+				$.midContainer.add(Alloy.createController("pending").getView());
+				break;	
+					
 			case 'Settings':
 				loadStaticView(view);
 				$.midContainer.add(Alloy.createController("settings").getView());
@@ -239,6 +252,12 @@ alloy.Globals.midContainerReference = function (e) {
 	    	init('Manage');
 	    	break;
 	    
+	    case 'Pending':
+	    	  
+	    	$.headerMenu.image ='/images/menu_back.png';   
+	    	init('Pending');
+	    	  break;	
+	    	  
 	    case 'Manage Users':
 			  console.log('Manage users');
 			  $.headerMenu.image ='/images/menu_back.png';

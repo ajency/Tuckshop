@@ -106,6 +106,23 @@ var getTemporaryProducts = function(){
 	 return Ti.App.Properties.getObject('temporaryProducts');
 };
 
+var saveCookToken=function(id){
+	Ti.App.Properties.setString('cookToken', id);
+};
+
+var getCookToken=function(){
+  return Ti.App.Properties.getString('cookToken');
+};
+
+var savePendingItems = function (data) {
+    Ti.App.Properties.setObject('pendingItems',data);
+};
+
+var getPendingItems = function(){
+	 return Ti.App.Properties.getObject('pendingItems');
+};
+
+
 exports.saveOrganizationId=saveOrganizationId;
 exports.getOrganizationId=getOrganizationId;
 
@@ -149,3 +166,9 @@ exports.getMultiplierValue = getMultiplierValue;
 
 exports.saveTemporaryProducts = saveTemporaryProducts;
 exports.getTemporaryProducts = getTemporaryProducts;
+
+exports.saveCookToken = saveCookToken;
+exports.getCookToken = getCookToken;
+
+exports.savePendingItems = savePendingItems;
+exports.getPendingItems = getPendingItems;

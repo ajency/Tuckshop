@@ -13,7 +13,7 @@ var createDB = function(){
  	
 };
 
-// organizationId, last_mail_date, mails, daily_weekly columns are added to the users table for version 4.0
+// organizationId, last_mail_date, mails, daily_weekly, role columns are added to the users table for version 4.0
 // ADD COLUMN TO A TABLE
 var addColumn = function() {
     var db = getDB();
@@ -32,6 +32,7 @@ var addColumn = function() {
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'organizationId' + ' ' + 'INTEGER');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'last_mail_date' + ' ' + 'TEXT');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'admin' + ' ' + 'TEXT');
+        db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'role' + ' ' + 'TEXT');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'mails' + ' ' + 'INTEGER');
         db.execute('ALTER TABLE ' + 'users' + ' ADD COLUMN '+'daily_weekly' + ' ' + 'TEXT');
     }
@@ -65,10 +66,10 @@ var checkIfRowExists =  function (id) {  //check if user is present or no
 		
 };
 
-var insertRow = function (user, username, status, sessionid, date, organizationId, mails, daily_weekly, mailDate, admin){
+var insertRow = function (user, username, status, sessionid, date, organizationId, mails, daily_weekly, mailDate, admin, role){
 	
 	var db = getDB();
-	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organizationId, mails, daily_weekly, last_mail_date, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organizationId, mails, daily_weekly, moment.utc(mailDate).format(), admin);
+	db.execute('INSERT INTO users (user_id, user_name, login_status, session_id, last_credit_date, organizationId, mails, daily_weekly, last_mail_date, admin, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', user, username, status, sessionid, date, organizationId, mails, daily_weekly, moment.utc(mailDate).format(), admin, role);
 	db.close();
 };
 
@@ -264,6 +265,25 @@ var getUserName = function(userid){
   	row.close();
   	db.close();
   	return returnName;		
+};
+
+
+var updateUserRole = function (userid, userrole) {
+	
+	var db = getDB();
+	db.execute('UPDATE users SET role=? WHERE user_id=?', userrole, userid);
+	db.close();    
+};
+
+var getUserRole = function (userid) {
+	
+	var db = getDB();
+  	var row = db.execute("SELECT role FROM users WHERE user_id=?", userid);
+  	var returnType = row.fieldByName('role');
+  	
+  	row.close();
+  	db.close();
+  	return returnType;  
 };
 
 //Transaction related
@@ -468,6 +488,9 @@ exports.updateUserType = updateUserType;
 exports.getUserType = getUserType;
 
 exports.getUserName = getUserName;
+
+exports.updateUserRole = updateUserRole;
+exports.getUserRole = getUserRole;
 //transaction related
 
 exports.getTxnCount = getTxnCount;

@@ -94,6 +94,7 @@ var fetchCloudProducts = function(controllername) {
 					"hasDiscount" : "false",
 					"hasLove" : "false",
 					"available" : thing.available,
+					"served" : thing.served,
 					"description" : " ",
 					"promotion" : "-",
 					"loveCount" : " ",

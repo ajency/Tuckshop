@@ -3,6 +3,7 @@ var args = arguments[0] || {};
 //{"categoryId":"111"}
 
 var errorPresent = false;
+var toBeServed = false;
 
 var tableData = empty = tempTableData = [];
 var filteredProductArray =[];
@@ -81,6 +82,7 @@ var populateProducts = function(jsonData) {
 		
 		row = Ti.UI.createTableViewRow({
 			id: jsonData[i].productId,
+			name: jsonData[i].productName,
 			height : 70,
 			backgroundSelectedColor : 'transparent',
 		    backgroundColor : 'white'
@@ -159,6 +161,68 @@ function clearTableData() {
 		$.productsTable.data = tableData;
 	
 }
+
+/*
+ * retrieve the id if not fetched for the user cook
+ */
+function retrieveCookId(eSwipe){
+	
+	if(localStorage.getCookToken()){
+		
+		pendingPushNotification(eSwipe);
+	}
+	else{
+
+		Cloud.Users.query({
+		    limit: 1000,
+		   
+		    where: { "$and": [ { role : 'cook' },
+				   { organizationId : localStorage.getOrganizationId()  }]
+		    }
+			
+		}, function (e) {
+		    if (e.success) {
+		    	
+		    	var user = e.users[0];
+		    	console.log('Cook details');
+		    	console.log(user);
+		    	
+		    	localStorage.saveCookToken(user.custom_fields.device_token);
+		    	pendingPushNotification(eSwipe);
+		    } else {
+		    	$.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'retrieveCookId')); 
+		    }
+		});
+	}
+}
+
+/*
+ * Sening push notification for pending items
+ */
+function pendingPushNotification(eSwipe){
+		
+	var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+	
+ 	var pendingChannel = organizationDetails[0].organizationPendingChannel;
+ 	
+ 	enteredEmailValue = dbOperations.getUserName(localStorage.getLastLoggedInUserId()).split('@');
+ 	
+ 	Cloud.PushNotifications.notifyTokens({
+	    channel: pendingChannel,
+	    to_tokens: localStorage.getCookToken(),
+	    payload: { "alert": enteredEmailValue[0] +' ordered ' + eSwipe.rowData.name , "custom_property": "order"} 
+	    
+	}, function (e) {
+	    if (e.success) {
+	       	clearInterval(loaderTableAnimate);
+			$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+	    } else {
+	       $.productsTable.updateRow(eSwipe.index, getErrorRow(eSwipe,'pendingPushNotification'));
+	    }
+	});
+
+};
+
 /*
  * sending of mails
  */
@@ -200,8 +264,16 @@ function sendEmail(eSwipe){
 		    if (e.success) {
 		        
 		        dbOperations.updateLastMailDate(localStorage.getLastLoggedInUserId(), moment().format());
-		        clearInterval(loaderTableAnimate);
-				$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+		        
+		        if(toBeServed){     //send a pending push notification
+					console.log('Cheese sandwich bought');
+					retrieveCookId(eSwipe);
+				}
+				else{
+					clearInterval(loaderTableAnimate);
+					$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+				}
+		        
 				
 		    } else {
 		        // alert('Error:\n' +((e.error && e.message) || JSON.stringify(e)));
@@ -242,16 +314,24 @@ function checkMailDate(eSwipe){
 	console.log('minutes');
 	console.log(d);
 	
-	//Whether to send mail or no depending on the last sent mail
-	if(moment.duration(ms).asHours() >24){
-		
-	  updateLastMailDate(eSwipe);	
+	var mailStatus = dbOperations.getMailStatus(localStorage.getLastLoggedInUserId());
+	
+	if(moment.duration(ms).asHours() >24 && mailStatus.mails === 1){   //send an email
+		console.log('Send mails');
+	  	updateLastMailDate(eSwipe);	
 	  
 	}
-	else{
-		console.log('Mail sending not successfull');
-		clearInterval(loaderTableAnimate);
-		$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+	else{   //do not send an email
+		
+		if(toBeServed){     //send a pending push notification
+			console.log('Cheese sandwich bought');
+			retrieveCookId(eSwipe);
+		}
+		else{
+			clearInterval(loaderTableAnimate);
+			$.productsTable.updateRow(eSwipe.index, getPurchaseRow(eSwipe));
+		}
+		
 	}
 	
 };
@@ -314,6 +394,11 @@ var makeTransactionEntry = function(productid,eSwipe) {
 		return product.productId === productid;
 	});
 	
+	if(selectedProduct[0].served === 'yes')
+		toBeServed = true;
+	else
+		toBeServed = false;
+			
 	Cloud.Objects.create({
 		classname : 'testItems',
 		fields : {
@@ -564,7 +649,12 @@ function getErrorRow(eSwipe,type){
 		    	updateLastMailDate(eSwipe);
 		    else if(type === 'sendEmail')
 		    	sendEmail(eSwipe);		
-		    		
+		    else if(type === 'pendingPushNotification')   //in case cheese sandwich is ordered
+		    	pendingPushNotification(eSwipe);	
+		    	
+		    else if(type === 'retrieveCookId')
+		    	retrieveCookId(eSwipe);		
+		    	
 		    $.productsTable.updateRow(eSwipe.index, getLoaderRow(eSwipe));
 		}	
 		
@@ -777,6 +867,7 @@ function getSwipeRow(eSwipe) {
 	function buyClicked(e){
 		
 		e.cancelBubble = true;
+		
 		console.log(eSwipe.rowData.id);
 		//check for network when buying an item
 		if (networkCheck.getNetworkStatus()==0)  alert('No Internet Connection');

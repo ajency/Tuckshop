@@ -251,11 +251,30 @@ function dbUserInfo(e){
     	var userType = dbOperations.getLastMailDate(localStorage.getLastLoggedInUserId());  
     	if(userType === null)
     	   dbOperations.updateUserType(user.id, user.admin);	
+    	
+    	if(user.hasOwnProperty('role')){
+    		console.log('user has a role');
+    		dbOperations.updateUserRole(user.id, user.role);  
+    	} 
+    	else
+    		dbOperations.updateUserRole(user.id, 'consumer'); 	 
     }
         
-	else
-		dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',user.custom_fields.last_mail_date, user.admin);	
+	else{
+		
+		var role;
+		if(user.hasOwnProperty('role')){
+			console.log('user has a role');
+			role='cook';
+		}
+    	    
+    	else
+    		role='consumer';
+    		
+		dbOperations.insertRow(user.id, $.usernameTextfield.value, true, e.meta.session_id, user.custom_fields.credited_date_at, user.custom_fields.organizationId, 1, 'daily',user.custom_fields.last_mail_date, user.admin, role);	
 				
+	}
+		
 				
 };
 /*
@@ -265,7 +284,8 @@ function updateLastMailDate(){
 	
 	Cloud.Users.update({
 		custom_fields : {
-			last_mail_date : moment().format()
+			last_mail_date : moment().format(),
+			device_token : deviceToken
 		}
 	}, function(e) {
 		if (e.success) {
@@ -374,10 +394,12 @@ function login(){
                 else if(enteredEmailValue[1] === 'ascotwm.com')    	
                 	localStorage.saveOrganizationId(2);
                 
-				
-               
-				if(!user.last_mail_date)
-				  updateLastMailDate(); 
+                	
+				if(!user.custom_fields.hasOwnProperty('last_mail_date')){
+					console.log('last mail date called');
+					 updateLastMailDate(); 
+				}
+				 
 				else{
 					dbUserInfo(e);
 					
@@ -520,8 +542,11 @@ function subscribeToChannel() {
 	}, function(e) {
 		if (e.success) {
 			//subscribe to new channel for admin
-			if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
-			   subscribeToPendingChannel();	
+			if(dbOperations.getUserRole(localStorage.getLastLoggedInUserId()) === 'cook'){
+				console.log('cook id');
+				subscribeToPendingChannel();	
+			}
+			   
 			else
 			   updateCreditDate();
 		

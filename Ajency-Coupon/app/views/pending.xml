@@ -1,0 +1,7 @@
+<Alloy>
+	<View class="ver">
+		<ImageView id="animateObject" height="0" width="0" top="0" ></ImageView>
+		<Label  id="itemErrorLabel" class="f-s3" height="0" width="0" top="0">Tap to Retry</Label>
+	 	<TableView id="itemsTable" class="w-fill h-fill" separatorColor="#F0C60A" />
+	</View> 
+</Alloy>

@@ -87,27 +87,45 @@ if (OS_IOS) {
 	// Process incoming push notifications (android)
 	
 	CloudPush.addEventListener('callback', function(evt) {
-		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
-		var fetchProductsJs = require('/fetchCloudProducts');
 		
-		//Update purpose 4.0
-		var totalUsers = dbOperations.getCount();
-		if(totalUsers ===1)
-			fetchProductsJs.fetchCategories('home');
-		else if(totalUsers>1)
-			fetchProductsJs.fetchCategories('alloy');	
+		var finalArray = [];
 		
 		var a = JSON.parse(evt.payload);
 		
-		var confirm = Titanium.UI.createAlertDialog({
-        	title: 'Notification',
-        	message: a.android.alert,
-        	buttonNames: ['OK'],
-        	cancel: 0
-		});
+		if(a.hasOwnProperty('custom_property')){
+			
+			if(localStorage.getPendingItems())
+				finalArray = localStorage.getPendingItems();
+			
+			finalArray.unshift(a.android.alert);
+			
+			Ti.App.Properties.removeProperty('pendingItems');
+			
+			localStorage.savePendingItems(finalArray);
+		}
+		else{
+			Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
+			var fetchProductsJs = require('/fetchCloudProducts');
+			
+			//Update purpose 4.0
+			var totalUsers = dbOperations.getCount();
+			if(totalUsers ===1)
+				fetchProductsJs.fetchCategories('home');
+			else if(totalUsers>1)
+				fetchProductsJs.fetchCategories('alloy');	
+			
+			
+			
+			var confirm = Titanium.UI.createAlertDialog({
+	        	title: 'Notification',
+	        	message: a.android.alert,
+	        	buttonNames: ['OK'],
+	        	cancel: 0
+			});
+			
+			confirm.show();
+		}
 		
-		confirm.show();
-		// alert(a.android.alert);
 	});
 	
 	/*
@@ -148,26 +166,32 @@ function deviceTokenError(e) {
 // Process incoming push notifications (ios)
 function receivePush(e) {
 	
-	Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
-	var fetchProductsJs = require('/fetchCloudProducts');
+	if(e.hasOwnProperty('custom_property')){
+		alert('Cook notification ios');
+	}
+	else{
+		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
+		var fetchProductsJs = require('/fetchCloudProducts');
 	
-	//Update purpose 4.0
-	var totalUsers = dbOperations.getCount();
-	if(totalUsers ===1)
-		fetchProductsJs.fetchCategories('home');
-	else if(totalUsers>1)
-		fetchProductsJs.fetchCategories('alloy');
-	
-	
-	// alert(e.data.alert);
-	var confirm = Titanium.UI.createAlertDialog({
-        	title: 'Notification',
-        	message: e.data.alert,
-        	buttonNames: ['OK'],
-        	cancel: 0
-		});
+		//Update purpose 4.0
+		var totalUsers = dbOperations.getCount();
+		if(totalUsers ===1)
+			fetchProductsJs.fetchCategories('home');
+		else if(totalUsers>1)
+			fetchProductsJs.fetchCategories('alloy');
 		
-	confirm.show();
+		
+		// alert(e.data.alert);
+		var confirm = Titanium.UI.createAlertDialog({
+	        	title: 'Notification',
+	        	message: e.data.alert,
+	        	buttonNames: ['OK'],
+	        	cancel: 0
+			});
+			
+		confirm.show();
+	}
+	
 }
 
 Alloy.Globals.categoryResponse=[];
