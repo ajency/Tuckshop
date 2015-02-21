@@ -2,7 +2,7 @@
 	<Window id="multiWindow"class="container">
 		<View class="ver top0" height="80%">
 			<View class="ver w-fill h-size top1">
-				<ImageView class="ts-logo"/>
+				<ImageView id="companyLogo" class="ts-logo"/>
 				
 				<Label text="Choose an account" class="w-fill ts-brown text-center" top="3%"/>
 				 <View height="42.5%" top="2%">

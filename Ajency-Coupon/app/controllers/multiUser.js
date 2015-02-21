@@ -6,6 +6,19 @@ var localStorage=require('/localStorage');
 var  row = outerView = leftView = rightView = deleteUserView = expandImageView = nameLabel = null;
 var tableData = empty = [];
 
+/*
+ * Check if organization details present
+ */
+if(localStorage.getOrganizationId()){
+		
+	if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())){ 
+		
+		 var organizationDetails =  dbOperations.getOrganizationRow(localStorage.getOrganizationId());
+		
+		 $.companyLogo.image = organizationDetails[0].organization_logo;
+	}
+}
+
 //logout users
 dbOperations.logoutUsers();
 
