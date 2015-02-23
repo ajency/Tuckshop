@@ -57,7 +57,7 @@ Alloy.Globals.populateLeftMenu =  function (){
 	if(loginStatus){ //user online
 		
 		if(dbOperations.getUserType(localStorage.getLastLoggedInUserId()) === 'true')
-			labelText = ['Home', 'Transaction History', 'Manage', 'Pending', 'Settings', 'Logout'];
+			labelText = ['Home', 'Transaction History', 'Manage', 'Settings', 'Logout'];
 		else if(dbOperations.getUserRole(localStorage.getLastLoggedInUserId()) === 'cook')
 			labelText = ['Home', 'Transaction History', 'Pending', 'Settings', 'Logout'];
 		else	
