@@ -589,7 +589,7 @@ var updateCreditDate = function() {
 				//whether to perform carry forward or no
 				_.each(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()), function(item){
 		
-					totalSum += parseInt(item.productPrice) ;
+					totalSum += parseFloat(item.productPrice) ;
 				});
 				console.log("The Sum after a month");
 				console.log(totalSum);
@@ -650,7 +650,7 @@ var removeCarryForward = function (totalSum) {
 		if (e.success) {
 			console.log('Amount carry forward in index');
 			var testItem = e.testItems[0];	
-			
+			dbOperations.saveTransactionRows(e.testItems);
 			updateCreditAmount();
 			
 		} else {
@@ -683,6 +683,8 @@ var updateCreditAmount = function() {
 		if (e.success) {
 			console.log('Amount credited in index');
 			var testItem = e.testItems[0];
+			
+			dbOperations.saveTransactionRows(e.testItems);
 			//if application is deleted from device load the products
 			if (! localStorage.getAllProducts()) {
 				// fetchProductsJs.fetchCloudProducts('menu'); // for categories

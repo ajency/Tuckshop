@@ -486,10 +486,10 @@ function getSum(data){
 	
 	_.each(data, function(item){
 		
-		sum += parseInt(item.productPrice) ;
+		sum += parseFloat(item.productPrice) ;
 	});
-	console.log("the Sum");
-	console.log(sum);
+	
+	sum = sum.toFixed(2);
 	Ti.App.fireEvent('Calculate',{value:sum});
 	
 }

@@ -379,9 +379,10 @@ function getSum(data){
 	
 	_.each(data, function(item){
 		
-		sum += parseInt(item.productPrice) ;
+		sum += parseFloat(item.productPrice) ;
 	});
 	
+	sum = sum.toFixed(2);
 	Ti.App.fireEvent('Calculate',{value:sum});
 	
 }
@@ -442,7 +443,7 @@ var updateCreditDate = function(productid,eSwipe) {
 				//whether to perform carry forward or no
 				_.each(dbOperations.getAllTransactionRows(localStorage.getLastLoggedInUserId()), function(item){
 		
-					totalSum += parseInt(item.productPrice) ;
+					totalSum += parseFloat(item.productPrice) ;
 				});
 				console.log('In all products');
 				console.log(user);
