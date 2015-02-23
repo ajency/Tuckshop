@@ -73,8 +73,8 @@ var populateItems = function(jsonData) {
 
 		productNameLabel = Ti.UI.createLabel({
 			touchEnabled : false,
-			left : '25%',
-			textAlign : 'center',
+			left : '20%',
+			textAlign : 'left',
 			text : jsonData[i],
 			color : '#3B0B0B',
 			font : {

@@ -13,7 +13,7 @@ var Cloud = require('ti.cloud');
 Cloud.debug = true;
 // optional; if you add this line, set it to false for production
 
-
+var finalArray = [];
 var allProductsArray = [];
 var localPath;
 var createdDateValue;
@@ -87,8 +87,6 @@ if (OS_IOS) {
 	// Process incoming push notifications (android)
 	
 	CloudPush.addEventListener('callback', function(evt) {
-		
-		var finalArray = [];
 		
 		var a = JSON.parse(evt.payload);
 		
@@ -166,8 +164,17 @@ function deviceTokenError(e) {
 // Process incoming push notifications (ios)
 function receivePush(e) {
 	
-	if(e.hasOwnProperty('custom_property')){
-		alert('Cook notification ios');
+	
+	if(e.data.hasOwnProperty('custom_property')){
+		
+		if(localStorage.getPendingItems())
+			finalArray = localStorage.getPendingItems();
+			
+		finalArray.unshift(e.data.alert);
+		
+		Ti.App.Properties.removeProperty('pendingItems');
+		
+		localStorage.savePendingItems(finalArray);
 	}
 	else{
 		Alloy.Globals.pushNotificationReceived = true;       //set push notification to true since we received one
