@@ -26,8 +26,8 @@ if (!OS_IOS){
 		titleOn:'    ',
 		titleOff:'    ',
   		left: leftValue,
-  		focusable: true
-  		
+  		focusable: true,
+  		visible: false
 	});
 	
     $.dailyWeeklySwitch = dailyWeeklySwitch;

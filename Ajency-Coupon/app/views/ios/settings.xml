@@ -5,7 +5,7 @@
 			<Switch id="mailSwitch" class="right3"/>
 			<View bottom="0%" width="Ti.UI.FILL" height="0.8" backgroundColor="#F0C60A"></View>
 		</View>
-		<View id="dailyWeeklyView" class="w-fill" height="70">
+		<View id="dailyWeeklyView" class="w-fill" height="70" visible="false">
 			<Label class="left2">Weekly</Label>
 			<Switch id="dailyWeeklySwitch" left="45%" value="true" titleOn="Daily" titleOff="Weekly" />
 			<Label class="right3">Daily</Label>

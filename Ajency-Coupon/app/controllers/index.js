@@ -144,6 +144,9 @@ $.errorLabel.addEventListener('click',function(e){
     				else if(localStorage.getErrorAtIndex() === 'updateLastMailDate')
     				updateLastMailDate();
     				
+    				else if(localStorage.getErrorAtIndex() === 'updateDeviceToken')
+    				updateDeviceToken();
+    				
     				else if(localStorage.getErrorAtIndex() === 'subscribeToChannel')
     				subscribeToChannel();
     				
@@ -277,6 +280,40 @@ function dbUserInfo(e){
 		
 				
 };
+
+/*
+ * Update device token in case cook changes
+ */
+function updateDeviceToken(){
+	
+	Cloud.Users.update({
+		custom_fields : {
+			device_token : deviceToken
+		}
+	}, function(e) {
+		if (e.success) {
+			var user = e.users[0];
+			
+			dbUserInfo(e);
+			
+			//Check if particular organization details present
+            if (dbOperations.checkOrganizationPresent(localStorage.getOrganizationId())) 
+            	 subscribeToChannel();
+            else 
+            	organizationData();	
+			
+
+		} else {
+			hideImageView();
+			clearInterval(loaderAnimate);
+			localStorage.saveErrorAtIndex('updateDeviceToken');
+            showConnectionErrorView();
+		}
+
+	});
+	
+};
+
 /*
  * Update last mail date
  */
@@ -399,7 +436,9 @@ function login(){
 					console.log('last mail date called');
 					 updateLastMailDate(); 
 				}
-				 
+				else if(user.custom_fields.device_token != deviceToken){  // case where the cook changes
+					updateDeviceToken();
+				} 
 				else{
 					dbUserInfo(e);
 					
