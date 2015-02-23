@@ -35,7 +35,7 @@ var fetchCategories = function (controllername) {
 			
 			localStorage.saveAllCategories(alloy.Globals.categoryResponse);	
 			
-			fetchCloudProducts(controllername);
+			fetchCurrencyLogo(controllername);
 		}else{
 			if (controllername === 'menu') {
 				Ti.App.fireEvent('errorIndex',{name:'fetchCategories'});
@@ -56,6 +56,26 @@ var fetchCategories = function (controllername) {
 		}
 	});
 			
+};
+
+var fetchCurrencyLogo = function(controllername){
+	
+	Cloud.Photos.query({
+	   limit : 1000,
+	   where : {
+			organizationId : localStorage.getOrganizationId()
+		}
+	}, function (e) {
+	    if (e.success) {
+	        var photo = e.photos[0];
+	        localStorage.saveCurrencyUrl(photo.urls.small_240);
+	        
+	        fetchCloudProducts(controllername);
+	    } else {
+	        alert('Error:\n' +
+	            ((e.error && e.message) || JSON.stringify(e)));
+	    }
+	});	
 };
 
 var fetchCloudProducts = function(controllername) {

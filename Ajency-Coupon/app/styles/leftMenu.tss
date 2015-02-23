@@ -6,8 +6,7 @@
 	top: '37.5%',
 	bottom: '37.5%',
 	height: '25%',
-	width: '15%',
-	image: '/images/indian_rupee.png'
+	width: '15%'
 },
 
 "#lbl_availableCredit" :{

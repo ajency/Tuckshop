@@ -96,6 +96,7 @@ Alloy.Globals.populateLeftMenu =  function (){
 	}
 	
 	$.menuTable.data = tableData;
+	$.rupeeSymbol.image = localStorage.getCurrencyUrl();
 };
 
 alloy.Globals.populateLeftMenu();

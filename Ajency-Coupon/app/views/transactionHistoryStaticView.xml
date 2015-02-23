@@ -11,7 +11,7 @@
 				<Label text="Credit" class="f-s3.3 ts-brown headerLabel"/>
 				
 				<View id="creditView" class="hor w-size h-size" top="10%">
-					<ImageView/>
+					<ImageView  id="rupeeSymbol1"/>
 					<Label id="credit" class="ts-brown valueLabel" text="500"/>
 				</View>
 			</View>
@@ -22,7 +22,7 @@
 				<Label text="Debit" class="f-s3.3 ts-brown headerLabel"/>
 				
 				<View id="debitView" class="hor w-size h-size" top="10%">
-					<ImageView/>
+					<ImageView  id="rupeeSymbol2"/>
 					<Label id="debit" class="ts-brown valueLabel" text="75"/>
 				</View>
 			</View>
@@ -33,7 +33,7 @@
 				<Label text="Total" class="f-s3.3 ts-brown headerLabel"/>
 				
 				<View id="totalView" class="hor w-size h-size" top="10%">
-					<ImageView/>
+					<ImageView  id="rupeeSymbol3"/>
 					<Label id="total" class="ts-brown valueLabel" text="425"/>
 				</View>
 			</View>

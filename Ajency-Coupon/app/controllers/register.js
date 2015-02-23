@@ -245,6 +245,8 @@ function registerClicked(e) {
 							 	 alert('Sorry your organization is not registered');   
 							 
 						}
+						else
+							registration();
 					}
 					else{
 						registration();

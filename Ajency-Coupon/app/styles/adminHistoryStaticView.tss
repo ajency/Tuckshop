@@ -12,7 +12,6 @@
 },
 
 "ImageView" :{
-	image: '/images/indian_rupee.png',
 	width: 12,
 	height: 12
 },

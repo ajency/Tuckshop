@@ -122,6 +122,13 @@ var getPendingItems = function(){
 	 return Ti.App.Properties.getObject('pendingItems');
 };
 
+var saveCurrencyUrl = function(url){
+	Ti.App.Properties.setString('currencyUrl', url);
+};
+
+var getCurrencyUrl = function () {
+	return Ti.App.Properties.getString('currencyUrl');  
+};
 
 exports.saveOrganizationId=saveOrganizationId;
 exports.getOrganizationId=getOrganizationId;
@@ -172,3 +179,6 @@ exports.getCookToken = getCookToken;
 
 exports.savePendingItems = savePendingItems;
 exports.getPendingItems = getPendingItems;
+
+exports.saveCurrencyUrl = saveCurrencyUrl;
+exports.getCurrencyUrl = getCurrencyUrl;

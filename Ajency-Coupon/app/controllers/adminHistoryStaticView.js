@@ -1,4 +1,4 @@
-
+var localStorage=require('/localStorage');
 var hideTransactionValues=function(){
 	
 	$.creditView.visible=false;
@@ -9,6 +9,10 @@ var hideTransactionValues=function(){
 hideTransactionValues();
 
 var showTransactionValues=function(values){
+	
+	$.rupeeSymbol1.image = localStorage.getCurrencyUrl();
+	$.rupeeSymbol2.image = localStorage.getCurrencyUrl();
+	$.rupeeSymbol3.image = localStorage.getCurrencyUrl();
 	
 	$.creditView.visible = true;
 	$.credit.text = values.credit;

@@ -412,7 +412,7 @@ var displayTransactionHistory = function(data) {
 		});
 
 		imageView = Ti.UI.createImageView({
-			image : '/images/indian_rupee.png',
+			image : localStorage.getCurrencyUrl(),
 			width : 15,
 			height : 15,
 			top : '20%',
