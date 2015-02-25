@@ -1,14 +1,16 @@
 var alloy = require('alloy');
 var args = arguments[0] || {};
 
-
 var rowheight;
 var rowTop;
 var separatorViewDistance;
 var separatorHeight;
 
-var options = ["Manage Users", "Manage Products"];
-
+if(args === 'admin')
+	var options = ["Manage Users", "Manage Products"];
+else if(args === 'stock')	
+	var options = ["Add Stock", "Remove Stock"];
+	
 function getDeviceType(){
 	
 	if(Alloy.isTablet){
