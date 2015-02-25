@@ -95,7 +95,7 @@ if (OS_IOS) {
 			if(localStorage.getPendingItems())
 				finalArray = localStorage.getPendingItems();
 			
-			finalArray.unshift(a.android.alert);
+			finalArray.unshift(a.message);
 			
 			Ti.App.Properties.removeProperty('pendingItems');
 			
@@ -170,7 +170,7 @@ function receivePush(e) {
 		if(localStorage.getPendingItems())
 			finalArray = localStorage.getPendingItems();
 			
-		finalArray.unshift(e.data.alert);
+		finalArray.unshift(e.data.message);
 		
 		Ti.App.Properties.removeProperty('pendingItems');
 		

@@ -19,6 +19,7 @@ var loaderImage;
 //for local storage
 var localStorage=require('/localStorage');
 var networkCheck=require('/networkCheck');
+var moment = require('alloy/moment');
 
 // set the length of the images you have in your sequence
 var loaderArrayLength=4;
@@ -210,7 +211,7 @@ function pendingPushNotification(eSwipe){
  	Cloud.PushNotifications.notifyTokens({
 	    channel: pendingChannel,
 	    to_tokens: localStorage.getCookToken(),
-	    payload: { "alert": enteredEmailValue[0] +' ordered ' + eSwipe.rowData.name , "custom_property": "order"} 
+	    payload: { "alert": enteredEmailValue[0] +' ordered ' + eSwipe.rowData.name, "message": { "name":  enteredEmailValue[0] +' ordered ' + eSwipe.rowData.name, "date": moment().format("L")}  , "custom_property": "order"} 
 	    
 	}, function (e) {
 	    if (e.success) {

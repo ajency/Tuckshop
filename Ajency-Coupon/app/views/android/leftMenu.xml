@@ -16,10 +16,10 @@
 			</View>
 			
 			<View class="hor" top="2%" height="12%">
-				<View width="40%">
+				<View width="25%">
 					<ImageView id="rupeeSymbol" class="right0"/>
 				</View>
-				<View width="60%">
+				<View width="75%">
 					<Label id="lbl_availableCredit" class="ts-brown text-center" text=""/>
 				</View>
 			</View>

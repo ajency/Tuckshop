@@ -128,6 +128,7 @@ var fetchCloudProducts = function(controllername) {
 	        
 	        
 	        localStorage.saveAllProducts(allProductsArray);
+	        localStorage.saveCloudProducts(allProductsArray);
 	        
 			transactionsOnProductIds(controllername);
 			

@@ -1,4 +1,6 @@
 <Alloy>
 	<View class="hor" id="pickerView">
+		<Button id="categoryButton">Select a Category</Button>
+		<Button id="productButton">Select a Product</Button>
 	</View>
 </Alloy>

@@ -252,7 +252,7 @@ function userLogout(){
 			dbOperations.offlineLoginStatus(localStorage.getLastLoggedInUserId());
 			
 			alloy.Globals.autoLogin = false;
-			
+			alloy.Globals.userResponse = [];
 			var totalUsers = dbOperations.getCount();
 			
 			if(totalUsers>1){    //clear timeout in case the user has logged out

@@ -130,6 +130,14 @@ var getCurrencyUrl = function () {
 	return Ti.App.Properties.getString('currencyUrl');  
 };
 
+var saveCloudProducts=function(data){
+	Ti.App.Properties.setObject('cloudProductResponse', data);
+};
+
+var getCloudProducts=function(){
+  return Ti.App.Properties.getObject('cloudProductResponse');
+};
+
 exports.saveOrganizationId=saveOrganizationId;
 exports.getOrganizationId=getOrganizationId;
 
@@ -182,3 +190,6 @@ exports.getPendingItems = getPendingItems;
 
 exports.saveCurrencyUrl = saveCurrencyUrl;
 exports.getCurrencyUrl = getCurrencyUrl;
+
+exports.saveCloudProducts = saveCloudProducts;
+exports.getCloudProducts = getCloudProducts;
