@@ -1,0 +1,10 @@
+<Alloy>
+	<View  class="ver" id="scrollView">
+		<View id="topView" class="ver" height="50%">
+			
+		</View>
+		<View id="bottomView" class="ver" height="50%">
+			
+		</View>
+	</View>
+</Alloy>

@@ -142,21 +142,14 @@ var loadStaticView = function(id) {
 			view = Alloy.createController("productHistoryStaticView").getView();
 			break;
 		
-		case 'Stock':		
+		case 'Stock' :
+		case 'Add Stock':
+		case 'Settings':		
 			view.setLayout('horizontal');
 		    boldLabel.height='auto';
 			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
 			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
-			boldLabel.setText('Stock');
-			view.add(boldLabel);
-			break;
-						
-		case 'Settings':
-		    view.setLayout('horizontal');
-		    boldLabel.height='auto';
-			boldLabel.verticalAlign = Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP ;
-			boldLabel.font = { fontFamily: "OpenSans-Bold", fontSize: 40 };
-			boldLabel.setText('Settings');
+			boldLabel.setText(id);
 			view.add(boldLabel);
 			break;
 					
@@ -202,6 +195,11 @@ var productSelection = function (argument) {
 var getProductTransactions = function(params){
 	
 	$.midContainer.add(Alloy.createController("adminHistory", params).getView());	
+};
+
+var addRemoveStock = function(params){
+	
+	$.midContainer.add(Alloy.createController("stocks").getView());	
 };
 
 var init = function(view) {
@@ -306,7 +304,13 @@ alloy.Globals.midContainerReference = function (e) {
 			  $.headerMenu.image ='/images/menu_back.png';   
 			  init('Stock');
 			  break;
-			  		  	  		  	
+		
+		case 'Add Stock':
+			  $.headerMenu.image ='/images/menu_back.png';
+			  loadStaticView(id);
+			  addRemoveStock();	
+			  break;
+			  	  		  	  		  	
 	    case 'Settings':
 			  $.headerMenu.image ='/images/menu_back.png';   
 			  init('Settings');
