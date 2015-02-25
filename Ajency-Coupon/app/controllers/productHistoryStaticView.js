@@ -27,10 +27,9 @@ function getSum(data){
 	
 	_.each(data, function(item){
 		
-		sum += parseFloat(item.quantity) ;
+		sum += parseInt(item.quantity) ;
 	});
 	
-	sum = sum.toFixed(2);
 	return sum;
 }
 
