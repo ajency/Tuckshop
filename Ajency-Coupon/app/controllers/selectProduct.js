@@ -2,11 +2,12 @@ var alloy = require('alloy');
 var localStorage=require('/localStorage');
 var args = arguments[0] || {};
 
-var categoryPicker;
-var productPicker;
+var androidCategoryPicker;
+var androidProductPicker;
 
 var iosCategoryPicker;
 var iosProductPicker;
+var id = 111;
 
 var allProducts;
 var column1;
@@ -28,7 +29,7 @@ function filterproducts (id){
 	allProducts = [];
 	allProducts = _.filter(localStorage.getCloudProducts(), function(product) {
 	
-		return product.categoryId == id;
+		return product.categoryId === id;
 	});
 	
 };
@@ -38,12 +39,7 @@ var changeEvent = function(e){
 	
 	var value;
 	
-	// if(pickerName === 'first'){
-		// value = e.source.columns[0].children[0].title;
-		// pickerName = '';
-	// }
-	// else 
-		value = e.selectedValue;
+	value = e.selectedValue;
 	
 	var selectedProduct = _.filter(localStorage.getCloudProducts(), function(product) {
 	
@@ -51,11 +47,17 @@ var changeEvent = function(e){
 	});
 	
 	
-	var evtData = {id: 'Product Transaction', productid: selectedProduct[0].productId, name: selectedProduct[0].productName };
-		 
-	 alloy.Globals.navigatedView = evtData.id;
-	 Ti.App.fireEvent("app:addViewToMidContainer", evtData);
-	 evtData = null; 
+	
+	if(selectedProduct[0] != undefined){
+		
+		var evtData = {id: 'Product Transaction', productid: selectedProduct[0].productId, name: selectedProduct[0].productName };
+	 
+		alloy.Globals.navigatedView = evtData.id;
+	 	Ti.App.fireEvent("app:addViewToMidContainer", evtData);
+	    evtData = null; 
+	}	
+	
+	
 };
 
 /*
@@ -63,7 +65,7 @@ var changeEvent = function(e){
  */
 function loadCategoryPicker(){
 	
-	categoryPicker = Ti.UI.createPicker({
+	androidCategoryPicker = Ti.UI.createPicker({
 		top: topMargin,
 		left :'20%', 
 		right: '20%',
@@ -80,9 +82,9 @@ function loadCategoryPicker(){
 	  	data[i]=Ti.UI.createPickerRow({title:categoryData[i].categoryName, width: 'Ti.UI.FILL'  });
 	};
 	
-	categoryPicker.add(data);
+	androidCategoryPicker.add(data);
 	
-	$.pickerView.add(categoryPicker);
+	$.pickerView.add(androidCategoryPicker);
 }
 
 /*
@@ -93,11 +95,11 @@ function loadProductPicker(id){
 	
     filterproducts(id);
     
-    if(productPicker!=null)
-    	$.pickerView.remove(productPicker);
+    if(androidProductPicker!=null)
+    	$.pickerView.remove(androidProductPicker);
   
     	
-	productPicker = Ti.UI.createPicker({
+	androidProductPicker = Ti.UI.createPicker({
   		top: topMargin,
   		left :'20%',
   		right: '20%',
@@ -122,11 +124,11 @@ function loadProductPicker(id){
   		column1.addRow(row);
 	};
 	
-	productPicker.add([column1]);
+	androidProductPicker.add([column1]);
 	
-	$.pickerView.add(productPicker);
+	$.pickerView.add(androidProductPicker);
 	
-	productPicker.addEventListener('change', changeEvent);
+	androidProductPicker.addEventListener('change', changeEvent);
 }
 
 if (!OS_IOS){
@@ -134,56 +136,66 @@ if (!OS_IOS){
 
 	loadProductPicker(111);
 	
-	categoryPicker.addEventListener('change', categoryChange);
+	androidCategoryPicker.addEventListener('change', categoryChange);
 }
 else{
 	$.categoryButton.addEventListener('click', loadIosCategoryPicker);
 	
-	if(iosCategoryPicker!=null)
-		iosCategoryPicker.addEventListener('change', categoryChange);
-	
-	// $.productButton.addEventListener('click', loadIosProductPicker(111));
+	$.productButton.addEventListener('click', loadIosProductPicker);
 }
 
 function categoryChange(e){
+	
 	
 	var selectedCategory = _.filter(localStorage.getAllCategories(), function(product) {
 	
 		return product.categoryName == e.selectedValue;
 	});
 	
-	loadProductPicker(parseInt(selectedCategory[0].categoryId));
+	if (OS_IOS){
+		$.categoryButton.setTitle(selectedCategory[0].categoryName);
+		id = parseInt(selectedCategory[0].categoryId);
+	}
+	else{
+		loadProductPicker(parseInt(selectedCategory[0].categoryId));
+	}
 	
-	// pickerName = 'first';
-// 	
-	// productPicker.fireEvent('change');
+	
 	
 };
 
 function loadIosCategoryPicker(){
 	
-	if(iosCategoryPicker!=null)
+	if(iosProductPicker!=null)
+    	$.pickerView.remove(iosProductPicker);
+    	
+	//to remove the picker when select category is pressed
+	if(iosCategoryPicker!=null) 
     	$.pickerView.remove(iosCategoryPicker);
     	
-	iosCategoryPicker = Ti.UI.createPicker({
-		bottom: 0,
-		width: '100%'
-	});
-
-	var categoryData = localStorage.getAllCategories();
+   
+    	iosCategoryPicker = Ti.UI.createPicker({
+			bottom: '0%',
+			width: '100%'
+		});
 	
-	var data = [];
-	for (var i=0;len=categoryData.length, i < len; i++) {
+		var categoryData = localStorage.getAllCategories();
 		
-	  	data[i]=Ti.UI.createPickerRow({title:categoryData[i].categoryName, width: 'Ti.UI.FILL'  });
-	};
+		var data = [];
+		for (var i=0;len=categoryData.length, i < len; i++) {
+			
+		  	data[i]=Ti.UI.createPickerRow({title:categoryData[i].categoryName, width: 'Ti.UI.FILL'  });
+		};
+		
+		iosCategoryPicker.add(data);
+		
+		$.pickerView.add(iosCategoryPicker);
+		
+		iosCategoryPicker.addEventListener('change', categoryChange);
 	
-	iosCategoryPicker.add(data);
-	
-	$.pickerView.add(iosCategoryPicker);
 };
-/*
-function loadIosProductPicker(id){
+
+function loadIosProductPicker(){
 	
 	filterproducts(id);
 	
@@ -194,7 +206,7 @@ function loadIosProductPicker(id){
     	$.pickerView.remove(iosProductPicker);
     		
 	iosProductPicker = Ti.UI.createPicker({
-		bottom : 0,
+		bottom : '0%',
   		width: '100%'
 	});
 	
@@ -202,7 +214,6 @@ function loadIosProductPicker(id){
 	
 	
 	allProducts.unshift({productName: 'Select a Product'});
-	
 	
 	var productsData = allProducts;
 	
@@ -217,6 +228,6 @@ function loadIosProductPicker(id){
 	
 	$.pickerView.add(iosProductPicker);
 	
-	// productPicker.addEventListener('change', changeEvent);
+	iosProductPicker.addEventListener('change', changeEvent);
 };
-*/
+

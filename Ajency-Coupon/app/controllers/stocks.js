@@ -31,10 +31,12 @@ function addStock(){
 		 
 					Cloud.Objects.create({
 					    classname: 'testItems',
+					    acl_name: 'object_update_access',
 					    fields: {
 					    	productName: selectedProduct[0].productName,
+					    	productPrice: selectedProduct[0].productPrice,
 					        productId: selectedProduct[0].productId,
-					        quantity: quantityTextField.value
+					        quantity: parseInt(quantityTextField.value)
 						    }
 						}, function (e) {
 						    if (e.success) {

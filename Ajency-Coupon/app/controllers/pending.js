@@ -220,11 +220,13 @@ function getSwipeRow(eSwipe) {
 			clearTableData();
 		}
 		else{
-			$.itemsTable.deleteRow(eSwipe.rowData.id);
+			tableData.splice(eSwipe.rowData.id,1);
 			var array = localStorage.getPendingItems();
 			array.splice(eSwipe.rowData.id,1);
 			Ti.App.Properties.removeProperty('pendingItems');	
-			localStorage.savePendingItems(array); 
+			localStorage.savePendingItems(array);
+			alert(array);
+			clearTableData();
 		}
 		
 	}

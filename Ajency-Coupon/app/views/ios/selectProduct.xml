@@ -1,6 +1,6 @@
 <Alloy>
-	<View class="hor" id="pickerView">
-		<Button id="categoryButton">Select a Category</Button>
-		<Button id="productButton">Select a Product</Button>
+	<View class="ver" id="pickerView">
+		<Button top="10%" id="categoryButton" class="span13 ts-brown ts-bg-yellow">Select a Category</Button>
+		<Button top="10%" id="productButton" class="span13 ts-brown ts-bg-yellow">Select a Product</Button>
 	</View>
 </Alloy>
