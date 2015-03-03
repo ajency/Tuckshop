@@ -431,7 +431,7 @@ function login(){
                 else if(enteredEmailValue[1] === 'ascotwm.com')    	
                 	localStorage.saveOrganizationId(2);
                 
-                	
+                //update purpose 4.0	
 				if(!user.custom_fields.hasOwnProperty('last_mail_date')){
 					console.log('last mail date called');
 					 updateLastMailDate(); 
