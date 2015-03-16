@@ -60,12 +60,12 @@ var fetchCloudProducts = function(controllername) {
     allProductsArray = [];
     Ti.App.Properties.removeProperty("allProductResponse");
     Cloud.Objects.query({
-        classname: "things",
+        classname: "products",
         limit: 1e3
     }, function(e) {
         if (e.success) {
-            for (var i = 0, len = e.things.length; len > i; i++) {
-                var thing = e.things[i];
+            for (var i = 0, len = e.products.length; len > i; i++) {
+                var thing = e.products[i];
                 allProductsArray.push({
                     imageLargePaths: [ {
                         imagePath: thing.photo.urls.large_1024

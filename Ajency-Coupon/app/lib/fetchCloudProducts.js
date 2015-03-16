@@ -89,17 +89,16 @@ var fetchCloudProducts = function(controllername) {
 	 
 	//fetch all the juices
 	Cloud.Objects.query({
-		classname : 'things',
+		classname : 'products',
 		limit : 1000
 		
 	}, function(e) {
 
 		if (e.success) {
-			//	alert('Success:\n' + 'Count: ' + e.things.length);
 
-			for (var i = 0,len=e.things.length; i < len; i++) {
+			for (var i = 0,len=e.products.length; i < len; i++) {
 				
-				var thing = e.things[i];
+				var thing = e.products[i];
 				
 				
 				allProductsArray.push({
