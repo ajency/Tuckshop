@@ -78,13 +78,13 @@ function Controller() {
     });
     $.__views.__alloyId3.add($.__views.__alloyId4);
     $.__views.__alloyId5 = Ti.UI.createLabel({
-        top: "13%",
-        touchEnabled: false,
         font: {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
         color: "#3B0B0B",
+        top: "13%",
+        touchEnabled: false,
         text: "Credit",
         id: "__alloyId5"
     });
@@ -104,12 +104,12 @@ function Controller() {
     });
     $.__views.creditView.add($.__views.rupeeSymbol1);
     $.__views.credit = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "credit",
         text: "500"
     });
@@ -133,13 +133,13 @@ function Controller() {
     });
     $.__views.__alloyId3.add($.__views.__alloyId7);
     $.__views.__alloyId8 = Ti.UI.createLabel({
-        top: "13%",
-        touchEnabled: false,
         font: {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
         color: "#3B0B0B",
+        top: "13%",
+        touchEnabled: false,
         text: "Debit",
         id: "__alloyId8"
     });
@@ -159,12 +159,12 @@ function Controller() {
     });
     $.__views.debitView.add($.__views.rupeeSymbol2);
     $.__views.debit = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "debit",
         text: "75"
     });
@@ -189,13 +189,13 @@ function Controller() {
     });
     $.__views.__alloyId3.add($.__views.__alloyId10);
     $.__views.__alloyId11 = Ti.UI.createLabel({
-        top: "13%",
-        touchEnabled: false,
         font: {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
         color: "#3B0B0B",
+        top: "13%",
+        touchEnabled: false,
         text: "Total",
         id: "__alloyId11"
     });
@@ -215,12 +215,12 @@ function Controller() {
     });
     $.__views.totalView.add($.__views.rupeeSymbol3);
     $.__views.total = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "total",
         text: "425"
     });

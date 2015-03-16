@@ -257,7 +257,8 @@ function sendEmail(eSwipe){
 		   
 		Cloud.Emails.send({
 		    template: 'Daily Purchase',
-		    recipients: 'vishnu@ajency.in',
+		    // recipients: 'deepak@ajency.in',
+		    recipients: dbOperations.getUserName(localStorage.getLastLoggedInUserId()),
 		    displayName:  localStorage.getDisplayName(),
 		    structure: myTable
 		    

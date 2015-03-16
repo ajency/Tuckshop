@@ -83,9 +83,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Credit",
         id: "__alloyId43"
     });
@@ -105,12 +105,12 @@ function Controller() {
     });
     $.__views.creditView.add($.__views.rupeeSymbol1);
     $.__views.credit = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "credit",
         text: "500"
     });
@@ -138,9 +138,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Debit",
         id: "__alloyId46"
     });
@@ -160,12 +160,12 @@ function Controller() {
     });
     $.__views.debitView.add($.__views.rupeeSymbol2);
     $.__views.debit = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "debit",
         text: "75"
     });
@@ -194,9 +194,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Total",
         id: "__alloyId49"
     });
@@ -216,12 +216,12 @@ function Controller() {
     });
     $.__views.totalView.add($.__views.rupeeSymbol3);
     $.__views.total = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "total",
         text: "425"
     });

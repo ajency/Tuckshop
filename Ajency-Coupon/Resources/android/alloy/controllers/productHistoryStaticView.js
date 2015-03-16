@@ -81,9 +81,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Quantity",
         id: "__alloyId23"
     });
@@ -97,12 +97,12 @@ function Controller() {
     });
     $.__views.__alloyId22.add($.__views.quantityView);
     $.__views.quantity = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "quantity",
         text: "500"
     });
@@ -130,9 +130,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Debit",
         visible: "false",
         id: "__alloyId26"
@@ -154,12 +154,12 @@ function Controller() {
     });
     $.__views.debitView.add($.__views.__alloyId27);
     $.__views.debit = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "debit",
         text: "75"
     });
@@ -188,9 +188,9 @@ function Controller() {
             fontFamily: "OpenSans-Regular",
             fontSize: 18
         },
+        color: "#3B0B0B",
         top: "13%",
         touchEnabled: false,
-        color: "#3B0B0B",
         text: "Total",
         visible: "false",
         id: "__alloyId30"
@@ -212,12 +212,12 @@ function Controller() {
     });
     $.__views.totalView.add($.__views.__alloyId31);
     $.__views.total = Ti.UI.createLabel({
+        color: "#3B0B0B",
         font: {
             fontFamily: "OpenSans-Regular",
             fontWeight: "bold",
             fontSize: 15
         },
-        color: "#3B0B0B",
         id: "total",
         text: "425"
     });

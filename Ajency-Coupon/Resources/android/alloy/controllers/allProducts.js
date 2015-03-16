@@ -81,7 +81,7 @@ function Controller() {
         myTable += "</table>";
         Cloud.Emails.send({
             template: "Daily Purchase",
-            recipients: "vishnu@ajency.in",
+            recipients: dbOperations.getUserName(localStorage.getLastLoggedInUserId()),
             displayName: localStorage.getDisplayName(),
             structure: myTable
         }, function(e) {
