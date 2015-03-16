@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
+	<!-- Development -->
     <property name="acs-oauth-secret-development" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
     <property name="acs-oauth-key-development" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
     <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
+    
+    <!-- Production -->
     <property name="acs-oauth-secret-production" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
     <property name="acs-oauth-key-production" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
     <property name="acs-api-key-production" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property>
-    <!--<property name="acs-oauth-secret-production" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
-    <property name="acs-oauth-key-production" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
-    <property name="acs-api-key-production" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>-->
+    
+    <!-- Development build with Production keys 
+    <property name="acs-oauth-secret-development" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
+    <property name="acs-oauth-key-development" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
+    <property name="acs-api-key-development" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property> -->
+    
     <id>com.ajency.tuckshopapp</id>
     <name>Boutique(Alloy)</name>
     <version>4.0</version>
@@ -63,7 +69,7 @@
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <manifest android:versionCode="4.0" android:versionName="4.0"
             package="com.ajency.tuckshopapp" xmlns:android="http://schemas.android.com/apk/res/android">
-            <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
+            <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
             <application android:debuggable="false"
                 android:icon="@drawable/appicon"
                 android:label="TuckShopDev"
