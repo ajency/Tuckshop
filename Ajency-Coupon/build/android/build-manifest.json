@@ -2,14 +2,14 @@
 	"target": "device",
 	"deployType": "test",
 	"classname": "BoutiqueAlloy",
-	"platformPath": "/Users/deepak/Library/Application Support/Titanium/mobilesdk/osx/3.5.0.GA/android",
-	"modulesHash": "38228713ca5ece2505abf5a56856f2e7",
+	"platformPath": "/Users/deepak/Library/Application Support/Titanium/mobilesdk/osx/3.5.1.GA/android",
+	"modulesHash": "16905a41487d2bda9c9a49fcc902985d",
 	"modulesManifestHash": "60bd4979397d56aea488f68262cf72bb",
 	"modulesNativeHash": "3534aa500c4746aedbe8ab0c1b00ea99",
 	"modulesBindingsHash": "e7a594999a676fc081cc81409e3792b2",
-	"gitHash": "0014f83",
+	"gitHash": "96875c9",
 	"name": "Boutique(Alloy)",
-	"id": "com.ajency.tuckshopapp",
+	"id": "com.ajency.in.tuckshop",
 	"analytics": true,
 	"publisher": "Ajency.in",
 	"url": "http://www.ajency.in",
@@ -28,5 +28,5 @@
 	"activitiesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"servicesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"jssFilesHash": "d41d8cd98f00b204e9800998ecf8427e",
-	"jarLibHash": "950b780d31aea4303d6b6fb44ad71c6a"
+	"jarLibHash": "e4ec684a3a007f18c815307e06cefae2"
 }

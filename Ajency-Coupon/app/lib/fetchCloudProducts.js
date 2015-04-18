@@ -89,17 +89,16 @@ var fetchCloudProducts = function(controllername) {
 	 
 	//fetch all the juices
 	Cloud.Objects.query({
-		classname : 'products',
+		classname : 'things',
 		limit : 1000
 		
 	}, function(e) {
 
 		if (e.success) {
 
-			for (var i = 0,len=e.products.length; i < len; i++) {
+			for (var i = 0,len=e.things.length; i < len; i++) {
 				
-				var thing = e.products[i];
-				
+				var thing = e.things[i];
 				
 				allProductsArray.push({
 					"imageLargePaths" : [{
@@ -122,8 +121,6 @@ var fetchCloudProducts = function(controllername) {
 
 				});
 			};
-		
-		    
 	        
 	        
 	        localStorage.saveAllProducts(allProductsArray);

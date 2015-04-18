@@ -151,13 +151,11 @@ if (OS_IOS) {
 // Save the device token for subsequent API calls
 function deviceTokenSuccess(e) {
 	deviceToken = e.deviceToken;
-	
 }
 
 function deviceTokenError(e) {
 	alert('Failed to register for push notifications!');
 	Ti.App.fireEvent('pushNotificationRegisterError');
-	
 }
 
 

@@ -125,7 +125,6 @@ function Controller() {
             return product.productName == value;
         });
         if (void 0 != selectedProduct[0]) {
-            $.productButton.setTitle(selectedProduct[0].productName);
             var evtData = {
                 id: "Product Transaction",
                 productid: selectedProduct[0].productId,

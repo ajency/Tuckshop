@@ -1,0 +1,4 @@
+// this is a generated file - DO NOT EDIT
+
+DK_NAPP_DRAWER_OTHER_LDFLAGS=$(inherited) -framework QuartzCore
+OTHER_LDFLAGS=$(inherited) $(DK_NAPP_DRAWER_OTHER_LDFLAGS) 

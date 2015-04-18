@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-	<!-- Development -->
+	
+    <!-- Development -->
     <property name="acs-oauth-secret-development" type="string">fXzTNe529GR5Ayxst407E9qbi6CD3Zhb</property>
     <property name="acs-oauth-key-development" type="string">1ljUFDmBAComGOIpwvh2tF5sFumLebMf</property>
-    <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property>
+    <property name="acs-api-key-development" type="string">A71NYhzYkEP6x3qQKxoLxRWVPLhvt0Z8</property> 
     
     <!-- Production -->
     <property name="acs-oauth-secret-production" type="string">4Qn9ALXHUIYin9DyJrOpC4iaF9cyI8YJ</property>
@@ -15,8 +16,18 @@
     <property name="acs-oauth-key-development" type="string">RBVENTNaTFIWtMYuArYOSFEPv1uhrtZV</property>
     <property name="acs-api-key-development" type="string">NVjkKrtHaC0LTUhZ0LaFBBsifU06SgGK</property> -->
     
-    <id>com.ajency.tuckshopapp</id>
-    <name>Boutique(Alloy)</name>
+    <!-- Android Testing 
+    <id>com.ajency.tuckshopapp</id> 
+    <name>Boutique(Alloy)</name> -->
+    
+    <!-- Android -->
+    <id>com.ajency.in.tuckshop</id> 
+    <name>Boutique(Alloy)</name> 
+    
+    <!-- iOS 
+    <name>Tuckshop</name>
+    <id>com.ajency.tuckshopapp</id> -->
+    
     <version>4.0</version>
     <publisher>Ajency.in</publisher>
     <url>http://www.ajency.in</url>
@@ -68,15 +79,15 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <manifest android:versionCode="4.0" android:versionName="4.0"
-            package="com.ajency.tuckshopapp" xmlns:android="http://schemas.android.com/apk/res/android">
+            package="com.ajency.in.tuckshop" xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
             <application android:debuggable="false"
                 android:icon="@drawable/appicon"
-                android:label="TuckShopDev"
+                android:label="TuckShop"
                 android:name="BoutiqueAlloyApplication" android:theme="@style/Theme.NoActionBar">
                 <activity
                     android:configChanges="keyboardHidden|orientation|screenSize"
-                    android:label="TuckShopDev"
+                    android:label="TuckShop"
                     android:name=".BoutiqueAlloyActivity" android:screenOrientation="portrait">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN"/>
@@ -111,10 +122,10 @@
     <modules>
         <module platform="commonjs">ti.cloud</module>
         <module platform="android">ti.cloudpush</module>
-        <module platform="iphone">dk.napp.drawer</module>
-        <module platform="android">dk.napp.drawer</module>
         <module platform="iphone">com.appcelerator.urlSession</module>
         <module platform="android">com.yydigital.realswitch</module>
+        <module platform="iphone">dk.napp.drawer</module>
+        <module platform="android">dk.napp.drawer</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
@@ -124,7 +135,7 @@
         <target device="mobileweb">true</target>
         <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>3.5.0.GA</sdk-version>
+    <sdk-version>3.5.1.GA</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>
