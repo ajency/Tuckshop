@@ -19,9 +19,9 @@
 
 #ifdef KROLL_COVERAGE
 # import "KrollCoverage.h"
-@interface BoutiqueAlloyObject : KrollCoverageObject {
+@interface TuckShopObject : KrollCoverageObject {
 #else
-@interface BoutiqueAlloyObject : KrollObject {
+@interface TuckShopObject : KrollObject {
 #endif
 @private
 	NSMutableDictionary *modules;
@@ -35,7 +35,7 @@
 -(TiModule*)moduleNamed:(NSString*)name context:(id<TiEvaluator>)context;
 @end
 
-extern NSString * BoutiqueAlloy$ModuleRequireFormat;
+extern NSString * TuckShop$ModuleRequireFormat;
 
 @interface KrollBridge : Bridge<TiEvaluator,KrollDelegate> {
 @private
@@ -44,7 +44,7 @@ extern NSString * BoutiqueAlloy$ModuleRequireFormat;
 	KrollContext *context;
 	NSDictionary *preload;
 	NSMutableDictionary *modules;
-	BoutiqueAlloyObject *_boutiquealloy;
+	TuckShopObject *_tuckshop;
     KrollObject* console;
 	BOOL shutdown;
     BOOL evaluationError;

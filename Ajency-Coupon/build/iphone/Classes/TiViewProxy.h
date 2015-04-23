@@ -17,7 +17,7 @@
  */
 @protocol TiKeyboardFocusableView
 
-#pragma mark Public BoutiqueAlloy APIs.
+#pragma mark Public TuckShop APIs.
 
 /**
  Tells the view to focus.

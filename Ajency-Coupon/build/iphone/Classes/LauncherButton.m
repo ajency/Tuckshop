@@ -9,9 +9,9 @@
 
 
 // A good bit of this code was derived from the Three20 project
-// and was customized to work inside BoutiqueAlloy
+// and was customized to work inside TuckShop
 //
-// All modifications by BoutiqueAlloy are licensed under 
+// All modifications by TuckShop are licensed under 
 // the Apache License, Version 2.0
 //
 //

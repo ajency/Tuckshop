@@ -33,7 +33,7 @@
     BOOL pageChanged;
 }
 
-#pragma mark - BoutiqueAlloy Internal Use Only
+#pragma mark - TuckShop Internal Use Only
 -(void)manageRotation;
 -(UIScrollView*)scrollview;
 -(void)refreshScrollView:(CGRect)visibleBounds readd:(BOOL)readd;

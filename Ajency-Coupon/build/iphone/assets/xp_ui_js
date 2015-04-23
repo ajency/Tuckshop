@@ -1,0 +1,1 @@
+exports.createWindow=function(e){return Ti.UI.createWindow(e)};

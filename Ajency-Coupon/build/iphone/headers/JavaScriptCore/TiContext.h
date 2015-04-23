@@ -1,8 +1,8 @@
 /**
- * BoutiqueAlloy BoutiqueAlloy License
- * This source code and all modifications done by BoutiqueAlloy
+ * TuckShop TuckShop License
+ * This source code and all modifications done by TuckShop
  * are licensed under the Apache Public License (version 2) and
- * are Copyright (c) 2009-2014 by BoutiqueAlloy, Inc.
+ * are Copyright (c) 2009-2014 by TuckShop, Inc.
  */
 
 /*

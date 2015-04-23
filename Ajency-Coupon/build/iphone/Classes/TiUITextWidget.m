@@ -255,7 +255,7 @@
 }
 
 
-#pragma mark - BoutiqueAlloy Internal Use Only
+#pragma mark - TuckShop Internal Use Only
 -(void)updateKeyboardStatus
 {
     if ( ([[[TiApp app] controller] keyboardVisible]) && ([[[TiApp app] controller] keyboardFocusedProxy] == [self proxy]) ) {

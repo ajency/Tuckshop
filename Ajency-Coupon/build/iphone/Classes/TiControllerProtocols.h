@@ -52,7 +52,7 @@
 @end
 
 /**
- Protocol for containment controller. Implemented by UIViewControllers that can host BoutiqueAlloy Windows
+ Protocol for containment controller. Implemented by UIViewControllers that can host TuckShop Windows
  */
 @protocol TiControllerContainment <NSObject>
 @required

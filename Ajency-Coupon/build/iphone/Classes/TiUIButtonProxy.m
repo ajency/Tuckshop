@@ -68,10 +68,10 @@
 {
 	switch((int)styleCache)
 	{
-		case UIBoutiqueAlloyNativeItemInfoLight:
-		case UIBoutiqueAlloyNativeItemInfoDark:
+		case UITuckShopNativeItemInfoLight:
+		case UITuckShopNativeItemInfoDark:
 			return 18;
-		case UIBoutiqueAlloyNativeItemDisclosure:
+		case UITuckShopNativeItemDisclosure:
 			return 29;
 		default: {
 			break;
@@ -84,10 +84,10 @@
 {
 	switch((int)styleCache)
 	{
-		case UIBoutiqueAlloyNativeItemInfoLight:
-		case UIBoutiqueAlloyNativeItemInfoDark:
+		case UITuckShopNativeItemInfoLight:
+		case UITuckShopNativeItemInfoDark:
 			return 19;
-		case UIBoutiqueAlloyNativeItemDisclosure:
+		case UITuckShopNativeItemDisclosure:
 			return 31;
 		default: {
 			break;
@@ -101,9 +101,9 @@
 {
 	switch ((int)styleCache)
 	{
-		case UIBoutiqueAlloyNativeItemInfoLight:
-		case UIBoutiqueAlloyNativeItemInfoDark:
-		case UIBoutiqueAlloyNativeItemDisclosure:
+		case UITuckShopNativeItemInfoLight:
+		case UITuckShopNativeItemInfoDark:
+		case UITuckShopNativeItemDisclosure:
 			return suggestedResizing & ~(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 		default: {
 			break;

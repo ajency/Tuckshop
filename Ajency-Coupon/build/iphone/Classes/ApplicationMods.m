@@ -49,7 +49,7 @@
 			@"name",
 			@"dk.napp.drawer",
 			@"moduleid",
-			@"1.1.6",
+			@"1.2.1",
 			@"version",
 			@"2a446559-1d59-4808-aefc-7d02d3130ebb",
 			@"guid",

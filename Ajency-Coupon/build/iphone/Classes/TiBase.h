@@ -60,7 +60,7 @@ extern "C" {
 	#define KMETHOD_DEBUG MEMORY_DEBUG
 #endif
 
-// in simulator we redefine to format for BoutiqueAlloy Developer console
+// in simulator we redefine to format for TuckShop Developer console
 
 
 #define TI_INLINE static __inline__
@@ -309,13 +309,13 @@ void TiExceptionThrowWithNameAndReason(NSString *exceptionName, NSString *reason
 #define DEFINE_EXCEPTIONS \
 - (void) throwException:(NSString *) reason subreason:(NSString*)subreason location:(NSString *)location\
 {\
-	NSString * exceptionName = [@"org.boutiquealloy." stringByAppendingString:NSStringFromClass([self class])];\
+	NSString * exceptionName = [@"org.tuckshop." stringByAppendingString:NSStringFromClass([self class])];\
 	TiExceptionThrowWithNameAndReason(exceptionName,reason,subreason,location);\
 }\
 \
 + (void) throwException:(NSString *) reason subreason:(NSString*)subreason location:(NSString *)location\
 {\
-	NSString * exceptionName = @"org.boutiquealloy";\
+	NSString * exceptionName = @"org.tuckshop";\
 	TiExceptionThrowWithNameAndReason(exceptionName,reason,subreason,location);\
 }\
 
@@ -426,28 +426,28 @@ DebugLog(@"[WARN] Ti%@.%@ DEPRECATED in %@, in favor of %@.",@"tanium",api,in,ne
 
  //MUST BE NEGATIVE, as it inhabits the same space as UIBarButtonSystemItem
 enum {
-	UIBoutiqueAlloyNativeItemNone = -1, 
-	UIBoutiqueAlloyNativeItemSpinner = -2,
-	UIBoutiqueAlloyNativeItemProgressBar = -3,
+	UITuckShopNativeItemNone = -1, 
+	UITuckShopNativeItemSpinner = -2,
+	UITuckShopNativeItemProgressBar = -3,
 	
-	UIBoutiqueAlloyNativeItemSlider = -4,
-	UIBoutiqueAlloyNativeItemSwitch = -5,
-	UIBoutiqueAlloyNativeItemMultiButton = -6,
-	UIBoutiqueAlloyNativeItemSegmented = -7,
+	UITuckShopNativeItemSlider = -4,
+	UITuckShopNativeItemSwitch = -5,
+	UITuckShopNativeItemMultiButton = -6,
+	UITuckShopNativeItemSegmented = -7,
 	
-	UIBoutiqueAlloyNativeItemTextView = -8,
-	UIBoutiqueAlloyNativeItemTextField = -9,
-	UIBoutiqueAlloyNativeItemSearchBar = -10,
+	UITuckShopNativeItemTextView = -8,
+	UITuckShopNativeItemTextField = -9,
+	UITuckShopNativeItemSearchBar = -10,
 	
-	UIBoutiqueAlloyNativeItemPicker = -11,
-	UIBoutiqueAlloyNativeItemDatePicker = -12,
+	UITuckShopNativeItemPicker = -11,
+	UITuckShopNativeItemDatePicker = -12,
 	
-	UIBoutiqueAlloyNativeItemInfoLight = -13,
-	UIBoutiqueAlloyNativeItemInfoDark = -14,
+	UITuckShopNativeItemInfoLight = -13,
+	UITuckShopNativeItemInfoDark = -14,
 	
-	UIBoutiqueAlloyNativeItemDisclosure = -15,
+	UITuckShopNativeItemDisclosure = -15,
 	
-	UIBoutiqueAlloyNativeItemContactAdd = -16
+	UITuckShopNativeItemContactAdd = -16
 };
 
 
@@ -628,7 +628,7 @@ void incrementKrollCounter();
 void decrementKrollCounter();
     
 /**
- *	TiThreadPerformOnMainThread should replace all BoutiqueAlloy instances of
+ *	TiThreadPerformOnMainThread should replace all TuckShop instances of
  *	performSelectorOnMainThread, ESPECIALLY if wait is to be yes. That way,
  *	exceptional-case main thread activities can process them outside of the
  *	standard event loop.

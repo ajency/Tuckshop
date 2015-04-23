@@ -27,7 +27,7 @@
 //	but is internal ONLY, and should NOT be used by javascript.
 @property(nonatomic,readwrite,assign) BOOL showsCancelButton;
 
-#pragma mark - BoutiqueAlloy Internal Use
+#pragma mark - TuckShop Internal Use
 -(void)ensureSearchBarHeirarchy;
 @end
 

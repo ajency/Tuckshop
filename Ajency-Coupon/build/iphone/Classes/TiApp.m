@@ -958,8 +958,8 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 		UIDevice *currentDevice = [UIDevice currentDevice];
 		NSString *currentLocaleIdentifier = [[NSLocale currentLocale] localeIdentifier];
 		NSString *currentDeviceInfo = [NSString stringWithFormat:@"%@/%@; %@; %@;",[currentDevice model],[currentDevice systemVersion],[currentDevice systemName],currentLocaleIdentifier];
-		NSString *kBoutiqueAlloyUserAgentPrefix = [NSString stringWithFormat:@"%s%s%s %s%s","Appc","eler","ator","Tita","nium"];
-		userAgent = [[NSString stringWithFormat:@"%@/%s (%@)",kBoutiqueAlloyUserAgentPrefix,TI_VERSION_STR,currentDeviceInfo] retain];
+		NSString *kTuckShopUserAgentPrefix = [NSString stringWithFormat:@"%s%s%s %s%s","Appc","eler","ator","Tita","nium"];
+		userAgent = [[NSString stringWithFormat:@"%@/%s (%@)",kTuckShopUserAgentPrefix,TI_VERSION_STR,currentDeviceInfo] retain];
 	}
 	return userAgent;
 }
@@ -1110,7 +1110,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
             errorString = [error localizedDescription];
         } else {
             // If we have no data...
-            // This should never happen on a BoutiqueAlloy app using the node.js CLI
+            // This should never happen on a TuckShop app using the node.js CLI
             errorString = @"File not found";
         }
         if(errorString != nil) {

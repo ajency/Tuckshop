@@ -13,7 +13,7 @@
 @class TiHost;
 
 /**
- The base class for all BoutiqueAlloy modules
+ The base class for all TuckShop modules
  */
 @interface TiModule : TiProxy 
 {
@@ -51,30 +51,30 @@
 // lifecycle
 
 /**
- BoutiqueAlloy Platform calls this method on startup.
+ TuckShop Platform calls this method on startup.
  */
 -(void)startup;
 
 /**
- BoutiqueAlloy Platform calls this method on shutdown.
+ TuckShop Platform calls this method on shutdown.
  @param sender The sender of the event.
  */
 -(void)shutdown:(id)sender;
 
 /**
- BoutiqueAlloy Platform calls this method on suspend.
+ TuckShop Platform calls this method on suspend.
  @param sender The sender of the event.
  */
 -(void)suspend:(id)sender;
 
 /**
- BoutiqueAlloy Platform calls this method on entering background.
+ TuckShop Platform calls this method on entering background.
  @param sender The sender of the event.
  */
 -(void)paused:(id)sender;
 
 /**
- BoutiqueAlloy Platform calls this method on resume.
+ TuckShop Platform calls this method on resume.
  @param sender The sender of the event.
  */
 -(void)resume:(id)sender;

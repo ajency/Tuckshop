@@ -7,8 +7,8 @@
  * WARNING: This is generated code. Modify at your own risk and without support.
  */
 
-#ifndef BoutiqueAlloy_ThirdpartyNS_h
-#define BoutiqueAlloy_ThirdpartyNS_h
+#ifndef TuckShop_ThirdpartyNS_h
+#define TuckShop_ThirdpartyNS_h
 
 #ifndef __TI_NAMESPACE_PREFIX_
 #define __TI_NAMESPACE_PREFIX_	TI

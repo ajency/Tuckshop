@@ -39,7 +39,7 @@ typedef enum {
 } EncodingError;
 
 /**
- BoutiqueAlloy orientation flags.
+ TuckShop orientation flags.
  */
 typedef enum
 {

@@ -39,12 +39,12 @@ MAKE_SYSTEM_PROP(DONE,UIBarButtonSystemItemDone);
 MAKE_SYSTEM_PROP(FLEXIBLE_SPACE,UIBarButtonSystemItemFlexibleSpace);
 MAKE_SYSTEM_PROP(FIXED_SPACE,UIBarButtonSystemItemFixedSpace);
 
-MAKE_SYSTEM_PROP(ACTIVITY,UIBoutiqueAlloyNativeItemSpinner);
-MAKE_SYSTEM_PROP(SPINNER,UIBoutiqueAlloyNativeItemSpinner);
-MAKE_SYSTEM_PROP(INFO_LIGHT,UIBoutiqueAlloyNativeItemInfoLight);
-MAKE_SYSTEM_PROP(INFO_DARK,UIBoutiqueAlloyNativeItemInfoDark);
-MAKE_SYSTEM_PROP(DISCLOSURE,UIBoutiqueAlloyNativeItemDisclosure);
-MAKE_SYSTEM_PROP(CONTACT_ADD,UIBoutiqueAlloyNativeItemContactAdd);
+MAKE_SYSTEM_PROP(ACTIVITY,UITuckShopNativeItemSpinner);
+MAKE_SYSTEM_PROP(SPINNER,UITuckShopNativeItemSpinner);
+MAKE_SYSTEM_PROP(INFO_LIGHT,UITuckShopNativeItemInfoLight);
+MAKE_SYSTEM_PROP(INFO_DARK,UITuckShopNativeItemInfoDark);
+MAKE_SYSTEM_PROP(DISCLOSURE,UITuckShopNativeItemDisclosure);
+MAKE_SYSTEM_PROP(CONTACT_ADD,UITuckShopNativeItemContactAdd);
 
 
 @end

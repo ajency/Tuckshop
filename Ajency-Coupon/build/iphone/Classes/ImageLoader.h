@@ -111,7 +111,7 @@ typedef enum {
 @end
 
 /**
- The ImageLoader class provides a centralized point for loading images in BoutiqueAlloy.
+ The ImageLoader class provides a centralized point for loading images in TuckShop.
  Using ImageLoader is the preferred way for getting images from remote sources.
  
  The class is singleton and not supposed to be subclassed.

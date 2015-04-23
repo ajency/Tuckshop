@@ -54,7 +54,7 @@
     NSInteger activeAlertControllerCount;
 }
 
-//BoutiqueAlloy Support
+//TuckShop Support
 -(CGRect)resizeView;
 -(void)repositionSubviews;
 -(UIView *)topWindowProxyView;

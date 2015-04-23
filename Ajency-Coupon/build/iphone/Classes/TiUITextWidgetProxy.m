@@ -182,7 +182,7 @@ DEFINE_DEF_BOOL_PROP(suppressReturn,YES);
     //
     // - Any property setter which potentially takes an array of proxies MUST ALWAYS have its
     // content evaluated to protect them. This is INCREDIBLY CRITICAL and almost certainly a major
-    // source of memory bugs in BoutiqueAlloy iOS!!!
+    // source of memory bugs in TuckShop iOS!!!
     //
     // - Any property setter which is active on the main thread only MAY NOT protect their object
     // correctly or in time (see the comment in -[KrollObject noteKeylessKrollObject:]).

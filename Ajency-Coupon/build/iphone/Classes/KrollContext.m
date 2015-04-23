@@ -930,7 +930,7 @@ static TiValueRef StringFormatDecimalCallback (TiContextRef jsContext, TiObjectR
 {
 	if (stopped!=YES)
 	{
-		@throw [NSException exceptionWithName:@"org.boutiquealloy.kroll" 
+		@throw [NSException exceptionWithName:@"org.tuckshop.kroll" 
 									   reason:@"already started"
 									 userInfo:nil];
 	}
