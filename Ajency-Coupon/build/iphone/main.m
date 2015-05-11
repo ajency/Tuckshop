@@ -7,12 +7,12 @@
 #define _QUOTEME(x) #x
 #define STRING(x) _QUOTEME(x)
 
-NSString * const TI_APPLICATION_DEPLOYTYPE = @"test";
+NSString * const TI_APPLICATION_DEPLOYTYPE = @"production";
 NSString * const TI_APPLICATION_ID = @"com.ajency.tuckshopapp";
 NSString * const TI_APPLICATION_PUBLISHER = @"Ajency.in";
 NSString * const TI_APPLICATION_URL = @"http://www.ajency.in";
 NSString * const TI_APPLICATION_NAME = @"TuckShop";
-NSString * const TI_APPLICATION_VERSION = @"4.0";
+NSString * const TI_APPLICATION_VERSION = @"5.0";
 NSString * const TI_APPLICATION_DESCRIPTION = @"Ajency.in";
 NSString * const TI_APPLICATION_COPYRIGHT = @"2014 by Ajency.in";
 NSString * const TI_APPLICATION_GUID = @"4e7e0023-7da3-471c-ae50-6befe141f7ba";

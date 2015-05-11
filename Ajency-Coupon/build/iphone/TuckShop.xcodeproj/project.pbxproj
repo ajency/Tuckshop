@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01F0398FCC34432EA8675BC8 /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C55297E73F240A590F1387B /* libcom.appcelerator.urlsession.a */; };
-		088F175BAB0B4B389CFD88F1 /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE82C189D9E44E6CADAF6FE7 /* libdk.napp.drawer.a */; };
 		1D0061C1160283820016BBEE /* TiBindingRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0061C0160283820016BBEE /* TiBindingRunLoop.m */; };
 		1D0061C2160283820016BBEE /* TiBindingRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0061C0160283820016BBEE /* TiBindingRunLoop.m */; };
 		1D0061C3160283820016BBEE /* TiBindingRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0061C0160283820016BBEE /* TiBindingRunLoop.m */; };
@@ -32,7 +30,11 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2412F467115C296300454E5B /* TiMediaVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2412F465115C296300454E5B /* TiMediaVideoPlayer.m */; };
 		242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
+		5E0717C28371462DA145D1BF /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95517E222B2840BD922E4707 /* libdk.napp.drawer.a */; };
+		65EB27079B59438784AFD140 /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590E54020C44A6B8BDCF0A4 /* libcom.appcelerator.urlsession.a */; };
 		242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
+		A5718383FD7449CF91212877 /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95517E222B2840BD922E4707 /* libdk.napp.drawer.a */; };
+		14AC48C9CF964501A567D6DA /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590E54020C44A6B8BDCF0A4 /* libcom.appcelerator.urlsession.a */; };
 		242E967711BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
 		242E967811BAD2F20046A0D0 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967611BAD2F20046A0D0 /* AsyncUdpSocket.m */; };
 		242E967911BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
@@ -461,7 +463,6 @@
 		3186097F192BDB4E00093482 /* AnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 3186097E192BDB4E00093482 /* AnalyticsModule.m */; };
 		31860980192BDB4E00093482 /* AnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 3186097E192BDB4E00093482 /* AnalyticsModule.m */; };
 		31860981192BDB4E00093482 /* AnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 3186097E192BDB4E00093482 /* AnalyticsModule.m */; };
-		37256C4AB3124D96973CF77C /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE82C189D9E44E6CADAF6FE7 /* libdk.napp.drawer.a */; };
 		4688700715E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4688700615E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m */; };
 		4688700815E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4688700615E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m */; };
 		4688700915E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4688700615E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m */; };
@@ -487,7 +488,6 @@
 		5081CEF815F8100E00C881D8 /* TiExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5081CEF715F8100E00C881D8 /* TiExceptionHandler.m */; };
 		5081CEF915F8100E00C881D8 /* TiExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5081CEF715F8100E00C881D8 /* TiExceptionHandler.m */; };
 		5081CEFA15F8100E00C881D8 /* TiExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5081CEF715F8100E00C881D8 /* TiExceptionHandler.m */; };
-		699E1AD48B9A41E6857FDA9E /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C55297E73F240A590F1387B /* libcom.appcelerator.urlsession.a */; };
 		841CCAD11807395C00C8DB76 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841CCAD01807395C00C8DB76 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		841CCAD21807396E00C8DB76 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841CCAD01807395C00C8DB76 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		841CCAD31807397800C8DB76 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841CCAD01807395C00C8DB76 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -625,7 +625,6 @@
 		BB26FC8319AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB26FC7F19AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m */; };
 		BB26FC8419AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB26FC7F19AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m */; };
 		BB26FC8519AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB26FC7F19AB13B9007A35AF /* TiAppiOSNotificationCategoryProxy.m */; };
-		CFB5CACB7AAC42789EF7A3A3 /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C55297E73F240A590F1387B /* libcom.appcelerator.urlsession.a */; };
 		D4AB36F5123DE20200DED4A0 /* TiUIClipboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AB36F4123DE20200DED4A0 /* TiUIClipboardProxy.m */; };
 		D4AB36F6123DE20200DED4A0 /* TiUIClipboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AB36F4123DE20200DED4A0 /* TiUIClipboardProxy.m */; };
 		D930111E16DA9D63002E25C2 /* TiCalendarRecurrenceRule.m in Sources */ = {isa = PBXBuildFile; fileRef = D930111D16DA9D62002E25C2 /* TiCalendarRecurrenceRule.m */; };
@@ -893,6 +892,8 @@
 		DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB0A57111E1BAE001DC2D1 /* libxml2.dylib */; };
 		DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24597034118FF66300519F79 /* StoreKit.framework */; };
 		DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
+		75BC0E73967A4A7C9C63C78C /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95517E222B2840BD922E4707 /* libdk.napp.drawer.a */; };
+		3129B6B01CED40968BF512A3 /* libcom.appcelerator.urlsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590E54020C44A6B8BDCF0A4 /* libcom.appcelerator.urlsession.a */; };
 		DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D5C75811E6364F00F097E2 /* libtiverify.a */; };
 		DABDEB08128B5A8F00C85FEA /* AudioStreamerCUR.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9FF582128A1F3600457759 /* AudioStreamerCUR.m */; };
 		DABF3ECF134D210400836137 /* TiBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF3ECE134D210400836137 /* TiBuffer.m */; };
@@ -913,7 +914,6 @@
 		DAE541E313577BEC00A65123 /* TiDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE541E213577BEC00A65123 /* TiDataStream.m */; };
 		DAE541E413577BEC00A65123 /* TiDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE541E213577BEC00A65123 /* TiDataStream.m */; };
 		DAE541E513577BEC00A65123 /* TiDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE541E213577BEC00A65123 /* TiDataStream.m */; };
-		E459D6A8F97C4A18B5D4B75E /* libdk.napp.drawer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE82C189D9E44E6CADAF6FE7 /* libdk.napp.drawer.a */; };
 		EF0ADCFA143F9ABF00977386 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */; };
 		EF0ADCFB143F9ABF00977386 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */; };
 		EF0ADCFC143F9ABF00977386 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */; };
@@ -932,7 +932,7 @@
 		1D19459913FF3BE500E2B4D0 /* TIDOMDocumentTypeProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIDOMDocumentTypeProxy.h; sourceTree = "<group>"; };
 		1D19459A13FF3BE500E2B4D0 /* TIDOMDocumentTypeProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIDOMDocumentTypeProxy.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuckShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TuckShop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DCC542D13FF0B0700DF3EE5 /* TIDOMCharacterDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIDOMCharacterDataProxy.h; sourceTree = "<group>"; };
 		1DCC542E13FF0B0800DF3EE5 /* TIDOMCharacterDataProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIDOMCharacterDataProxy.m; sourceTree = "<group>"; };
 		1DD9388A1609230900091777 /* TiBindingTiValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiBindingTiValue.h; sourceTree = "<group>"; };
@@ -943,6 +943,8 @@
 		241EAA21118AB3BB0081A5BE /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defines.h; path = Classes/defines.h; sourceTree = SOURCE_ROOT; };
 		241EAEC5118E2BA90081A5BE /* project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		242E8E3011BA39FD0046A0D0 /* libTiCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTiCore.a; path = lib/libTiCore.a; sourceTree = SOURCE_ROOT; };
+		95517E222B2840BD922E4707 /* libdk.napp.drawer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdk.napp.drawer.a; path = "/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1/libdk.napp.drawer.a"; sourceTree = "<absolute>"; };
+		0590E54020C44A6B8BDCF0A4 /* libcom.appcelerator.urlsession.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcom.appcelerator.urlsession.a; path = "/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0/libcom.appcelerator.urlsession.a"; sourceTree = "<absolute>"; };
 		242E967311BAD2F20046A0D0 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = Classes/AsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		242E967411BAD2F20046A0D0 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = Classes/AsyncSocket.m; sourceTree = SOURCE_ROOT; };
 		242E967511BAD2F20046A0D0 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncUdpSocket.h; path = Classes/AsyncUdpSocket.h; sourceTree = SOURCE_ROOT; };
@@ -1261,7 +1263,7 @@
 		24D0700411D0253D00F615D8 /* TiUIiOSProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TiUIiOSProxy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		24D0700511D0253D00F615D8 /* TiUIiOSProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TiUIiOSProxy.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		24D5C75811E6364F00F097E2 /* libtiverify.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiverify.a; path = lib/libtiverify.a; sourceTree = SOURCE_ROOT; };
-		24D8E4B1119B9D8A00F8CAA6 /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuckShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D8E4B1119B9D8A00F8CAA6 /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TuckShop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DD042A116A6C58006FD6E1 /* TiToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiToolbar.h; sourceTree = "<group>"; };
 		24DD0455116A6F02006FD6E1 /* TiTabGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiTabGroup.h; sourceTree = "<group>"; };
 		24DD0977116D8E07006FD6E1 /* TiToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiToolbarButton.h; sourceTree = "<group>"; };
@@ -1348,7 +1350,7 @@
 		312E36C0190B06D9008EAB8D /* libAPSAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPSAnalytics.a; sourceTree = "<group>"; };
 		3186097D192BDB4E00093482 /* AnalyticsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsModule.h; sourceTree = "<group>"; };
 		3186097E192BDB4E00093482 /* AnalyticsModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsModule.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* TuckShop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuckShop_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* TuckShop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuckShop_Prefix.pch"; sourceTree = "<group>"; };
 		4688700515E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiUIiPhoneAlertDialogStyleProxy.h; sourceTree = "<group>"; };
 		4688700615E39A9D008FA326 /* TiUIiPhoneAlertDialogStyleProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiUIiPhoneAlertDialogStyleProxy.m; sourceTree = "<group>"; };
 		4D3033A1136239B30034640F /* TiFilesystemFileStreamProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TiFilesystemFileStreamProxy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1369,7 +1371,6 @@
 		502E9D2316CAFB9D00C1BD26 /* libti_ios_profiler.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti_ios_profiler.a; path = lib/libti_ios_profiler.a; sourceTree = "<group>"; };
 		5081CEF615F8100E00C881D8 /* TiExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiExceptionHandler.h; sourceTree = "<group>"; };
 		5081CEF715F8100E00C881D8 /* TiExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiExceptionHandler.m; sourceTree = "<group>"; };
-		5C55297E73F240A590F1387B /* libcom.appcelerator.urlsession.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcom.appcelerator.urlsession.a; path = "/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0/libcom.appcelerator.urlsession.a"; sourceTree = "<absolute>"; };
 		841CCAD01807395C00C8DB76 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		843FA58217BD4DFF0064E061 /* TiUIiOSNavWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiUIiOSNavWindow.h; sourceTree = "<group>"; };
 		843FA58317BD4DFF0064E061 /* TiUIiOSNavWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiUIiOSNavWindow.m; sourceTree = "<group>"; };
@@ -1523,7 +1524,7 @@
 		DAA72342156D642400757987 /* TiConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiConsole.m; sourceTree = "<group>"; };
 		DAA905CC11A359F10030B119 /* TiMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiMediaItem.h; sourceTree = "<group>"; };
 		DAA905CD11A359F10030B119 /* TiMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiMediaItem.m; sourceTree = "<group>"; };
-		DABB37BC12E8CB280026A6EA /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuckShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DABB37BC12E8CB280026A6EA /* TuckShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TuckShop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABF3ECD134D210400836137 /* TiBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiBuffer.h; sourceTree = "<group>"; };
 		DABF3ECE134D210400836137 /* TiBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiBuffer.m; sourceTree = "<group>"; };
 		DABF3ED5134D2CA100836137 /* StreamModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamModule.h; sourceTree = "<group>"; };
@@ -1535,7 +1536,6 @@
 		DADE76D313D65C590079FC75 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		DAE541E113577BEC00A65123 /* TiDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiDataStream.h; sourceTree = "<group>"; };
 		DAE541E213577BEC00A65123 /* TiDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiDataStream.m; sourceTree = "<group>"; };
-		DE82C189D9E44E6CADAF6FE7 /* libdk.napp.drawer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdk.napp.drawer.a; path = "/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1/libdk.napp.drawer.a"; sourceTree = "<absolute>"; };
 		EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Additions.m"; path = "Classes/NSData+Additions.m"; sourceTree = "<group>"; };
 		EF0ADD19143FA0CD00977386 /* GeolocationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeolocationModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1576,8 +1576,8 @@
 				24EB0A58111E1BAE001DC2D1 /* libxml2.dylib in Frameworks */,
 				24597035118FF66300519F79 /* StoreKit.framework in Frameworks */,
 				242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */,
-				088F175BAB0B4B389CFD88F1 /* libdk.napp.drawer.a in Frameworks */,
-				01F0398FCC34432EA8675BC8 /* libcom.appcelerator.urlsession.a in Frameworks */,
+				5E0717C28371462DA145D1BF /* libdk.napp.drawer.a in Frameworks */,
+				65EB27079B59438784AFD140 /* libcom.appcelerator.urlsession.a in Frameworks */,
 				B606EF60190B42FB00663EFC /* libAPSHTTPClient.a in Frameworks */,
 				242EA11611BD956F0046A0D0 /* ExternalAccessory.framework in Frameworks */,
 				24D5C75911E6364F00F097E2 /* libtiverify.a in Frameworks */,
@@ -1619,8 +1619,8 @@
 				24D8E4AB119B9D8A00F8CAA6 /* libxml2.dylib in Frameworks */,
 				24D8E4AC119B9D8A00F8CAA6 /* StoreKit.framework in Frameworks */,
 				242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */,
-				37256C4AB3124D96973CF77C /* libdk.napp.drawer.a in Frameworks */,
-				699E1AD48B9A41E6857FDA9E /* libcom.appcelerator.urlsession.a in Frameworks */,
+				A5718383FD7449CF91212877 /* libdk.napp.drawer.a in Frameworks */,
+				14AC48C9CF964501A567D6DA /* libcom.appcelerator.urlsession.a in Frameworks */,
 				24D5C75A11E6364F00F097E2 /* libtiverify.a in Frameworks */,
 				DADE76D613D65C6F0079FC75 /* libicucore.dylib in Frameworks */,
 			);
@@ -1661,8 +1661,8 @@
 				DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */,
 				DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */,
 				DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */,
-				E459D6A8F97C4A18B5D4B75E /* libdk.napp.drawer.a in Frameworks */,
-				CFB5CACB7AAC42789EF7A3A3 /* libcom.appcelerator.urlsession.a in Frameworks */,
+				75BC0E73967A4A7C9C63C78C /* libdk.napp.drawer.a in Frameworks */,
+				3129B6B01CED40968BF512A3 /* libcom.appcelerator.urlsession.a in Frameworks */,
 				DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */,
 				DADE76D713D65C7D0079FC75 /* libicucore.dylib in Frameworks */,
 			);
@@ -1750,6 +1750,7 @@
 				24CA8A0A111161DC0084E2DE /* Utils */,
 				24CA8A0B111161E10084E2DE /* API */,
 			);
+			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -2718,8 +2719,8 @@
 				DAA4B2AD134E3DBD00AB6011 /* libti_ios_debugger.a */,
 				24D5C75811E6364F00F097E2 /* libtiverify.a */,
 				242E8E3011BA39FD0046A0D0 /* libTiCore.a */,
-				DE82C189D9E44E6CADAF6FE7 /* libdk.napp.drawer.a */,
-				5C55297E73F240A590F1387B /* libcom.appcelerator.urlsession.a */,
+				95517E222B2840BD922E4707 /* libdk.napp.drawer.a */,
+				0590E54020C44A6B8BDCF0A4 /* libcom.appcelerator.urlsession.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -3022,7 +3023,7 @@
 			);
 			dependencies = (
 			);
-			name = TuckShop;
+			name = "TuckShop";
 			productName = TuckShop;
 			productReference = 1D6058910D05DD3D006BFB54 /* TuckShop.app */;
 			productType = "com.apple.product-type.application";
@@ -4042,21 +4043,20 @@
 			baseConfigurationReference = 241EAEC5118E2BA90081A5BE /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Avanti Hiremath (B2287JPT7X)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4064,7 +4064,7 @@
 					"-DDEBUG",
 					"-DTI_POST_1_2",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4075,22 +4075,21 @@
 			baseConfigurationReference = 241EAEC5118E2BA90081A5BE /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Avanti Hiremath (B2287JPT7X)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4105,14 +4104,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4121,7 +4120,7 @@
 					"-DTI_POST_1_2",
 					"-DDEBUG",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -4133,14 +4132,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4148,7 +4147,7 @@
 					"-DIPAD",
 					"-DTI_POST_1_2",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4302,21 +4301,20 @@
 			baseConfigurationReference = 241EAEC5118E2BA90081A5BE /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Avanti Hiremath (B2287JPT7X)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4324,7 +4322,7 @@
 					"-DDEBUG",
 					"-DTI_POST_1_2",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4339,14 +4337,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4355,7 +4353,7 @@
 					"-DTI_POST_1_2",
 					"-DDEBUG",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Developer;
@@ -4369,14 +4367,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4390,7 +4388,7 @@
 					"-DTI_POST_1_2",
 					"-DDEBUG",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4405,14 +4403,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4426,7 +4424,7 @@
 					"-DTI_POST_1_2",
 					"-DDEBUG",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4439,14 +4437,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TuckShop_Prefix.pch;
+				GCC_PREFIX_HEADER = "TuckShop_Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
-					"\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
-					"\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
+                                        "\"/Users/deepak/Documents/Project files/TuckShop/Tuckshop GitHub Project/Ajency-Coupon/modules/iphone/dk.napp.drawer/1.2.1\"",
+                                        "\"/Users/deepak/Library/Application Support/Titanium/modules/iphone/com.appcelerator.urlSession/1.1.0\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
 				);
@@ -4454,7 +4452,7 @@
 					"-DIPAD",
 					"-DTI_POST_1_2",
 				);
-				PRODUCT_NAME = TuckShop;
+				PRODUCT_NAME = "TuckShop";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
